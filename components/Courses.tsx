@@ -1,288 +1,95 @@
 "use client";
 import { useState } from "react";
-import { Check, Tag } from "lucide-react";
-
-/* ── Real course data from mbapartner.in ──────────────────────────────────── */
-const tabs = [
-  { id: "all", label: "All Courses" },
-  { id: "bootcamp", label: "Placements Bootcamp" },
-  { id: "case", label: "Case Competitions" },
-  { id: "live", label: "Live Projects" },
-  { id: "combo", label: "All-in-One Combos" },
-];
 
 const courses = [
-  /* ── PLACEMENTS BOOTCAMP ──────────────────────────────────────────────── */
   {
-    id: "pb1",
-    category: "bootcamp",
-    badge: "badge-blue",
-    tag: "Placements Bootcamp",
-    name: "Placements Bootcamp",
-    tagline: "End-to-end SIP & Final Placement preparation",
-    price: "₹7,499",
-    original: "₹7,999",
-    href: "https://www.mbapartner.in/category/placements-bootcamp",
-    tiers: [
-      {
-        name: "Master",
-        features: [
-          "5 CV review & optimisation slots",
-          "7 Mock Personal Interviews (PIs)",
-          "7 Mock Group Discussions (GDs)",
-          "2 Domain sessions per domain",
-        ],
-      },
-      {
-        name: "Mini",
-        features: [
-          "3 CV review slots",
-          "5 Mock Personal Interviews",
-          "5 Mock Group Discussions",
-        ],
-      },
-    ],
+    id: 1, category: "placements",
+    tag: "tag-blue", tagLabel: "Placements Bootcamp",
+    title: "SIP + Final Placement Bootcamp",
+    desc: "5 CV reviews, 7 Mock PIs, 7 Mock GDs, domain coaching, and 300+ interview transcripts. The complete placement preparation package.",
+    price: "₹3,499", original: "₹6,000",
+    points: ["7 Mock PI + 7 Mock GD sessions", "5 CV/LinkedIn reviews", "Domain-specific coaching"],
+    link: "https://www.mbapartner.in/product/sip-placement-bootcamp/",
     featured: false,
-    color: "#60A5FA",
   },
   {
-    id: "pb2",
-    category: "bootcamp",
-    badge: "badge-blue",
-    tag: "Placements Bootcamp",
-    name: "Placements Bootcamp + Case Comp",
-    tagline: "Full placement prep with case competition mastery",
-    price: "₹9,499",
-    original: "₹9,999",
-    href: "https://www.mbapartner.in/product-page/master-placements-bootcamp-case-comp",
-    tiers: [
-      {
-        name: "Master",
-        features: [
-          "5 CV review slots",
-          "7 Mock PIs + 7 Mock GDs",
-          "2 Domain sessions per domain",
-          "4 Case Competition sessions (2 hrs each)",
-          "30+ winning case PPTs",
-          "Canva Premium — 1 year",
-        ],
-      },
-      {
-        name: "Mini",
-        features: [
-          "3 CV slots",
-          "5 Mock PIs + 5 Mock GDs",
-          "Case Competition access",
-        ],
-      },
-    ],
+    id: 2, category: "case",
+    tag: "tag-green", tagLabel: "Case Competition",
+    title: "Case Competition Bootcamp",
+    desc: "Coached by AIR 1. 4 live sessions (2 hrs each), 30+ winning PPTs, Canva Premium for 1 year, and a national competition calendar.",
+    price: "₹3,499", original: "₹6,000",
+    points: ["4 live sessions × 2 hrs", "30+ winning case PPTs", "Canva Premium — 1 year"],
+    link: "https://www.mbapartner.in/product/case-competition-bootcamp/",
     featured: false,
-    color: "#60A5FA",
   },
   {
-    id: "pb3",
-    category: "bootcamp",
-    badge: "badge-blue",
-    tag: "Placements Bootcamp",
-    name: "Placements Bootcamp + 1 Live Project",
-    tagline: "Placement prep with hands-on domain experience",
-    price: "₹11,499",
-    original: "₹11,999",
-    href: "https://www.mbapartner.in/product-page/master-placements-bootcamp-1-live-project",
-    tiers: [
-      {
-        name: "Master",
-        features: [
-          "5 CV review slots",
-          "7 Mock PIs + 7 Mock GDs",
-          "2 Complementary domain sessions",
-          "1 Live Project — any domain",
-          "2-month project duration",
-        ],
-      },
-      {
-        name: "Mini",
-        features: [
-          "3 CV slots",
-          "5 Mock PIs + 5 Mock GDs",
-          "1 Live Project included",
-        ],
-      },
-    ],
+    id: 3, category: "projects",
+    tag: "tag", tagLabel: "Live Project",
+    title: "Live Project — Consulting",
+    desc: "Real consulting project with certificate of completion, LinkedIn recommendation, and structured deliverables across a 2-month engagement.",
+    price: "₹3,999", original: "₹7,000",
+    points: ["Real client deliverables", "Certificate + LinkedIn rec", "2-month engagement"],
+    link: "https://www.mbapartner.in/product/live-project-consulting/",
     featured: false,
-    color: "#60A5FA",
-  },
-
-  /* ── CASE COMPETITIONS ───────────────────────────────────────────────── */
-  {
-    id: "cc1",
-    category: "case",
-    badge: "badge-gold",
-    tag: "Case Competitions",
-    name: "Case Competition",
-    tagline: "Coached by AIR 1 — frameworks, PPTs, live practice",
-    price: "₹3,499",
-    original: "₹3,999",
-    href: "https://www.mbapartner.in/category/case-competition",
-    tiers: [
-      {
-        name: "Includes",
-        features: [
-          "4 live sessions × 2 hours each",
-          "Led by AIR 1 (All-India Rank 1)",
-          "30+ winning case presentation PPTs",
-          "Canva Premium access — 1 year",
-          "Mentorship on case approaches",
-        ],
-      },
-    ],
-    featured: false,
-    color: "#C9A84C",
   },
   {
-    id: "cc2",
-    category: "case",
-    badge: "badge-gold",
-    tag: "Case Competitions",
-    name: "Case Comp + 1 Live Project",
-    tagline: "Case mastery with real domain project experience",
-    price: "₹8,499",
-    original: "₹8,999",
-    href: "https://www.mbapartner.in/category/case-competition",
-    tiers: [
-      {
-        name: "Includes",
-        features: [
-          "4 Case Competition sessions (2 hrs each)",
-          "Led by AIR 1",
-          "30+ winning case PPTs",
-          "Canva Premium — 1 year",
-          "1 Live Project — any domain",
-          "2-month project duration",
-        ],
-      },
-    ],
+    id: 4, category: "projects",
+    tag: "tag", tagLabel: "Live Project",
+    title: "Live Project — Finance",
+    desc: "Finance-track live project covering financial modelling, equity research, or investment analysis with IIM alumni oversight.",
+    price: "₹3,999", original: "₹7,000",
+    points: ["Finance / FinTech domain", "Certificate + LinkedIn rec", "2-month engagement"],
+    link: "https://www.mbapartner.in/product/live-project-finance/",
     featured: false,
-    color: "#C9A84C",
-  },
-
-  /* ── LIVE PROJECTS ───────────────────────────────────────────────────── */
-  {
-    id: "lp1",
-    category: "live",
-    badge: "badge-green",
-    tag: "Live Projects",
-    name: "Live Project — Any 1 Domain",
-    tagline: "Real consulting experience across your chosen domain",
-    price: "₹4,000",
-    original: "₹4,500",
-    href: "https://www.mbapartner.in/category/live-projects",
-    tiers: [
-      {
-        name: "Includes",
-        features: [
-          "1-month live project duration",
-          "Choice of domain: Consulting, Finance, HR, Marketing, Operations, or Product Mgmt",
-          "Certificate of completion",
-          "CV-ready deliverable",
-          "Weekly mentor-guided sessions",
-        ],
-      },
-    ],
-    featured: false,
-    color: "#4ADE80",
   },
   {
-    id: "lp2",
-    category: "live",
-    badge: "badge-green",
-    tag: "Live Projects",
-    name: "Live Projects — Any 2 Domains",
-    tagline: "Dual domain exposure for a stronger, broader profile",
-    price: "₹7,500",
-    original: "₹7,999",
-    href: "https://www.mbapartner.in/category/live-projects",
-    tiers: [
-      {
-        name: "Includes",
-        features: [
-          "2-month live project duration",
-          "2 domains of your choice",
-          "2 certificates of completion",
-          "2 CV-ready deliverables",
-          "Weekly mentor-guided sessions per domain",
-        ],
-      },
-    ],
-    featured: false,
-    color: "#4ADE80",
-  },
-
-  /* ── ALL-IN-ONE COMBOS ───────────────────────────────────────────────── */
-  {
-    id: "ai1",
-    category: "combo",
-    badge: "badge-rose",
-    tag: "All-in-One",
-    name: "Master Placements Bootcamp + Case Comp",
-    tagline: "The complete placement & competition package",
-    price: "₹9,499",
-    original: "₹9,999",
-    href: "https://www.mbapartner.in/category/all-in-one-combos",
-    tiers: [
-      {
-        name: "Master",
-        features: [
-          "5 CV review slots",
-          "7 Mock PIs + 7 Mock GDs",
-          "2 Domain sessions per domain",
-          "4 Case Comp sessions (2 hrs each) — AIR 1",
-          "30+ winning case PPTs",
-          "Canva Premium — 1 year",
-        ],
-      },
-    ],
-    featured: false,
-    color: "#FDA4AF",
-  },
-  {
-    id: "ai2",
-    category: "combo",
-    badge: "badge-rose",
-    tag: "All-in-One — Best Value",
-    name: "Master Bootcamp + Case Comp + 1 Live Project",
-    tagline: "Everything you need to dominate SIP and Final Placements",
-    price: "₹13,999",
-    original: "₹14,500",
-    href: "https://www.mbapartner.in/product-page/master-placements-bootcamp-case-comp-1-live-project",
-    tiers: [
-      {
-        name: "Includes Everything",
-        features: [
-          "5 CV review slots",
-          "7 Mock PIs + 7 Mock GDs",
-          "2 Complementary domain sessions",
-          "4 Case Comp sessions (2 hrs) — AIR 1",
-          "30+ winning case PPTs",
-          "Canva Premium — 1 year",
-          "1 Live Project — any domain",
-          "2-month live project duration",
-          "8 weekly sessions (recordings provided)",
-        ],
-      },
-    ],
+    id: 5, category: "combo",
+    tag: "tag-rose", tagLabel: "Best Value Combo",
+    title: "Master Bootcamp + Case Comp + 1 Live Project",
+    desc: "Our most popular all-in-one package. Placements prep, case competition mastery, and a real live project — everything to differentiate your MBA profile.",
+    price: "₹13,999", original: "₹22,000",
+    points: ["Full Placement Bootcamp", "Full Case Competition Bootcamp", "1 Live Project (any domain)", "Priority mentor matching"],
+    link: "https://www.mbapartner.in/product/master-bootcamp-case-comp-live-project/",
     featured: true,
-    color: "#FDA4AF",
+  },
+  {
+    id: 6, category: "combo",
+    tag: "tag-indigo", tagLabel: "Combo",
+    title: "Placement + Case Competition Combo",
+    desc: "Placement bootcamp paired with case competition mastery — the two most impactful tools for MBA students, at a combined discount.",
+    price: "₹5,999", original: "₹10,000",
+    points: ["Full Placement Bootcamp", "Full Case Competition Bootcamp", "30+ winning case decks"],
+    link: "https://www.mbapartner.in/product/placement-case-competition-combo/",
+    featured: false,
+  },
+  {
+    id: 7, category: "placements",
+    tag: "tag-blue", tagLabel: "Placements Bootcamp",
+    title: "Final Placement Bootcamp — Premium",
+    desc: "For final year students targeting top-tier companies. Includes all SIP bootcamp features plus additional mock rounds and company-specific prep.",
+    price: "₹4,999", original: "₹8,500",
+    points: ["10 Mock PI + 10 Mock GD", "Company-specific preparation", "CV + cover letter reviews"],
+    link: "https://www.mbapartner.in/product/final-placement-bootcamp/",
+    featured: false,
+  },
+  {
+    id: 8, category: "projects",
+    tag: "tag", tagLabel: "Live Project",
+    title: "Live Project — Marketing / HR / Operations",
+    desc: "Live project track across Marketing, Human Resources, or Operations domains. Real deliverables, alumni oversight, certificate on completion.",
+    price: "₹3,999", original: "₹7,000",
+    points: ["3 domain tracks available", "Certificate + LinkedIn rec", "Structured bi-weekly reviews"],
+    link: "https://www.mbapartner.in/product/live-project-marketing/",
+    featured: false,
   },
 ];
 
-const domains = [
-  { name: "Consulting", icon: "💼" },
-  { name: "Finance", icon: "📊" },
-  { name: "Marketing", icon: "📣" },
-  { name: "Human Resources", icon: "🤝" },
-  { name: "Operations", icon: "⚙️" },
-  { name: "Product Management", icon: "🚀" },
+const tabs = [
+  { key: "all", label: "All Courses" },
+  { key: "placements", label: "Placements" },
+  { key: "case", label: "Case Competitions" },
+  { key: "projects", label: "Live Projects" },
+  { key: "combo", label: "Combos" },
 ];
 
 export default function Courses() {
@@ -291,128 +98,57 @@ export default function Courses() {
   const filtered = active === "all" ? courses : courses.filter(c => c.category === active);
 
   return (
-    <section id="courses" className="py-28 relative">
-      <div className="section-divider" />
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+    <section id="courses" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
 
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-10" style={{ background: "var(--gold)" }} />
-              <span className="badge-gold px-3 py-1 rounded-full tracking-widest">Courses & Pricing</span>
-            </div>
-            <h2 className="font-display font-black leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "var(--text)" }}>
-              Real Courses.<br />
-              <span className="text-gold-gradient">Transparent Pricing.</span>
-            </h2>
-          </div>
-          <div className="max-w-xs">
-            <p className="leading-relaxed" style={{ color: "var(--muted)", fontSize: "1rem" }}>
-              Every programme is built and delivered by IIM alumni. Choose your level — or combine for maximum impact.
-            </p>
-            <p className="mt-3 text-sm font-semibold" style={{ color: "var(--gold)" }}>
-              <Tag size={13} className="inline mr-1.5 mb-0.5" />
-              All prices are at a limited-period discount.
-            </p>
-          </div>
+        <div className="mb-10">
+          <div className="section-label">Pricing</div>
+          <h2 className="section-title mb-3" style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.8rem)" }}>
+            Courses & Packages
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>
+            Transparent pricing. Real deliverables. No upsells.
+          </p>
         </div>
 
-        {/* Tab bar */}
+        {/* Tabs */}
         <div className="flex flex-wrap gap-2 mb-10">
           {tabs.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setActive(t.id)}
-              className="px-5 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200"
-              style={active === t.id
-                ? { background: "var(--gold)", color: "#040D1E" }
-                : { background: "var(--navy-card)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--muted)" }
-              }
-            >
+            <button key={t.key} onClick={() => setActive(t.key)}
+              className={`tab-btn ${active === t.key ? "active" : ""}`}>
               {t.label}
             </button>
           ))}
         </div>
 
-        {/* Course cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(c => (
-            <div
-              key={c.id}
-              className={`program-card rounded-2xl p-7 flex flex-col relative ${c.featured ? "featured" : ""}`}
-            >
-              {c.featured && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="btn-gold px-5 py-1.5 rounded-full text-xs font-bold tracking-wider whitespace-nowrap">
-                    ⭐ Best Value
-                  </span>
-                </div>
-              )}
-
-              {/* Category badge */}
-              <div className="flex items-center justify-between mb-4">
-                <span className={`${c.badge} px-3 py-1 rounded-full`}>{c.tag}</span>
-                <div className="text-right">
-                  <div className="text-xs line-through" style={{ color: "var(--muted2)" }}>{c.original}</div>
-                  <div className="font-display font-black text-xl" style={{ color: c.featured ? "var(--gold)" : "var(--text)" }}>
-                    {c.price}
-                  </div>
-                </div>
+            <div key={c.id} className={`card ${c.featured ? "card-featured" : ""} p-7 flex flex-col`}>
+              <div className="flex items-start justify-between mb-5">
+                <span className={`tag ${c.tag}`}>{c.tagLabel}</span>
+                {c.featured && <span className="tag tag-green">Best Value</span>}
               </div>
 
-              <h3 className="font-display font-bold text-lg mb-1 leading-snug" style={{ color: "var(--text)" }}>{c.name}</h3>
-              <p className="text-sm mb-5" style={{ color: "var(--muted)" }}>{c.tagline}</p>
+              <h3 className="serif font-bold text-base mb-3" style={{ color: "var(--text)" }}>{c.title}</h3>
+              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "var(--muted)" }}>{c.desc}</p>
 
-              {/* Tiers */}
-              <div className="flex-1 space-y-4 mb-6">
-                {c.tiers.map(tier => (
-                  <div key={tier.name}>
-                    <div className="text-xs font-bold tracking-widest uppercase mb-2.5" style={{ color: "var(--gold)" }}>
-                      {tier.name}
-                    </div>
-                    <ul className="space-y-2">
-                      {tier.features.map(f => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--muted)" }}>
-                          <Check size={13} className="mt-0.5 flex-shrink-0" style={{ color: c.color }} />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <ul className="space-y-2 mb-6 pt-5" style={{ borderTop: "1px solid var(--border)" }}>
+                {c.points.map(p => <li key={p} className="check-item">{p}</li>)}
+              </ul>
+
+              <div className="flex items-end justify-between mt-auto">
+                <div>
+                  <div className="serif font-black" style={{ fontSize: "1.6rem", color: "var(--gold)" }}>{c.price}</div>
+                  <div className="text-xs line-through" style={{ color: "var(--dim)" }}>{c.original}</div>
+                </div>
+                <a href={c.link} target="_blank" rel="noreferrer"
+                  className={c.featured ? "btn-primary" : "btn-secondary"} style={{ padding: "10px 20px", fontSize: "0.82rem" }}>
+                  Enroll Now
+                </a>
               </div>
-
-              {/* CTA */}
-              <a
-                href={c.href}
-                target="_blank"
-                rel="noreferrer"
-                className={`block text-center py-3.5 rounded-xl font-semibold tracking-wide text-sm transition-all ${c.featured ? "btn-gold" : "btn-outline-gold"}`}
-              >
-                {c.featured ? "Enroll Now — Best Value" : "Enroll Now"}
-              </a>
             </div>
           ))}
-        </div>
-
-        {/* Domain strip */}
-        <div className="glass border-gold rounded-2xl p-8">
-          <p className="text-center text-sm font-bold tracking-widest uppercase mb-6" style={{ color: "var(--muted2)" }}>
-            Live Project Domains Available
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {domains.map(d => (
-              <div
-                key={d.name}
-                className="flex items-center gap-2.5 px-5 py-3 rounded-xl"
-                style={{ background: "var(--navy-card)", border: "1px solid rgba(255,255,255,0.07)" }}
-              >
-                <span style={{ fontSize: "1.2rem" }}>{d.icon}</span>
-                <span className="text-sm font-medium" style={{ color: "var(--text)" }}>{d.name}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

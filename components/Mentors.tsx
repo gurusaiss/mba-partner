@@ -1,78 +1,51 @@
 "use client";
 
 const mentors = [
-  { initials: "AM", name: "Arjun Mehta", title: "IIM Ahmedabad", company: "Ex-McKinsey & Company", domain: "Consulting", students: "240+ mentored", color: "#C9A84C", badge: "badge-gold" },
-  { initials: "PS", name: "Priya Sharma", title: "IIM Bangalore", company: "Ex-Goldman Sachs", domain: "Finance", students: "180+ mentored", color: "#60A5FA", badge: "badge-blue" },
-  { initials: "RK", name: "Rohit Kapoor", title: "IIM Calcutta", company: "Ex-Hindustan Unilever", domain: "Marketing", students: "320+ mentored", color: "#4ADE80", badge: "badge-green" },
-  { initials: "SG", name: "Sneha Gupta", title: "XLRI Jamshedpur", company: "Ex-Amazon", domain: "Operations", students: "150+ mentored", color: "#FDA4AF", badge: "badge-rose" },
-  { initials: "VS", name: "Vikram Singh", title: "IIM Lucknow", company: "Ex-Boston Consulting Group", domain: "Strategy", students: "200+ mentored", color: "#A5B4FC", badge: "badge-indigo" },
-  { initials: "AB", name: "Ananya Bose", title: "FMS Delhi", company: "Ex-Deloitte", domain: "Analytics", students: "130+ mentored", color: "#86EFAC", badge: "badge-green" },
+  { initials: "AM", name: "Arjun Mehta", school: "IIM Ahmedabad", company: "Ex-McKinsey & Company", domain: "Consulting", bg: "rgba(201,168,76,0.12)", color: "var(--gold)" },
+  { initials: "PS", name: "Priya Sharma", school: "IIM Bangalore", company: "Ex-Goldman Sachs", domain: "Finance", bg: "rgba(96,165,250,0.1)", color: "#93C5FD" },
+  { initials: "RV", name: "Rahul Verma", school: "IIM Calcutta", company: "Ex-Bain & Company", domain: "Strategy", bg: "rgba(74,222,128,0.1)", color: "#86EFAC" },
+  { initials: "NK", name: "Neha Kapoor", school: "IIM Lucknow", company: "Ex-HUL Marketing", domain: "Marketing", bg: "rgba(251,113,133,0.1)", color: "#FCA5A5" },
+  { initials: "SK", name: "Siddharth Kumar", school: "IIM Kozhikode", company: "Ex-Amazon Operations", domain: "Operations", bg: "rgba(165,180,252,0.1)", color: "#C4B5FD" },
+  { initials: "DM", name: "Divya Mishra", school: "IIM Indore", company: "Ex-Google PM", domain: "Product", bg: "rgba(201,168,76,0.12)", color: "var(--gold)" },
 ];
-
-const institutes = ["IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "IIM Lucknow", "XLRI", "FMS Delhi", "IIM Kozhikode", "IIMA"];
 
 export default function Mentors() {
   return (
-    <section id="mentors" className="py-28 relative">
-      <div className="section-divider" />
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+    <section id="mentors" className="py-24" style={{ background: "var(--card)" }}>
+      <div className="max-w-6xl mx-auto px-6">
 
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-10" style={{ background: "var(--gold)" }} />
-              <span className="badge-gold px-3 py-1 rounded-full tracking-widest">Our Mentors</span>
-            </div>
-            <h2 className="font-display font-black leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "var(--text)" }}>
-              Learn from People Who<br />
-              <span className="text-gold-gradient">Have Been There</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-lg leading-relaxed" style={{ color: "var(--muted)", fontSize: "1.05rem" }}>
-            Our mentors are not just alumni — they are practitioners who have cracked the exact placements you are targeting.
+        <div className="mb-14">
+          <div className="section-label">IIM Alumni Network</div>
+          <h2 className="section-title mb-3" style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.8rem)" }}>
+            Learn From People<br />Who Have Been There
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>
+            Every mentor is a verified IIM alumnus placed at a top-tier firm. Matched to your domain in 24 hours.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-          {mentors.map((m) => (
-            <div key={m.name} className="feature-card rounded-2xl p-7">
-              <div className="flex items-start gap-4 mb-5">
-                {/* Avatar */}
-                <div className="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center font-display font-bold text-lg"
-                  style={{ background: `${m.color}18`, border: `1.5px solid ${m.color}35`, color: m.color }}>
-                  {m.initials}
-                </div>
-                <div className="min-w-0">
-                  <div className="font-display font-bold text-lg leading-tight mb-0.5" style={{ color: "var(--text)" }}>{m.name}</div>
-                  <div className="text-sm font-medium" style={{ color: "var(--gold)" }}>{m.title}</div>
-                  <div className="text-sm" style={{ color: "var(--muted)", fontSize: "0.85rem" }}>{m.company}</div>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {mentors.map(m => (
+            <div key={m.name} className="card p-6 flex gap-5 items-start">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center serif font-bold text-sm flex-shrink-0"
+                style={{ background: m.bg, color: m.color, border: `1px solid ${m.color}22` }}>
+                {m.initials}
               </div>
-
-              <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                <span className={`${m.badge} px-3 py-1 rounded-full`}>{m.domain}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm" style={{ color: "var(--muted2)", fontSize: "0.82rem" }}>{m.students}</span>
-                </div>
+              <div>
+                <div className="font-semibold text-sm mb-0.5" style={{ color: "var(--text)" }}>{m.name}</div>
+                <div className="text-xs mb-1" style={{ color: "var(--gold)" }}>{m.school}</div>
+                <div className="text-xs mb-3" style={{ color: "var(--muted)" }}>{m.company}</div>
+                <span className="tag" style={{ fontSize: "0.62rem" }}>{m.domain}</span>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Institute logos */}
-        <div className="pt-8 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-          <p className="text-xs font-semibold tracking-widest text-center mb-6 uppercase" style={{ color: "var(--muted2)" }}>
-            Mentors from
+        <div className="mt-10 text-center">
+          <p className="text-sm mb-5" style={{ color: "var(--muted)" }}>
+            Network spans IIM A, B, C, L, K, I + 15 other premier B-schools
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {institutes.map((inst) => (
-              <div key={inst} className="glass border-gold px-5 py-2.5 rounded-lg text-sm font-medium" style={{ color: "var(--muted)" }}>
-                {inst}
-              </div>
-            ))}
-          </div>
+          <a href="#enroll" className="btn-primary">Get Matched to a Mentor</a>
         </div>
       </div>
     </section>

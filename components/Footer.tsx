@@ -1,69 +1,63 @@
 "use client";
 
-const nav = {
+const links = {
   Platform: [
     { label: "Live Projects", href: "#offerings" },
     { label: "Placements Prep", href: "#offerings" },
     { label: "Case Competitions", href: "#offerings" },
-    { label: "Resource Hub", href: "#resources" },
+    { label: "Resource Repository", href: "#resources" },
+  ],
+  Courses: [
+    { label: "Placement Bootcamp", href: "#courses" },
+    { label: "Case Comp Bootcamp", href: "#courses" },
+    { label: "Live Projects", href: "#courses" },
+    { label: "All-in-One Combos", href: "#courses" },
+  ],
+  Company: [
+    { label: "About Us", href: "https://mbapartner.in" },
     { label: "Mentors", href: "#mentors" },
-  ],
-  Programs: [
-    { label: "Starter Plan", href: "#programs" },
-    { label: "Growth Plan", href: "#programs" },
-    { label: "Elite Plan", href: "#programs" },
-  ],
-  Connect: [
-    { label: "mbapartner.in", href: "https://mbapartner.in" },
-    { label: "+91 7042732092", href: "tel:+917042732092" },
-    { label: "Telegram Community", href: "#" },
-    { label: "WhatsApp Group", href: "#" },
+    { label: "Testimonials", href: "#testimonials" },
+    { label: "Contact", href: "#enroll" },
   ],
 };
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#020913", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-14">
+    <footer className="py-16" style={{ background: "var(--card)", borderTop: "1px solid var(--border)" }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
 
           {/* Brand */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-lg btn-gold flex items-center justify-center font-bold text-sm" style={{ color: "#040D1E" }}>
-                MP
-              </div>
-              <span className="font-display font-bold text-xl" style={{ color: "var(--text)" }}>
-                MBA<span className="text-gold-gradient">Partner</span>
+          <div>
+            <a href="#home" className="flex items-center gap-2.5 mb-4">
+              <span className="w-8 h-8 rounded-lg btn-primary text-xs font-bold flex items-center justify-center">MP</span>
+              <span className="serif font-bold text-lg" style={{ color: "var(--text)" }}>
+                MBA<span className="gold-text">Partner</span>
               </span>
-            </div>
-            <p className="leading-relaxed mb-5 text-sm max-w-xs" style={{ color: "var(--muted)" }}>
-              India's leading MBA mentorship platform founded by IIM alumni. 2,000+ students.
-              9.6 / 10 average rating. 98.7% placement rate.
-            </p>
-            <a href="tel:+917042732092" className="text-sm font-medium transition-colors"
-              style={{ color: "var(--gold)" }}>
-              +91 7042732092
             </a>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+              The mentorship platform serious MBA students rely on. Founded by IIM alumni. Trusted by 5,000+ students.
+            </p>
+            <div className="mt-5">
+              <a href="https://mbapartner.in" target="_blank" rel="noreferrer"
+                className="text-sm" style={{ color: "var(--gold)" }}>
+                mbapartner.in ↗
+              </a>
+            </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(nav).map(([section, items]) => (
+          {/* Nav columns */}
+          {Object.entries(links).map(([section, items]) => (
             <div key={section}>
-              <h4 className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "var(--muted2)" }}>
-                {section}
-              </h4>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--dim)" }}>{section}</div>
               <ul className="space-y-3">
-                {items.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors"
+                {items.map(l => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-sm transition-colors"
                       style={{ color: "var(--muted)" }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
-                    >
-                      {item.label}
+                      onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
+                      {l.label}
                     </a>
                   </li>
                 ))}
@@ -72,21 +66,15 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-          <p className="text-xs" style={{ color: "var(--muted2)" }}>
-            © 2024 MBA Partner · Prodmark Business Consultants Pvt. Ltd. All rights reserved.
+        <div className="divider mb-6" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs" style={{ color: "var(--dim)" }}>
+            © 2024 MBA Partner. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Service", "Refund Policy"].map((t) => (
-              <a key={t} href="#" className="text-xs transition-colors" style={{ color: "var(--muted2)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--muted2)")}>
-                {t}
-              </a>
-            ))}
-          </div>
+          <p className="text-xs" style={{ color: "var(--dim)" }}>
+            Founded by IIM Alumni · For MBA Students Across India
+          </p>
         </div>
       </div>
     </footer>
