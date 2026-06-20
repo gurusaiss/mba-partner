@@ -18,38 +18,34 @@ export default function EnrollForm() {
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: "64px", alignItems: "start" }}>
 
-          {/* Left */}
           <div>
             <div className="section-label">Free Enquiry</div>
-            <h2 className="serif" style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "20px" }}>
+            <h2 className="serif" style={{ fontSize: "clamp(2rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "20px" }}>
               Start Your<br />MBA Journey Right
             </h2>
-            <p style={{ fontSize: "0.9rem", lineHeight: 1.75, color: "var(--muted)", marginBottom: "36px" }}>
+            <p style={{ fontSize: "1rem", lineHeight: 1.75, color: "var(--muted)", marginBottom: "36px" }}>
               Fill in your details and we'll reach out within 24 hours with a personalised recommendation based on your goals and timeline.
             </p>
-
             <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginBottom: "36px" }}>
               {[{ val: "5,000+", label: "Students Mentored" }, { val: "24 hrs", label: "Response Time" }, { val: "9.6/10", label: "Average Rating" }].map(s => (
                 <div key={s.label} style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <div className="stat-num" style={{ fontSize: "1.3rem" }}>{s.val}</div>
-                  <div style={{ fontSize: "0.875rem", color: "var(--muted)" }}>{s.label}</div>
+                  <div className="stat-num" style={{ fontSize: "1.4rem" }}>{s.val}</div>
+                  <div style={{ fontSize: "0.95rem", color: "var(--muted)" }}>{s.label}</div>
                 </div>
               ))}
             </div>
-
             <div style={{ paddingTop: "28px", borderTop: "1px solid var(--border)" }}>
-              <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginBottom: "6px" }}>Talk to us directly</div>
-              <a href="tel:+919876543210" className="serif" style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--gold)", textDecoration: "none" }}>+91 98765 43210</a>
+              <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "6px" }}>Talk to us directly</div>
+              <a href="tel:+919876543210" className="serif" style={{ fontWeight: 700, fontSize: "1.25rem", color: "var(--gold)", textDecoration: "none" }}>+91 98765 43210</a>
             </div>
           </div>
 
-          {/* Right */}
           <div className="card" style={{ padding: "36px" }}>
             {sent ? (
               <div style={{ textAlign: "center", padding: "40px 0" }}>
                 <div style={{ fontSize: "2.5rem", marginBottom: "16px" }}>✓</div>
-                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.3rem", color: "var(--text)", marginBottom: "12px" }}>Enquiry Received</h3>
-                <p style={{ fontSize: "0.875rem", color: "var(--muted)" }}>We will contact you within 24 hours with a personalised recommendation. Check your inbox and WhatsApp.</p>
+                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.4rem", color: "var(--text)", marginBottom: "12px" }}>Enquiry Received</h3>
+                <p style={{ fontSize: "1rem", color: "var(--muted)" }}>We will contact you within 24 hours with a personalised recommendation. Check your inbox and WhatsApp.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>

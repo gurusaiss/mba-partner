@@ -13,10 +13,9 @@ export default function Testimonials() {
   return (
     <section id="testimonials" style={{ padding: "96px 0" }}>
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
-
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">700+ Verified Reviews</div>
-          <h2 className="serif" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>
+          <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>
             From Students<br />Who Made It
           </h2>
         </div>
@@ -25,22 +24,20 @@ export default function Testimonials() {
           {testimonials.map(t => (
             <div key={t.name} className="card" style={{ padding: "28px", display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "20px" }}>
-                <div style={{ width: "40px", height: "40px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.8rem", flexShrink: 0, background: "var(--card2)", border: "1px solid var(--border)", color: "var(--gold)" }}>
+                <div style={{ width: "42px", height: "42px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.85rem", flexShrink: 0, background: "var(--card2)", border: "1px solid var(--border)", color: "var(--gold)" }}>
                   {t.initials}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--text)" }}>{t.name}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{t.college}</div>
+                  <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "var(--text)" }}>{t.name}</div>
+                  <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>{t.college}</div>
                 </div>
               </div>
-
-              <blockquote style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "var(--muted)", flex: 1, marginBottom: "20px" }}>
+              <blockquote style={{ fontSize: "0.95rem", lineHeight: 1.75, color: "var(--muted)", flex: 1, marginBottom: "20px" }}>
                 "{t.quote}"
               </blockquote>
-
               <div style={{ display: "flex", alignItems: "center", gap: "10px", paddingTop: "20px", borderTop: "1px solid var(--border)" }}>
-                <span className={`tag ${t.tag}`} style={{ fontSize: "0.62rem" }}>{t.placed}</span>
-                <span style={{ fontSize: "0.72rem", color: "var(--dim)" }}>{t.role}</span>
+                <span className={`tag ${t.tag}`} style={{ fontSize: "0.65rem" }}>{t.placed}</span>
+                <span style={{ fontSize: "0.78rem", color: "var(--dim)" }}>{t.role}</span>
               </div>
             </div>
           ))}

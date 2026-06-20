@@ -1,18 +1,18 @@
-"use client";
+﻿"use client";
 import { Link2, Code2, Globe, Smartphone, CheckCircle } from "lucide-react";
 
 const methods = [
   {
     icon: <Link2 size={22} className="text-amber-400" />,
     title: "Navigation Link",
-    desc: "Add this site's URL directly to your Wix navigation menu. One click — students land here seamlessly.",
+    desc: "Add this site's URL directly to your Wix navigation menu. One click â€” students land here seamlessly.",
     tag: "Easiest",
     badge: "badge-green",
   },
   {
     icon: <Code2 size={22} className="text-indigo-400" />,
     title: "HTML iFrame Embed",
-    desc: "Use Wix's built-in HTML Embed element to display this full site inside any Wix page — no subdomain needed.",
+    desc: "Use Wix's built-in HTML Embed element to display this full site inside any Wix page â€” no subdomain needed.",
     tag: "Recommended",
     badge: "badge-gold",
   },
@@ -26,7 +26,7 @@ const methods = [
   {
     icon: <Smartphone size={22} className="text-rose-400" />,
     title: "Install as App (PWA)",
-    desc: "This site is a Progressive Web App — students can install it directly on iOS/Android as a standalone mobile app from their browser.",
+    desc: "This site is a Progressive Web App â€” students can install it directly on iOS/Android as a standalone mobile app from their browser.",
     tag: "Mobile App",
     badge: "badge-rose",
   },
@@ -45,14 +45,14 @@ export default function WixIntegration() {
             <div className="flex flex-col lg:flex-row lg:items-center gap-8 mb-10">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 badge-gold px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
-                  <span>🔗</span> Wix Integration Ready
+                  <span>ðŸ”—</span> Wix Integration Ready
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black mb-3">
                   Works with Your{" "}
                   <span className="text-gold-gradient">Existing Wix Site</span>
                 </h2>
                 <p className="text-gray-400 text-base leading-relaxed max-w-xl">
-                  Built to integrate with <strong className="text-white">mbapartner.in</strong> — four plug-and-play
+                  Built to integrate with <strong className="text-white">mbapartner.in</strong> â€” four plug-and-play
                   methods, zero rebuilding required. Your Wix site stays live; this
                   becomes the premium layer on top.
                 </p>
@@ -61,7 +61,7 @@ export default function WixIntegration() {
               {/* Compatibility badge */}
               <div className="flex-shrink-0">
                 <div className="glass border-gold rounded-2xl p-6 text-center w-48">
-                  <div className="text-4xl mb-3">🔧</div>
+                  <div className="text-4xl mb-3">ðŸ”§</div>
                   <div className="text-white font-bold text-sm mb-1">Zero Conflict</div>
                   <div className="text-gray-500 text-xs">No Wix plan changes needed</div>
                   <div className="flex justify-center mt-3">
@@ -91,7 +91,7 @@ export default function WixIntegration() {
               <Smartphone size={18} className="text-amber-400 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-gray-300">
                 <span className="text-amber-400 font-semibold">Mobile App included:</span> This site is a Progressive Web App (PWA). Students on iOS or Android can tap
-                {" "}<em>&quot;Add to Home Screen&quot;</em> in their browser and get a native app-like experience — no App Store required.
+                {" "}<em>&quot;Add to Home Screen&quot;</em> in their browser and get a native app-like experience â€” no App Store required.
               </p>
             </div>
           </div>
@@ -100,3 +100,4 @@ export default function WixIntegration() {
     </section>
   );
 }
+

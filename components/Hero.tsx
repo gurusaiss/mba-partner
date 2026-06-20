@@ -18,29 +18,27 @@ const highlights = [
 export default function Hero() {
   return (
     <section id="home" style={{
-      background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 65%), var(--navy)",
       backgroundImage: `
         radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 65%),
         linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
+        var(--navy)
       `,
-      backgroundSize: "100% 100%, 64px 64px, 64px 64px",
+      backgroundSize: "100% 100%, 64px 64px, 64px 64px, 100% 100%",
       minHeight: "100vh",
       display: "flex",
       alignItems: "center",
       paddingTop: "72px",
     }}>
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "64px 40px", width: "100%" }}>
-
-        {/* Two-column layout */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "center" }}>
 
-          {/* Left — Content */}
+          {/* Left */}
           <div>
             <div className="section-label" style={{ marginBottom: "24px" }}>Founded by IIM Alumni</div>
 
             <h1 className="serif" style={{
-              fontSize: "clamp(2rem, 3.2vw, 3.2rem)",
+              fontSize: "clamp(2.4rem, 3.8vw, 3.8rem)",
               fontWeight: 900,
               lineHeight: 1.12,
               letterSpacing: "-0.02em",
@@ -52,84 +50,52 @@ export default function Hero() {
               Rely On.
             </h1>
 
-            <p style={{ color: "var(--muted)", fontSize: "1rem", lineHeight: 1.75, marginBottom: "36px", maxWidth: "420px" }}>
+            <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.75, marginBottom: "36px", maxWidth: "420px" }}>
               Live Projects. Case Competitions. Placement Prep. A curated Resource Repository.
               All delivered by IIM alumni who have been exactly where you are.
             </p>
 
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
-              <a href="#courses" className="btn-primary pulse">
-                View Courses <ArrowRight size={15} />
-              </a>
+              <a href="#courses" className="btn-primary pulse">View Courses <ArrowRight size={15} /></a>
               <a href="#enroll" className="btn-secondary">Free Enquiry</a>
             </div>
 
-            {/* Highlights */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
               {highlights.map(h => (
                 <div key={h.text} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <span style={{ fontSize: "1rem" }}>{h.icon}</span>
-                  <span style={{ fontSize: "0.875rem", color: "var(--muted)" }}>{h.text}</span>
+                  <span style={{ fontSize: "1.1rem" }}>{h.icon}</span>
+                  <span style={{ fontSize: "0.95rem", color: "var(--muted)" }}>{h.text}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — Stats card */}
+          {/* Right */}
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
-            {/* Stats grid */}
             <div style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "1px",
-              background: "var(--border)",
-              borderRadius: "16px",
-              overflow: "hidden",
-              border: "1px solid var(--border)",
+              display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px",
+              background: "var(--border)", borderRadius: "16px", overflow: "hidden", border: "1px solid var(--border)",
             }}>
               {stats.map(s => (
-                <div key={s.label} style={{
-                  background: "var(--card)",
-                  padding: "28px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  gap: "6px",
-                }}>
-                  <div className="stat-num" style={{ fontSize: "2rem" }}>{s.value}</div>
-                  <div style={{ fontSize: "0.72rem", color: "var(--muted)", letterSpacing: "0.04em" }}>{s.label}</div>
+                <div key={s.label} style={{ background: "var(--card)", padding: "28px 24px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "6px" }}>
+                  <div className="stat-num" style={{ fontSize: "2.1rem" }}>{s.value}</div>
+                  <div style={{ fontSize: "0.78rem", color: "var(--muted)", letterSpacing: "0.04em" }}>{s.label}</div>
                 </div>
               ))}
             </div>
 
-            {/* Proof card */}
-            <div style={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
-              borderRadius: "16px",
-              padding: "24px",
-            }}>
+            <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px" }}>
               <div style={{ fontSize: "0.72rem", color: "var(--gold)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "14px" }}>
                 Students placed at
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {["McKinsey", "Goldman Sachs", "BCG", "Bain", "HUL", "Amazon", "Deloitte", "EY"].map(c => (
-                  <span key={c} style={{
-                    background: "var(--card2)",
-                    border: "1px solid var(--border)",
-                    borderRadius: "6px",
-                    padding: "4px 10px",
-                    fontSize: "0.72rem",
-                    color: "var(--muted)",
-                    fontWeight: 500,
-                  }}>{c}</span>
+                  <span key={c} style={{ background: "var(--card2)", border: "1px solid var(--border)", borderRadius: "6px", padding: "4px 10px", fontSize: "0.78rem", color: "var(--muted)", fontWeight: 500 }}>{c}</span>
                 ))}
               </div>
             </div>
-
           </div>
+
         </div>
       </div>
     </section>

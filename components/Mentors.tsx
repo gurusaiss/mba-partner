@@ -13,13 +13,12 @@ export default function Mentors() {
   return (
     <section id="mentors" style={{ padding: "96px 0", background: "var(--card)" }}>
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
-
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">IIM Alumni Network</div>
-          <h2 className="serif" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "12px" }}>
+          <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "12px" }}>
             Learn From People<br />Who Have Been There
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>Every mentor is a verified IIM alumnus placed at a top-tier firm. Matched to your domain in 24 hours.</p>
+          <p style={{ color: "var(--muted)", fontSize: "1.05rem" }}>Every mentor is a verified IIM alumnus placed at a top-tier firm. Matched to your domain in 24 hours.</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
@@ -29,17 +28,17 @@ export default function Mentors() {
                 {m.initials}
               </div>
               <div>
-                <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "var(--text)", marginBottom: "2px" }}>{m.name}</div>
-                <div style={{ fontSize: "0.78rem", color: "var(--gold)", marginBottom: "4px" }}>{m.school}</div>
-                <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: "12px" }}>{m.company}</div>
-                <span className="tag" style={{ fontSize: "0.62rem" }}>{m.domain}</span>
+                <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "var(--text)", marginBottom: "2px" }}>{m.name}</div>
+                <div style={{ fontSize: "0.82rem", color: "var(--gold)", marginBottom: "4px" }}>{m.school}</div>
+                <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "12px" }}>{m.company}</div>
+                <span className="tag" style={{ fontSize: "0.65rem" }}>{m.domain}</span>
               </div>
             </div>
           ))}
         </div>
 
         <div style={{ marginTop: "48px", textAlign: "center" }}>
-          <p style={{ color: "var(--muted)", fontSize: "0.875rem", marginBottom: "20px" }}>Network spans IIM A, B, C, L, K, I + 15 other premier B-schools</p>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: "20px" }}>Network spans IIM A, B, C, L, K, I + 15 other premier B-schools</p>
           <a href="#enroll" className="btn-primary">Get Matched to a Mentor</a>
         </div>
       </div>

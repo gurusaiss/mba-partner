@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 import { Check } from "lucide-react";
 
 const programs = [
   {
     name: "Starter",
     tagline: "For early-stage MBA students",
-    price: "₹4,999",
+    price: "â‚¹4,999",
     period: "/ month",
     featured: false,
     badge: null,
@@ -14,7 +14,7 @@ const programs = [
       "50+ CV template library",
       "Case competition calendar",
       "Study compendiums (20+ books)",
-      "Community access — Telegram & WhatsApp",
+      "Community access â€” Telegram & WhatsApp",
       "2 group mentorship sessions / month",
     ],
     cta: "Get Started",
@@ -22,7 +22,7 @@ const programs = [
   {
     name: "Growth",
     tagline: "For focused placement preparation",
-    price: "₹9,999",
+    price: "â‚¹9,999",
     period: "/ month",
     featured: true,
     badge: "Most Popular",
@@ -41,7 +41,7 @@ const programs = [
   {
     name: "Elite",
     tagline: "For those targeting tier-one companies",
-    price: "₹19,999",
+    price: "â‚¹19,999",
     period: "/ month",
     featured: false,
     badge: null,
@@ -126,9 +126,10 @@ export default function Programs() {
         </div>
 
         <p className="text-center text-sm mt-10" style={{ color: "var(--muted2)" }}>
-          🔒 7-day satisfaction guarantee — full refund, no questions asked.
+          ðŸ”’ 7-day satisfaction guarantee â€” full refund, no questions asked.
         </p>
       </div>
     </section>
   );
 }
+
