@@ -2,10 +2,10 @@
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 const stats = [
-  { value: "2,000+", label: "Students Mentored" },
+  { value: "5,000+", label: "Student Network" },
   { value: "9.6 / 10", label: "Average Rating" },
   { value: "98.7%", label: "Placement Rate" },
-  { value: "500+", label: "Competition Wins" },
+  { value: "700+", label: "Verified Reviews" },
 ];
 
 const institutes = ["IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "XLRI", "FMS Delhi", "IIM Lucknow"];
@@ -45,11 +45,11 @@ export default function Hero() {
 
         {/* CTA row */}
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
-          <a href="#programs" className="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold pulse-gold">
-            Explore Programs <ArrowRight size={18} />
+          <a href="#courses" className="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold pulse-gold">
+            View Courses & Pricing <ArrowRight size={18} />
           </a>
-          <a href="#testimonials" className="btn-outline-gold inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold">
-            Read Success Stories
+          <a href="#enroll" className="btn-outline-gold inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold">
+            Free Enquiry
           </a>
         </div>
 

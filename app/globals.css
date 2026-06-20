@@ -260,6 +260,30 @@ h1, h2, h3, h4 {
 .chatbot-container {
   box-shadow: 0 30px 70px rgba(0,0,0,0.85), 0 0 0 1px rgba(201,168,76,0.18);
 }
+/* ── Form Inputs ─────────────────────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background: var(--navy-card2);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  -webkit-appearance: none;
+}
+.form-input::placeholder { color: var(--muted2); }
+.form-input:focus {
+  border-color: rgba(201,168,76,0.55);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+}
+.form-input option {
+  background: var(--navy-card);
+  color: var(--text);
+}
+
 @keyframes blink {
   0%, 80%, 100% { opacity: 0; }
   40% { opacity: 1; }
