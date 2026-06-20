@@ -1,104 +1,117 @@
 "use client";
-import { Briefcase, TrendingUp, Trophy, BookOpen, Users, FileText } from "lucide-react";
 
 const offerings = [
   {
-    icon: <Briefcase size={28} className="text-amber-400" />,
+    num: "01",
     badge: "badge-gold",
     tag: "Live Projects",
     title: "Real-World Live Projects",
-    desc: "Work on actual consulting, marketing, finance, and strategy projects with live companies. Build your CV with impactful deliverables, not just coursework.",
-    points: ["10+ domains available", "Certificate of completion", "LinkedIn-worthy outcomes"],
-    color: "from-amber-500/10 to-transparent",
+    desc: "Work on actual consulting, marketing, finance, and strategy projects with live companies. Build your CV with outcomes that interviewers notice — not just coursework.",
+    points: ["10+ domain tracks", "Certificate of completion", "CV-worthy deliverables"],
+    accent: "rgba(201,168,76,0.06)",
+    accentBorder: "rgba(201,168,76,0.25)",
   },
   {
-    icon: <TrendingUp size={28} className="text-indigo-400" />,
-    badge: "badge-indigo",
-    tag: "Placements",
+    num: "02",
+    badge: "badge-blue",
+    tag: "Placements Prep",
     title: "SIP & Final Placement Prep",
-    desc: "End-to-end preparation from CV to interview. Our IIM alumni mentors have placed 98.7% of students in their desired domains — finance, consulting, marketing & more.",
-    points: ["CV optimization", "Mock interviews", "Domain-specific coaching"],
-    color: "from-indigo-500/10 to-transparent",
+    desc: "End-to-end preparation from CV to final offer. Our IIM alumni have coached 2,000+ students into McKinsey, Goldman Sachs, HUL, Amazon, BCG, and Deloitte.",
+    points: ["CV optimisation & review", "Mock interviews", "Domain-specific coaching"],
+    accent: "rgba(59,130,246,0.06)",
+    accentBorder: "rgba(59,130,246,0.2)",
   },
   {
-    icon: <Trophy size={28} className="text-emerald-400" />,
+    num: "03",
     badge: "badge-green",
     tag: "Case Competitions",
     title: "Case Competition Mastery",
-    desc: "Win national and international case competitions with structured frameworks, case libraries, and 1:1 coaching from past winners at IIMs, XLRI, and FMS.",
-    points: ["500+ case library", "Framework training", "Competition calendar"],
-    color: "from-emerald-500/10 to-transparent",
+    desc: "Win national and international competitions with proven frameworks, a 500+ case library, and 1:1 coaching from past winners at IIMs, XLRI, and FMS.",
+    points: ["500+ case library", "BCG / McKinsey frameworks", "National competition calendar"],
+    accent: "rgba(34,197,94,0.06)",
+    accentBorder: "rgba(34,197,94,0.2)",
   },
   {
-    icon: <BookOpen size={28} className="text-rose-400" />,
+    num: "04",
     badge: "badge-rose",
     tag: "Repositories",
     title: "MBA Resource Repository",
-    desc: "Access a curated library of past placements data, study compendiums, case solved decks, interview transcripts, and domain knowledge bases.",
-    points: ["Interview transcripts", "Study compendiums", "CV templates bank"],
-    color: "from-rose-500/10 to-transparent",
+    desc: "A curated library of past placement data, study compendiums, solved case decks, interview transcripts, and domain knowledge bases built over 5+ years.",
+    points: ["50+ CV templates", "300+ interview transcripts", "5 yrs placement data"],
+    accent: "rgba(244,63,94,0.06)",
+    accentBorder: "rgba(244,63,94,0.2)",
   },
   {
-    icon: <Users size={28} className="text-purple-400" />,
+    num: "05",
     badge: "badge-indigo",
     tag: "Mentorship",
-    title: "1:1 IIM Alumni Mentorship",
-    desc: "Personalized mentorship sessions with alumni from IIM A, B, C, L, XLRI, FMS who've been exactly where you are. Get tailored advice that actually works.",
-    points: ["IIM A/B/C/L alumni", "Personalized sessions", "Ongoing support"],
-    color: "from-purple-500/10 to-transparent",
+    title: "1 : 1 IIM Alumni Mentorship",
+    desc: "Matched within 24 hours to an IIM alumni mentor aligned to your domain and career goals. Honest, personalised advice from people who've cracked the same placements.",
+    points: ["IIM A / B / C / L alumni", "Personalised sessions", "Ongoing support"],
+    accent: "rgba(99,102,241,0.06)",
+    accentBorder: "rgba(99,102,241,0.2)",
   },
   {
-    icon: <FileText size={28} className="text-cyan-400" />,
-    badge: "badge-green",
+    num: "06",
+    badge: "badge-gold",
     tag: "CV & Profile",
-    title: "CV & Profile Building",
-    desc: "Committee PORs and graduation internships are no longer enough. We help you build a standout profile with the right keywords, structure, and impact statements.",
-    points: ["ATS-optimized CVs", "LinkedIn makeover", "Story crafting"],
-    color: "from-cyan-500/10 to-transparent",
+    title: "Profile & CV Building",
+    desc: "Committee PORs and graduation internships are no longer enough. We build standout profiles with precision — right keywords, impact statements, and story that gets shortlisted.",
+    points: ["ATS-optimised CVs", "LinkedIn overhaul", "Personal brand strategy"],
+    accent: "rgba(201,168,76,0.06)",
+    accentBorder: "rgba(201,168,76,0.2)",
   },
 ];
 
 export default function Offerings() {
   return (
-    <section id="offerings" className="py-24 relative">
-      <div className="section-divider mb-24" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="offerings" className="py-28 relative">
+      <div className="section-divider" />
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 badge-gold px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
-            <span>📚</span> What We Offer
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px w-10" style={{ background: "var(--gold)" }} />
+              <span className="badge-gold px-3 py-1 rounded-full tracking-widest">Our Offerings</span>
+            </div>
+            <h2 className="font-display font-black leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "var(--text)" }}>
+              Everything a Serious<br />
+              <span className="text-gold-gradient">MBA Student Needs</span>
+            </h2>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black mb-4">
-            Everything an MBA Student{" "}
-            <span className="text-gold-gradient">Needs to Win</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A complete ecosystem — from day one at B-school to your dream placement.
+          <p className="max-w-md text-lg leading-relaxed" style={{ color: "var(--muted)", fontSize: "1.05rem" }}>
+            A complete ecosystem — from day one at B-school through to your dream placement offer.
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {offerings.map((o) => (
-            <div key={o.title} className="feature-card rounded-2xl p-6 relative overflow-hidden group cursor-pointer">
-              {/* Gradient overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${o.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
+            <div key={o.num} className="feature-card rounded-2xl p-8 relative overflow-hidden group">
+              {/* Accent bg on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                style={{ background: o.accent, border: `1px solid ${o.accentBorder}` }} />
 
               <div className="relative z-10">
-                {/* Icon + badge */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 rounded-xl bg-white/5">{o.icon}</div>
-                  <span className={`${o.badge} text-xs px-2 py-1 rounded-full font-semibold`}>{o.tag}</span>
+                {/* Number + badge */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-display font-black text-5xl select-none" style={{ color: "rgba(255,255,255,0.05)", lineHeight: 1 }}>
+                    {o.num}
+                  </span>
+                  <span className={`${o.badge} px-3 py-1 rounded-full`}>{o.tag}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-2">{o.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">{o.desc}</p>
+                <h3 className="font-display font-bold text-xl mb-3" style={{ color: "var(--text)" }}>{o.title}</h3>
+                <p className="leading-relaxed mb-6" style={{ color: "var(--muted)", fontSize: "0.95rem" }}>{o.desc}</p>
 
                 {/* Points */}
-                <ul className="space-y-1">
+                <ul className="space-y-2 pt-5 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
                   {o.points.map((p) => (
-                    <li key={p} className="flex items-center gap-2 text-xs text-gray-400">
-                      <span className="text-amber-400">✓</span> {p}
+                    <li key={p} className="flex items-center gap-2.5 text-sm" style={{ color: "var(--muted)" }}>
+                      <span style={{ color: "var(--gold)", fontSize: "0.7rem" }}>◆</span>
+                      {p}
                     </li>
                   ))}
                 </ul>

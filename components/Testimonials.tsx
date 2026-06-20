@@ -2,139 +2,109 @@
 
 const testimonials = [
   {
-    name: "Aditya Kumar",
-    college: "IIM Indore · Batch 2024",
-    placed: "McKinsey & Company",
-    avatar: "AK",
-    color: "from-amber-600 to-orange-700",
-    text: "MBA Partner's case competition coaching is unreal. I cracked 3 national competitions back-to-back. My mentor Arjun's frameworks were exactly what judges wanted. Placed at McKinsey for SIP!",
-    stars: 5,
-    tag: "Consulting",
-    badge: "badge-gold",
+    initials: "AK", name: "Aditya Kumar", college: "IIM Indore · Batch 2024", placed: "McKinsey & Company", role: "Business Analyst — SIP",
+    color: "#C9A84C", badge: "badge-gold", domain: "Consulting",
+    text: "The case competition coaching completely changed how I think through problems. I won three national competitions back-to-back. My mentor Arjun's frameworks were exactly what every judge was looking for. That track record on my CV opened McKinsey's door.",
   },
   {
-    name: "Kavya Nair",
-    college: "IIM Bangalore · Batch 2024",
-    placed: "Goldman Sachs",
-    avatar: "KN",
-    color: "from-indigo-600 to-purple-700",
-    text: "The finance mentorship track is phenomenal. 1:1 sessions helped me understand exactly how Goldman interviews work. Got placed in my dream role. The CV review alone was worth the entire fee.",
-    stars: 5,
-    tag: "Finance",
-    badge: "badge-indigo",
+    initials: "KN", name: "Kavya Nair", college: "IIM Bangalore · Batch 2024", placed: "Goldman Sachs", role: "Summer Associate",
+    color: "#60A5FA", badge: "badge-blue", domain: "Finance",
+    text: "The 1:1 sessions helped me understand Goldman's interview process with precision I could not have found elsewhere. The CV review alone was worth the entire programme fee. I walked into every round genuinely prepared, not just hopeful.",
   },
   {
-    name: "Rahul Joshi",
-    college: "MDI Gurgaon · Batch 2023",
-    placed: "Hindustan Unilever",
-    avatar: "RJ",
-    color: "from-emerald-600 to-teal-700",
-    text: "The live projects gave me real experience to talk about in interviews. HUL was directly impressed by my project outcomes. Without MBA Partner I'd have gone in with a generic CV like everyone else.",
-    stars: 5,
-    tag: "FMCG/Marketing",
-    badge: "badge-green",
+    initials: "RJ", name: "Rahul Joshi", college: "MDI Gurgaon · Batch 2023", placed: "Hindustan Unilever", role: "Management Trainee",
+    color: "#4ADE80", badge: "badge-green", domain: "FMCG",
+    text: "The live project gave me a real deliverable to speak about in every HUL interview. Interviewers were genuinely impressed by quantified outcomes. Without MBA Partner I would have walked in with a generic CV like every other candidate.",
   },
   {
-    name: "Shreya Verma",
-    college: "XLRI Jamshedpur · Batch 2024",
-    placed: "Amazon",
-    avatar: "SV",
-    color: "from-rose-600 to-pink-700",
-    text: "I was struggling with POR deficit. MBA Partner's CV coaching and live project track compensated perfectly. Amazon operations role is a dream — and it happened only because of this platform.",
-    stars: 5,
-    tag: "Operations",
-    badge: "badge-rose",
+    initials: "SV", name: "Shreya Verma", college: "XLRI Jamshedpur · Batch 2024", placed: "Amazon", role: "Operations Manager",
+    color: "#FDA4AF", badge: "badge-rose", domain: "Operations",
+    text: "I had a POR deficit that worried me throughout the year. The live project track fixed that completely. Amazon's operations panel noticed the project outcomes immediately. This platform does not give you hope — it gives you evidence.",
   },
   {
-    name: "Manish Agarwal",
-    college: "IIM Kozhikode · Batch 2023",
-    placed: "BCG",
-    avatar: "MA",
-    color: "from-blue-600 to-cyan-700",
-    text: "Case competition wins on my CV turned every BCG recruiter's head. MBA Partner's competition calendar and practice cadence was the difference. 9.6/10 rating from me — well deserved.",
-    stars: 5,
-    tag: "Consulting",
-    badge: "badge-gold",
+    initials: "MA", name: "Manish Agarwal", college: "IIM Kozhikode · Batch 2023", placed: "Boston Consulting Group", role: "Associate Consultant",
+    color: "#A5B4FC", badge: "badge-indigo", domain: "Consulting",
+    text: "Three case competition wins on my CV made every BCG recruiter pay attention. The competition calendar and the weekly practice cadence were the real differentiators. I give MBA Partner a 9.6 — well earned.",
   },
   {
-    name: "Pooja Reddy",
-    college: "FMS Delhi · Batch 2024",
-    placed: "Deloitte",
-    avatar: "PR",
-    color: "from-purple-600 to-violet-700",
-    text: "The resource repository is a goldmine. Past interview transcripts from Deloitte interviews helped me prepare with uncanny precision. My mentor's feedback was brutally honest and exactly what I needed.",
-    stars: 5,
-    tag: "Analytics",
-    badge: "badge-indigo",
+    initials: "PR", name: "Pooja Reddy", college: "FMS Delhi · Batch 2024", placed: "Deloitte", role: "Analyst — Strategy",
+    color: "#86EFAC", badge: "badge-green", domain: "Analytics",
+    text: "The interview transcripts from Deloitte in the repository are extraordinary. Reading those felt like sitting inside last year's interview. My mentor's feedback was direct and honest, which is exactly what you need when the stakes are real.",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 relative">
-      <div className="section-divider mb-24" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 badge-green px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
-            <span>💬</span> Student Stories
+    <section id="testimonials" className="py-28 relative">
+      <div className="section-divider" />
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px w-10" style={{ background: "var(--gold)" }} />
+            <span className="badge-gold px-3 py-1 rounded-full tracking-widest">Student Stories</span>
+            <div className="h-px w-10" style={{ background: "var(--gold)" }} />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black mb-4">
-            2,000+ Students.{" "}
-            <span className="text-gold-gradient">One Platform. Real Results.</span>
+          <h2 className="font-display font-black leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--text)" }}>
+            2,000+ Students.<br />
+            <span className="text-gold-gradient">Real Outcomes.</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Don't take our word for it — hear directly from students who transformed their MBA journey.
+          <p className="text-lg" style={{ color: "var(--muted)", fontSize: "1.05rem" }}>
+            Hear directly from students who moved from uncertainty to offer letters.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
           {testimonials.map((t) => (
-            <div key={t.name} className="testimonial-card rounded-2xl p-6 flex flex-col gap-4">
-              {/* Header */}
-              <div className="flex items-center gap-3">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold flex-shrink-0`}>
-                  {t.avatar}
-                </div>
-                <div className="min-w-0">
-                  <div className="font-bold text-white text-sm">{t.name}</div>
-                  <div className="text-xs text-gray-500 truncate">{t.college}</div>
-                </div>
-                <div className="ml-auto flex-shrink-0">
-                  <span className={`${t.badge} text-xs px-2 py-1 rounded-full font-semibold`}>{t.tag}</span>
-                </div>
-              </div>
+            <div key={t.name} className="testimonial-card rounded-2xl p-7 flex flex-col gap-5">
 
               {/* Stars */}
               <div className="flex gap-0.5">
-                {[...Array(t.stars)].map((_, i) => (
-                  <span key={i} className="text-amber-400 text-sm">★</span>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: "var(--gold)", fontSize: "1rem" }}>★</span>
                 ))}
               </div>
 
               {/* Quote */}
-              <p className="text-gray-300 text-sm leading-relaxed flex-1">
+              <p className="leading-relaxed flex-1" style={{ color: "var(--muted)", fontSize: "0.97rem" }}>
                 &ldquo;{t.text}&rdquo;
               </p>
 
-              {/* Placed at */}
-              <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-gray-500">Placed at</span>
-                <span className="text-sm font-bold text-amber-400">{t.placed}</span>
+              {/* Divider */}
+              <div className="h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
+
+              {/* Person */}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center font-display font-bold text-sm"
+                  style={{ background: `${t.color}15`, border: `1.5px solid ${t.color}30`, color: t.color }}>
+                  {t.initials}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-semibold text-sm" style={{ color: "var(--text)" }}>{t.name}</div>
+                  <div className="text-xs" style={{ color: "var(--muted2)" }}>{t.college}</div>
+                </div>
+                <div className="flex-shrink-0 text-right">
+                  <div className="text-xs font-bold" style={{ color: "var(--gold)" }}>{t.placed}</div>
+                  <div className="text-xs" style={{ color: "var(--muted2)" }}>{t.role}</div>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Overall rating */}
-        <div className="mt-16 glass border-gold rounded-2xl p-8 text-center max-w-2xl mx-auto">
-          <div className="stat-number text-6xl font-black mb-2">9.6</div>
+        {/* Aggregate rating */}
+        <div className="glass border-gold rounded-2xl p-10 text-center max-w-xl mx-auto">
+          <div className="font-display font-black mb-2 text-gold-gradient" style={{ fontSize: "4.5rem", lineHeight: 1 }}>9.6</div>
           <div className="flex justify-center gap-1 mb-3">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className="text-amber-400 text-2xl">★</span>
+              <span key={i} style={{ color: "var(--gold)", fontSize: "1.4rem" }}>★</span>
             ))}
           </div>
-          <p className="text-gray-400">
-            Average rating across <span className="text-white font-semibold">700+ verified student reviews</span>
+          <p style={{ color: "var(--muted)" }}>
+            Average rating across{" "}
+            <span style={{ color: "var(--text)", fontWeight: 600 }}>700+ verified student reviews</span>
           </p>
         </div>
       </div>

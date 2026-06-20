@@ -1,94 +1,97 @@
 "use client";
-import { Download, ExternalLink, FileText, Video, BookOpen, BarChart2 } from "lucide-react";
 
 const resources = [
   {
-    icon: <FileText size={20} className="text-amber-400" />,
-    title: "CV Templates Library",
+    icon: "📄",
+    title: "CV Template Library",
     count: "50+ templates",
-    desc: "ATS-optimized, domain-specific CV templates used by placed students.",
+    desc: "ATS-optimised, domain-specific CV templates actively used by students who have been placed at McKinsey, HUL, Goldman, and Amazon.",
     tag: "CV & Profile",
     badge: "badge-gold",
-    action: "Download",
   },
   {
-    icon: <BookOpen size={20} className="text-indigo-400" />,
+    icon: "📚",
     title: "Study Compendiums",
-    count: "20+ books",
-    desc: "Curated knowledge books for Finance, Marketing, Consulting, Operations.",
+    count: "20+ volumes",
+    desc: "Curated knowledge books covering Finance, Marketing, Consulting, and Operations — built by our alumni network over five years.",
     tag: "Study Material",
-    badge: "badge-indigo",
-    action: "Access",
+    badge: "badge-blue",
   },
   {
-    icon: <BarChart2 size={20} className="text-emerald-400" />,
-    title: "Case Library",
+    icon: "📊",
+    title: "Case Deck Library",
     count: "500+ cases",
-    desc: "Solved case decks from BCG, McKinsey, Bain, and national competitions.",
-    tag: "Case Comp",
+    desc: "Solved case decks from BCG, McKinsey, Bain, and national competitions — structured by industry, type, and difficulty.",
+    tag: "Case Competitions",
     badge: "badge-green",
-    action: "Browse",
   },
   {
-    icon: <Video size={20} className="text-rose-400" />,
+    icon: "💬",
     title: "Interview Transcripts",
-    count: "300+ interviews",
-    desc: "Verbatim interview Q&A from McKinsey, Goldman, Amazon, HUL, and more.",
+    count: "300+ transcripts",
+    desc: "Verbatim interview Q&A from students placed at McKinsey, Goldman Sachs, Amazon, HUL, BCG, and Deloitte — spanning the last five placement seasons.",
     tag: "Placements",
     badge: "badge-rose",
-    action: "Read",
   },
   {
-    icon: <ExternalLink size={20} className="text-purple-400" />,
+    icon: "🏢",
     title: "Live Project Portal",
     count: "Active listings",
-    desc: "Real-time project listings across consulting, finance, marketing domains.",
+    desc: "Real-time project listings across consulting, finance, marketing, and operations domains — updated each semester.",
     tag: "Live Projects",
     badge: "badge-indigo",
-    action: "Explore",
   },
   {
-    icon: <Download size={20} className="text-cyan-400" />,
+    icon: "📈",
     title: "Placement Data Reports",
-    count: "5 years data",
-    desc: "Historical placement data, salary benchmarks, and domain trends.",
+    count: "5 years of data",
+    desc: "Historical placement data, sector-wise salary benchmarks, and domain trend analysis across India's top ten B-schools.",
     tag: "Analytics",
     badge: "badge-green",
-    action: "Download",
   },
 ];
 
 export default function Resources() {
   return (
-    <section id="resources" className="py-24 relative">
-      <div className="section-divider mb-24" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 badge-indigo px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
-            <span>📂</span> Resource Hub
+    <section id="resources" className="py-28 relative">
+      <div className="section-divider" />
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px w-10" style={{ background: "var(--gold)" }} />
+              <span className="badge-gold px-3 py-1 rounded-full tracking-widest">Resource Hub</span>
+            </div>
+            <h2 className="font-display font-black leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "var(--text)" }}>
+              Five Years of MBA Intelligence<br />
+              <span className="text-gold-gradient">At Your Fingertips</span>
+            </h2>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black mb-4">
-            Everything in One{" "}
-            <span className="text-gold-gradient">Place</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            A curated repository built over 5+ years of MBA mentorship — yours to access instantly.
+          <p className="max-w-sm text-lg leading-relaxed" style={{ color: "var(--muted)", fontSize: "1.05rem" }}>
+            A repository built methodically over five placement seasons — every resource curated for actual relevance.
           </p>
         </div>
 
+        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {resources.map((r) => (
-            <div key={r.title} className="feature-card rounded-2xl p-6 group">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-white/5">{r.icon}</div>
-                <span className={`${r.badge} text-xs px-2 py-1 rounded-full font-semibold`}>{r.tag}</span>
+            <div key={r.title} className="feature-card rounded-2xl p-7 group">
+              <div className="flex items-start justify-between mb-5">
+                <div className="text-3xl">{r.icon}</div>
+                <span className={`${r.badge} px-3 py-1 rounded-full`}>{r.tag}</span>
               </div>
-              <h3 className="font-bold text-white mb-1">{r.title}</h3>
-              <p className="text-xs text-amber-400 font-semibold mb-2">{r.count}</p>
-              <p className="text-gray-400 text-sm leading-relaxed mb-4">{r.desc}</p>
-              <button className="btn-outline-gold px-4 py-2 rounded-lg text-xs font-semibold w-full">
-                {r.action} →
-              </button>
+
+              <h3 className="font-display font-bold text-xl mb-1" style={{ color: "var(--text)" }}>{r.title}</h3>
+              <p className="text-sm font-semibold mb-3" style={{ color: "var(--gold)" }}>{r.count}</p>
+              <p className="leading-relaxed" style={{ color: "var(--muted)", fontSize: "0.95rem" }}>{r.desc}</p>
+
+              <div className="mt-6 pt-5 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                <button className="btn-outline-gold w-full py-2.5 rounded-xl text-sm font-semibold tracking-wide">
+                  Access →
+                </button>
+              </div>
             </div>
           ))}
         </div>

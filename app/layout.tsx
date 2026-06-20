@@ -1,18 +1,21 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#C9A84C",
+};
 
 export const metadata: Metadata = {
-  title: "MBA Partner — India's #1 MBA Mentorship Platform by IIM Alumni",
+  title: "MBA Partner — IIM Alumni Mentorship for Serious MBA Students",
   description:
-    "Join 2,000+ MBA students getting mentored by IIM alumni. Live Projects, Placement Prep, Case Competitions, and Resource Repository — all in one platform. 98.7% placement rate.",
-  keywords: "MBA mentorship, IIM alumni, MBA placement prep, case competition, live projects, MBA Partner",
+    "Join 2,000+ MBA students mentored by IIM alumni. Live Projects, Placement Prep, Case Competitions, and a curated Resource Repository — all in one platform. 98.7% placement rate.",
+  keywords: "MBA mentorship, IIM alumni, MBA placement prep, case competition, live projects, SIP prep, MBA Partner",
   manifest: "/manifest.json",
   openGraph: {
     title: "MBA Partner — Supercharge Your MBA Journey",
-    description: "9.6/10 rated mentorship platform by IIM alumni. 98.7% placement rate.",
+    description: "9.6/10 rated mentorship platform by IIM alumni. 98.7% placement rate across 2000+ students.",
     type: "website",
     url: "https://mbapartner.in",
   },
@@ -21,13 +24,16 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "apple-mobile-web-app-title": "MBA Partner",
-    "theme-color": "#F59E0B",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} scroll-smooth`}>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
