@@ -6,6 +6,7 @@ import Mentors from "@/components/Mentors";
 import Testimonials from "@/components/Testimonials";
 import Programs from "@/components/Programs";
 import Resources from "@/components/Resources";
+import WixIntegration from "@/components/WixIntegration";
 import CTA from "@/components/CTA";
 import ChatBot from "@/components/ChatBot";
 import Footer from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
       <Testimonials />
       <Programs />
       <Resources />
+      <WixIntegration />
       <CTA />
       <Footer />
       <ChatBot />
