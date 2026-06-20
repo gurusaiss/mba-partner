@@ -50,42 +50,41 @@ export default function ChatBot() {
   return (
     <>
       {/* FAB */}
-      <button onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full btn-primary shadow-2xl flex items-center justify-center"
+      <button onClick={() => setOpen(o => !o)} className="btn-primary"
+        style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 50, width: "52px", height: "52px", padding: 0, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 32px rgba(0,0,0,0.5)" }}
         aria-label="Chat with Maya">
         {open ? <X size={20} /> : <MessageCircle size={20} />}
       </button>
 
       {/* Chat window */}
       {open && (
-        <div className="chatbox fixed bottom-24 right-6 z-50 w-80 rounded-2xl overflow-hidden flex flex-col"
-          style={{ background: "var(--card)", border: "1px solid rgba(201,168,76,0.15)", maxHeight: "460px" }}>
+        <div className="chatbox" style={{ position: "fixed", bottom: "88px", right: "24px", zIndex: 50, width: "320px", borderRadius: "20px", overflow: "hidden", display: "flex", flexDirection: "column", maxHeight: "460px", background: "var(--card)", border: "1px solid rgba(201,168,76,0.15)" }}>
 
           {/* Header */}
-          <div className="px-5 py-4 flex items-center gap-3" style={{ borderBottom: "1px solid var(--border)", background: "var(--card2)" }}>
-            <div className="w-8 h-8 rounded-full btn-primary text-xs font-bold flex items-center justify-center flex-shrink-0">M</div>
+          <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", borderBottom: "1px solid var(--border)", background: "var(--card2)" }}>
+            <div className="btn-primary" style={{ width: "32px", height: "32px", padding: 0, borderRadius: "50%", fontSize: "0.72rem", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>M</div>
             <div>
-              <div className="text-sm font-semibold" style={{ color: "var(--text)" }}>Maya</div>
-              <div className="text-xs" style={{ color: "var(--muted)" }}>MBA Partner Guide</div>
+              <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--text)" }}>Maya</div>
+              <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>MBA Partner Guide</div>
             </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3" style={{ fontSize: "0.83rem" }}>
+          <div style={{ flex: 1, overflowY: "auto", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
             {msgs.map((m, i) => (
-              <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`px-4 py-2.5 max-w-[85%] leading-relaxed ${m.role === "user" ? "chat-user text-xs font-medium" : "chat-bot"}`}
-                  style={{ color: m.role === "user" ? "#050D1C" : "var(--muted)" }}>
+              <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
+                <div className={m.role === "user" ? "chat-user" : "chat-bot"}
+                  style={{ padding: "10px 14px", maxWidth: "85%", fontSize: "0.8rem", lineHeight: 1.6, color: m.role === "user" ? "#050D1C" : "var(--muted)" }}>
                   {m.text}
                 </div>
               </div>
             ))}
             {typing && (
-              <div className="flex justify-start">
-                <div className="chat-bot px-4 py-3 flex gap-1">
-                  <span className="dot w-1.5 h-1.5 rounded-full" style={{ background: "var(--muted)" }} />
-                  <span className="dot w-1.5 h-1.5 rounded-full" style={{ background: "var(--muted)" }} />
-                  <span className="dot w-1.5 h-1.5 rounded-full" style={{ background: "var(--muted)" }} />
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <div className="chat-bot" style={{ padding: "10px 14px", display: "flex", gap: "4px", alignItems: "center" }}>
+                  <span className="dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--muted)", display: "block" }} />
+                  <span className="dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--muted)", display: "block" }} />
+                  <span className="dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--muted)", display: "block" }} />
                 </div>
               </div>
             )}
@@ -93,16 +92,11 @@ export default function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className="px-4 py-3 flex gap-2" style={{ borderTop: "1px solid var(--border)" }}>
-            <input
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && send()}
+          <div style={{ padding: "12px 16px", display: "flex", gap: "8px", borderTop: "1px solid var(--border)" }}>
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()}
               placeholder="Ask Maya…"
-              className="flex-1 text-sm px-3 py-2 rounded-lg outline-none"
-              style={{ background: "var(--card2)", border: "1px solid var(--border)", color: "var(--text)", fontSize: "0.8rem" }}
-            />
-            <button onClick={send} className="btn-primary w-9 h-9 p-0 rounded-lg flex items-center justify-center flex-shrink-0">
+              style={{ flex: 1, background: "var(--card2)", border: "1px solid var(--border)", borderRadius: "10px", padding: "8px 12px", fontSize: "0.8rem", color: "var(--text)", outline: "none", fontFamily: "Inter, system-ui, sans-serif" }} />
+            <button onClick={send} className="btn-primary" style={{ width: "36px", height: "36px", padding: 0, borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <Send size={14} />
             </button>
           </div>

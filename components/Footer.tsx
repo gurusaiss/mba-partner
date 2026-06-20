@@ -23,38 +23,30 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer className="py-16" style={{ background: "var(--card)", borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+    <footer style={{ padding: "64px 0 40px", background: "var(--card)", borderTop: "1px solid var(--border)" }}>
+      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr", gap: "40px", marginBottom: "48px" }}>
 
           {/* Brand */}
           <div>
-            <a href="#home" className="flex items-center gap-2.5 mb-4">
-              <span className="w-8 h-8 rounded-lg btn-primary text-xs font-bold flex items-center justify-center">MP</span>
-              <span className="serif font-bold text-lg" style={{ color: "var(--text)" }}>
-                MBA<span className="gold-text">Partner</span>
-              </span>
+            <a href="#home" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", marginBottom: "16px" }}>
+              <span className="btn-primary" style={{ width: "34px", height: "34px", padding: 0, borderRadius: "8px", fontSize: "0.7rem", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>MP</span>
+              <span className="serif" style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--text)" }}>MBA<span className="gold-text">Partner</span></span>
             </a>
-            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+            <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "var(--muted)", marginBottom: "20px" }}>
               The mentorship platform serious MBA students rely on. Founded by IIM alumni. Trusted by 5,000+ students.
             </p>
-            <div className="mt-5">
-              <a href="https://mbapartner.in" target="_blank" rel="noreferrer"
-                className="text-sm" style={{ color: "var(--gold)" }}>
-                mbapartner.in ↗
-              </a>
-            </div>
+            <a href="https://mbapartner.in" target="_blank" rel="noreferrer" style={{ fontSize: "0.875rem", color: "var(--gold)", textDecoration: "none" }}>mbapartner.in ↗</a>
           </div>
 
           {/* Nav columns */}
           {Object.entries(links).map(([section, items]) => (
             <div key={section}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--dim)" }}>{section}</div>
-              <ul className="space-y-3">
+              <div style={{ fontSize: "0.7rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--dim)", marginBottom: "16px" }}>{section}</div>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
                 {items.map(l => (
                   <li key={l.label}>
-                    <a href={l.href} className="text-sm transition-colors"
-                      style={{ color: "var(--muted)" }}
+                    <a href={l.href} style={{ fontSize: "0.875rem", color: "var(--muted)", textDecoration: "none", transition: "color 0.2s" }}
                       onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
                       onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
                       {l.label}
@@ -66,15 +58,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="divider mb-6" />
+        <div style={{ width: "100%", height: "1px", background: "var(--border)", marginBottom: "24px" }} />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "var(--dim)" }}>
-            © 2024 MBA Partner. All rights reserved.
-          </p>
-          <p className="text-xs" style={{ color: "var(--dim)" }}>
-            Founded by IIM Alumni · For MBA Students Across India
-          </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+          <p style={{ fontSize: "0.78rem", color: "var(--dim)" }}>© 2024 MBA Partner. All rights reserved.</p>
+          <p style={{ fontSize: "0.78rem", color: "var(--dim)" }}>Founded by IIM Alumni · For MBA Students Across India</p>
         </div>
       </div>
     </footer>

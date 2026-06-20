@@ -9,21 +9,21 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-24" style={{ background: "var(--card)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
+    <section style={{ padding: "96px 0", background: "var(--card)" }}>
+      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ marginBottom: "56px" }}>
           <div className="section-label">The Process</div>
-          <h2 className="section-title" style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.8rem)" }}>
+          <h2 className="serif" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>
             How It Works
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px" }}>
           {steps.map((s) => (
-            <div key={s.n} className="card p-7 flex flex-col gap-4">
-              <div className="serif font-black" style={{ fontSize: "2.8rem", lineHeight: 1, color: "rgba(201,168,76,0.2)" }}>{s.n}</div>
-              <h3 className="serif font-bold text-base" style={{ color: "var(--text)" }}>{s.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{s.desc}</p>
+            <div key={s.n} className="card" style={{ padding: "28px", display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div className="serif" style={{ fontWeight: 900, fontSize: "2.6rem", lineHeight: 1, color: "rgba(201,168,76,0.18)" }}>{s.n}</div>
+              <h3 className="serif" style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)" }}>{s.title}</h3>
+              <p style={{ fontSize: "0.875rem", lineHeight: 1.65, color: "var(--muted)" }}>{s.desc}</p>
             </div>
           ))}
         </div>

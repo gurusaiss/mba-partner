@@ -11,40 +11,35 @@ const mentors = [
 
 export default function Mentors() {
   return (
-    <section id="mentors" className="py-24" style={{ background: "var(--card)" }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="mentors" style={{ padding: "96px 0", background: "var(--card)" }}>
+      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
 
-        <div className="mb-14">
+        <div style={{ marginBottom: "56px" }}>
           <div className="section-label">IIM Alumni Network</div>
-          <h2 className="section-title mb-3" style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.8rem)" }}>
+          <h2 className="serif" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "12px" }}>
             Learn From People<br />Who Have Been There
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>
-            Every mentor is a verified IIM alumnus placed at a top-tier firm. Matched to your domain in 24 hours.
-          </p>
+          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>Every mentor is a verified IIM alumnus placed at a top-tier firm. Matched to your domain in 24 hours.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {mentors.map(m => (
-            <div key={m.name} className="card p-6 flex gap-5 items-start">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center serif font-bold text-sm flex-shrink-0"
-                style={{ background: m.bg, color: m.color, border: `1px solid ${m.color}22` }}>
+            <div key={m.name} className="card" style={{ padding: "24px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.85rem", flexShrink: 0, background: m.bg, color: m.color, border: `1px solid ${m.color}33` }}>
                 {m.initials}
               </div>
               <div>
-                <div className="font-semibold text-sm mb-0.5" style={{ color: "var(--text)" }}>{m.name}</div>
-                <div className="text-xs mb-1" style={{ color: "var(--gold)" }}>{m.school}</div>
-                <div className="text-xs mb-3" style={{ color: "var(--muted)" }}>{m.company}</div>
+                <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "var(--text)", marginBottom: "2px" }}>{m.name}</div>
+                <div style={{ fontSize: "0.78rem", color: "var(--gold)", marginBottom: "4px" }}>{m.school}</div>
+                <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: "12px" }}>{m.company}</div>
                 <span className="tag" style={{ fontSize: "0.62rem" }}>{m.domain}</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
-          <p className="text-sm mb-5" style={{ color: "var(--muted)" }}>
-            Network spans IIM A, B, C, L, K, I + 15 other premier B-schools
-          </p>
+        <div style={{ marginTop: "48px", textAlign: "center" }}>
+          <p style={{ color: "var(--muted)", fontSize: "0.875rem", marginBottom: "20px" }}>Network spans IIM A, B, C, L, K, I + 15 other premier B-schools</p>
           <a href="#enroll" className="btn-primary">Get Matched to a Mentor</a>
         </div>
       </div>

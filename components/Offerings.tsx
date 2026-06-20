@@ -11,26 +11,24 @@ const items = [
 
 export default function Offerings() {
   return (
-    <section id="offerings" className="py-24">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="offerings" style={{ padding: "96px 0" }}>
+      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
 
-        <div className="mb-14">
+        <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Our Offerings</div>
-          <h2 className="section-title" style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.8rem)" }}>
+          <h2 className="serif" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>
             Everything a Serious MBA<br />Student Needs to Win
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {items.map((item) => (
-            <div key={item.title} className="card p-7 flex flex-col">
-              <span className={`tag ${item.tag} mb-5`}>{item.label}</span>
-              <h3 className="serif font-bold text-lg mb-3" style={{ color: "var(--text)" }}>{item.title}</h3>
-              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "var(--muted)" }}>{item.desc}</p>
-              <ul className="space-y-2 pt-5" style={{ borderTop: "1px solid var(--border)" }}>
-                {item.points.map(p => (
-                  <li key={p} className="check-item">{p}</li>
-                ))}
+            <div key={item.title} className="card" style={{ padding: "28px", display: "flex", flexDirection: "column" }}>
+              <span className={`tag ${item.tag}`} style={{ marginBottom: "20px", alignSelf: "flex-start" }}>{item.label}</span>
+              <h3 className="serif" style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)", marginBottom: "10px" }}>{item.title}</h3>
+              <p style={{ fontSize: "0.875rem", lineHeight: 1.65, color: "var(--muted)", marginBottom: "24px", flex: 1 }}>{item.desc}</p>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, borderTop: "1px solid var(--border)", paddingTop: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                {item.points.map(p => <li key={p} className="check-item">{p}</li>)}
               </ul>
             </div>
           ))}
