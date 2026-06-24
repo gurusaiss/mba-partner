@@ -13,32 +13,40 @@ import CTA from "@/components/CTA";
 import ChatBot from "@/components/ChatBot";
 import Footer from "@/components/Footer";
 import CATPage from "@/components/CATPage";
+import ModeSelector from "@/components/ModeSelector";
 
 type Mode = "mba" | "cat";
 
 export default function Home() {
-  const [mode, setMode] = useState<Mode>("mba");
+  const [mode, setMode] = useState<Mode | null>(null);
 
   return (
     <main>
-      <Navbar mode={mode} setMode={setMode} />
-      {mode === "mba" ? (
+      {/* Popup shown until user picks a mode */}
+      {mode === null && <ModeSelector onSelect={setMode} />}
+
+      {mode !== null && (
         <>
-          <Hero />
-          <Offerings />
-          <HowItWorks />
-          <Courses />
-          <Mentors />
-          <Testimonials />
-          <Resources />
-          <EnrollForm />
-          <CTA />
+          <Navbar mode={mode} setMode={setMode} />
+          {mode === "mba" ? (
+            <>
+              <Hero />
+              <Offerings />
+              <HowItWorks />
+              <Courses />
+              <Mentors />
+              <Testimonials />
+              <Resources />
+              <EnrollForm />
+              <CTA />
+            </>
+          ) : (
+            <CATPage />
+          )}
+          <Footer />
+          <ChatBot />
         </>
-      ) : (
-        <CATPage />
       )}
-      <Footer />
-      <ChatBot />
     </main>
   );
 }
