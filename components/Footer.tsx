@@ -14,7 +14,7 @@ const links = {
     { label: "All-in-One Combos", href: "#courses" },
   ],
   Company: [
-    { label: "About Us", href: "https://mbapartner.in" },
+    { label: "About Us", href: "#offerings" },
     { label: "Mentors", href: "#mentors" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#enroll" },
@@ -35,7 +35,7 @@ export default function Footer() {
             <p style={{ fontSize: "0.95rem", lineHeight: 1.7, color: "var(--muted)", marginBottom: "20px" }}>
               The mentorship platform serious MBA students rely on. Founded by IIM alumni. Trusted by 5,000+ students.
             </p>
-            <a href="https://mbapartner.in" target="_blank" rel="noreferrer" style={{ fontSize: "0.9rem", color: "var(--gold)", textDecoration: "none" }}>mbapartner.in</a>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)" }}>Founded by IIM Alumni.<br />Trusted by 5,000+ students across India.</p>
           </div>
 
           {Object.entries(links).map(([section, items]) => (
@@ -58,8 +58,32 @@ export default function Footer() {
 
         <div style={{ width: "100%", height: "1px", background: "var(--border)", marginBottom: "24px" }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
-          <p style={{ fontSize: "0.82rem", color: "var(--dim)" }}>© 2024 MBA Partner. All rights reserved.</p>
-          <p style={{ fontSize: "0.82rem", color: "var(--dim)" }}>Founded by IIM Alumni · For MBA Students Across India</p>
+          <p style={{ fontSize: "0.82rem", color: "var(--dim)" }}>© 2025 MBA Partner. All rights reserved.</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+            <p style={{ fontSize: "0.82rem", color: "var(--dim)" }}>Founded by IIM Alumni · For MBA Students Across India</p>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              style={{
+                background: "rgba(240,170,0,0.08)",
+                border: "1px solid rgba(240,170,0,0.22)",
+                borderRadius: "8px",
+                color: "var(--gold)",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                padding: "7px 14px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontFamily: "var(--font-sans)",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(240,170,0,0.14)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "rgba(240,170,0,0.08)")}
+            >
+              ↑ Back to Top
+            </button>
+          </div>
         </div>
       </div>
     </footer>

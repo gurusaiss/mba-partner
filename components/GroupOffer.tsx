@@ -41,12 +41,23 @@ const defaultForm: FormState = {
 export default function GroupOffer() {
   const [form, setForm] = useState<FormState>(defaultForm);
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<{ s1Name?: string; s1Email?: string; s2Name?: string; s2Email?: string }>({});
 
-  const set = (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+  const set = (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
+    if (field in errors) setErrors(prev => ({ ...prev, [field]: undefined }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const errs: typeof errors = {};
+    if (!form.s1Name.trim()) errs.s1Name = "Required";
+    if (!form.s1Email.trim()) errs.s1Email = "Required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.s1Email)) errs.s1Email = "Invalid email";
+    if (!form.s2Name.trim()) errs.s2Name = "Required";
+    if (!form.s2Email.trim()) errs.s2Email = "Required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.s2Email)) errs.s2Email = "Invalid email";
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setSent(true);
   };
 
@@ -213,13 +224,13 @@ export default function GroupOffer() {
                       </label>
                       <input
                         type="text"
-                        required
                         placeholder="Full name"
                         value={form.s1Name}
                         onChange={set("s1Name")}
                         className="field"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", borderColor: errors.s1Name ? "#F87171" : undefined }}
                       />
+                      {errors.s1Name && <span style={{ fontSize: "0.74rem", color: "#F87171", marginTop: "2px", display: "block" }}>{errors.s1Name}</span>}
                     </div>
                     <div className="field">
                       <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
@@ -227,13 +238,13 @@ export default function GroupOffer() {
                       </label>
                       <input
                         type="email"
-                        required
                         placeholder="email@example.com"
                         value={form.s1Email}
                         onChange={set("s1Email")}
                         className="field"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", borderColor: errors.s1Email ? "#F87171" : undefined }}
                       />
+                      {errors.s1Email && <span style={{ fontSize: "0.74rem", color: "#F87171", marginTop: "2px", display: "block" }}>{errors.s1Email}</span>}
                     </div>
                   </div>
                 </div>
@@ -255,13 +266,13 @@ export default function GroupOffer() {
                       </label>
                       <input
                         type="text"
-                        required
                         placeholder="Full name"
                         value={form.s2Name}
                         onChange={set("s2Name")}
                         className="field"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", borderColor: errors.s2Name ? "#F87171" : undefined }}
                       />
+                      {errors.s2Name && <span style={{ fontSize: "0.74rem", color: "#F87171", marginTop: "2px", display: "block" }}>{errors.s2Name}</span>}
                     </div>
                     <div className="field">
                       <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
@@ -269,13 +280,13 @@ export default function GroupOffer() {
                       </label>
                       <input
                         type="email"
-                        required
                         placeholder="email@example.com"
                         value={form.s2Email}
                         onChange={set("s2Email")}
                         className="field"
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", borderColor: errors.s2Email ? "#F87171" : undefined }}
                       />
+                      {errors.s2Email && <span style={{ fontSize: "0.74rem", color: "#F87171", marginTop: "2px", display: "block" }}>{errors.s2Email}</span>}
                     </div>
                   </div>
                 </div>

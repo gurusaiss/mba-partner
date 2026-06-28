@@ -51,8 +51,11 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
           </span>
         </div>
 
+        <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.13em", color: "var(--gold)", marginBottom: "10px" }}>
+          Start Here
+        </div>
         <h2 className="serif" style={{ fontSize: "1.9rem", fontWeight: 900, lineHeight: 1.2, color: "var(--text)", marginBottom: "10px" }}>
-          Who are you?
+          Choose Your Path
         </h2>
         <p style={{ fontSize: "0.95rem", color: "var(--muted)", marginBottom: "40px", lineHeight: 1.65 }}>
           Choose your path and we'll show you exactly what you need.
@@ -97,8 +100,18 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
                 Placements, Live Projects,<br />Case Competitions & more
               </div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 600, color: choosing === "mba" ? "#050D1C" : "var(--gold)" }}>
-              Explore <ArrowRight size={13} />
+            <div style={{
+              marginTop: "4px",
+              padding: "8px 18px",
+              borderRadius: "100px",
+              background: choosing === "mba" ? "rgba(5,13,28,0.15)" : "rgba(240,170,0,0.12)",
+              border: `1px solid ${choosing === "mba" ? "rgba(5,13,28,0.2)" : "rgba(240,170,0,0.3)"}`,
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              display: "flex", alignItems: "center", gap: "5px",
+              color: choosing === "mba" ? "#050D1C" : "var(--gold)",
+            }}>
+              Get Started <ArrowRight size={13} />
             </div>
           </button>
 
@@ -138,15 +151,25 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
                 Strategy, GDPI prep,<br />B-School guidance & more
               </div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 600, color: choosing === "cat" ? "#fff" : "#a5b4fc" }}>
-              Explore <ArrowRight size={13} />
+            <div style={{
+              marginTop: "4px",
+              padding: "8px 18px",
+              borderRadius: "100px",
+              background: choosing === "cat" ? "rgba(255,255,255,0.15)" : "rgba(99,102,241,0.12)",
+              border: `1px solid ${choosing === "cat" ? "rgba(255,255,255,0.2)" : "rgba(99,102,241,0.3)"}`,
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              display: "flex", alignItems: "center", gap: "5px",
+              color: choosing === "cat" ? "#ffffff" : "#a5b4fc",
+            }}>
+              Get Started <ArrowRight size={13} />
             </div>
           </button>
 
         </div>
 
         <p style={{ marginTop: "28px", fontSize: "0.75rem", color: "var(--dim)" }}>
-          You can switch anytime from the top navigation.
+          ↑ You can switch between modes anytime using the toggle at the top.
         </p>
       </div>
     </div>

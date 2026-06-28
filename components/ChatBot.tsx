@@ -189,6 +189,17 @@ export default function ChatBot() {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text)", lineHeight: 1.2 }}>Maya</div>
               <div style={{ fontSize: "0.74rem", color: "var(--gold)", fontWeight: 500 }}>MBA Partner · AI Guide</div>
+              <div style={{
+                fontSize: "0.7rem",
+                color: "rgba(240,170,0,0.6)",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                marginTop: "2px",
+              }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block", flexShrink: 0 }} />
+                Online · Mon–Sat 10am–8pm · Replies in seconds
+              </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade8080" }} />
@@ -240,6 +251,17 @@ export default function ChatBot() {
                   </div>
                 )}
                 <div ref={bottomRef} />
+              </div>
+
+              {/* Privacy note */}
+              <div style={{
+                fontSize: "0.68rem",
+                color: "var(--dim)",
+                textAlign: "center",
+                padding: "6px 16px 0",
+                borderTop: "1px solid rgba(255,255,255,0.05)",
+              }}>
+                Your messages are private and not stored · <a href="#enroll" style={{ color: "var(--muted)", textDecoration: "none" }}>Privacy</a>
               </div>
 
               {/* Input */}

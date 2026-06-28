@@ -169,18 +169,81 @@ export default function CourseComparison({ selectedIds, courses, onRemove, onAdd
 
         {/* Placeholder */}
         {isEmpty ? (
-          <div style={{
-            textAlign: "center",
-            padding: "72px 40px",
-            border: "1px dashed var(--border)",
-            borderRadius: "16px",
-            color: "var(--muted)"
-          }}>
-            <div style={{ fontSize: "2.5rem", marginBottom: "16px" }}>📊</div>
-            <p style={{ fontSize: "1rem", lineHeight: 1.7 }}>
-              Click <strong style={{ color: "var(--text)" }}>+ Compare</strong> on any course card above to add it here.
-              <br />Compare up to 3 courses.
-            </p>
+          <div>
+            {/* Instructional card */}
+            <div style={{
+              textAlign: "center",
+              padding: "48px 40px 40px",
+              border: "1px dashed rgba(240,170,0,0.25)",
+              borderRadius: "20px",
+              background: "rgba(240,170,0,0.03)",
+              marginBottom: "32px",
+            }}>
+              <div style={{
+                width: "56px", height: "56px", borderRadius: "14px",
+                background: "linear-gradient(135deg, rgba(240,170,0,0.15), rgba(240,170,0,0.06))",
+                border: "1px solid rgba(240,170,0,0.22)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: "1.6rem", margin: "0 auto 20px",
+              }}>📊</div>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text)", marginBottom: "10px" }}>
+                No courses selected yet
+              </h3>
+              <p style={{ fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.75, maxWidth: "380px", margin: "0 auto 24px" }}>
+                Scroll up to the <strong style={{ color: "var(--text)" }}>Courses</strong> section and click the{" "}
+                <strong style={{ color: "var(--gold)" }}>+ Compare</strong> button on any course card to add it here.
+                Compare up to <strong style={{ color: "var(--text)" }}>3 courses</strong> side by side.
+              </p>
+              <button
+                onClick={onAdd}
+                className="btn-primary"
+                style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
+              >
+                + Add a Course to Compare
+              </button>
+            </div>
+
+            {/* Preview skeleton table */}
+            <div style={{ opacity: 0.4, pointerEvents: "none", userSelect: "none", overflowX: "auto" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "200px 1fr 1fr 1fr", minWidth: "600px" }}>
+                {/* Header */}
+                <div style={{ padding: "14px 16px", borderBottom: "1px solid var(--border)" }} />
+                {["Course A", "Course B", "Course C"].map(label => (
+                  <div key={label} style={{
+                    padding: "14px 16px",
+                    borderBottom: "1px solid var(--border)",
+                    borderLeft: "1px solid var(--border)",
+                    fontSize: "0.9rem", fontWeight: 700, color: "var(--text)",
+                  }}>{label}</div>
+                ))}
+                {/* Example rows */}
+                {[
+                  { label: "Course Type", vals: ["Placement Prep", "Case Comp", "Live Project"] },
+                  { label: "Duration", vals: ["Ongoing", "8 hrs", "2 months"] },
+                  { label: "Mentorship", vals: ["1:1 IIM Alumni", "Group + 1:1", "IIM Oversight"] },
+                  { label: "Certificate", vals: ["No", "No", "Yes"] },
+                  { label: "Price", vals: ["₹3,499", "₹3,499", "₹3,999"] },
+                ].map((row, idx) => {
+                  const isAlt = idx % 2 === 1;
+                  const rowBg = isAlt ? "rgba(255,255,255,0.015)" : "transparent";
+                  return (
+                    <>
+                      <div key={`label-${row.label}`} style={{ padding: "13px 16px", background: rowBg, fontWeight: 700, fontSize: "0.85rem", color: "var(--text)", borderBottom: "1px solid var(--border)" }}>
+                        {row.label}
+                      </div>
+                      {row.vals.map((v, vi) => {
+                        const isYes = v === "Yes"; const isNo = v === "No";
+                        return (
+                          <div key={`val-${row.label}-${vi}`} style={{ padding: "13px 16px", background: rowBg, fontSize: "0.85rem", color: isYes ? "#4ade80" : isNo ? "var(--dim)" : "var(--muted)", borderBottom: "1px solid var(--border)", borderLeft: "1px solid var(--border)" }}>
+                            {isYes ? "✓ Yes" : isNo ? "✗ No" : v}
+                          </div>
+                        );
+                      })}
+                    </>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         ) : (
           <div style={{ overflowX: "auto" }}>

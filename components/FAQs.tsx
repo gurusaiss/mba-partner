@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
@@ -64,6 +65,12 @@ export default function FAQs() {
               <div
                 key={i}
                 style={{
+                  borderRadius: isOpen ? "12px" : "0",
+                  borderLeft: isOpen ? "3px solid var(--gold)" : "3px solid transparent",
+                  paddingLeft: isOpen ? "16px" : "0",
+                  marginBottom: isOpen ? "8px" : "0",
+                  transition: "all 0.25s ease",
+                  background: isOpen ? "rgba(240,170,0,0.04)" : "transparent",
                   borderBottom: "1px solid var(--border)",
                   borderTop: i === 0 ? "1px solid var(--border)" : "none",
                 }}
@@ -82,36 +89,41 @@ export default function FAQs() {
                     cursor: "pointer",
                     textAlign: "left",
                   }}
+                  onMouseEnter={e => !isOpen && (e.currentTarget.style.background = "rgba(255,255,255,0.025)")}
+                  onMouseLeave={e => !isOpen && (e.currentTarget.style.background = "transparent")}
                 >
-                  <span style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text)", lineHeight: 1.4 }}>
+                  <span style={{
+                    fontSize: "1rem",
+                    fontWeight: isOpen ? 700 : 600,
+                    color: "var(--text)",
+                    lineHeight: 1.4,
+                  }}>
                     {faq.q}
                   </span>
-                  <span
-                    style={{
-                      flexShrink: 0,
-                      width: "28px",
-                      height: "28px",
-                      borderRadius: "50%",
-                      border: "1px solid var(--border)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1.1rem",
-                      color: "var(--gold)",
-                      fontWeight: 400,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {isOpen ? "−" : "+"}
+                  <span style={{
+                    flexShrink: 0,
+                    width: "30px", height: "30px",
+                    borderRadius: "50%",
+                    border: `1px solid ${isOpen ? "rgba(240,170,0,0.5)" : "var(--border)"}`,
+                    background: isOpen ? "rgba(240,170,0,0.08)" : "transparent",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    transition: "all 0.25s ease",
+                    color: isOpen ? "var(--gold)" : "var(--muted)",
+                  }}>
+                    <ChevronDown size={16} style={{ transition: "transform 0.3s ease", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
                   </span>
                 </button>
-                {isOpen && (
+                <div style={{
+                  maxHeight: isOpen ? "400px" : "0",
+                  overflow: "hidden",
+                  transition: "max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}>
                   <div style={{ paddingBottom: "22px" }}>
-                    <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.75, margin: 0 }}>
+                    <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.78, margin: 0 }}>
                       {faq.a}
                     </p>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

@@ -77,10 +77,19 @@ export default function SocialProofToast() {
 
   return (
     <>
-      <style>{styles}</style>
-      <div style={{
+      <style>{styles}{`
+  @media (max-width: 640px) {
+    .social-proof-toast {
+      bottom: 72px !important;
+      left: 12px !important;
+      width: calc(100vw - 24px) !important;
+      max-width: 320px;
+    }
+  }
+`}</style>
+      <div className="social-proof-toast" style={{
         position: "fixed",
-        bottom: 28,
+        bottom: 32,
         left: 28,
         zIndex: 200,
         width: 300,
@@ -104,15 +113,18 @@ export default function SocialProofToast() {
             onClick={() => { setStopped(true); setVisible(false); }}
             style={{
               position: "absolute",
-              top: 8,
-              right: 10,
+              top: "8px",
+              right: "10px",
               background: "none",
               border: "none",
-              cursor: "pointer",
               color: "var(--muted)",
-              fontSize: "0.9rem",
+              cursor: "pointer",
+              fontSize: "1rem",
               lineHeight: 1,
-              padding: "2px 4px",
+              padding: "2px 6px",
+              borderRadius: "4px",
+              fontFamily: "var(--font-sans)",
+              transition: "color 0.15s",
             }}
           >×</button>
 

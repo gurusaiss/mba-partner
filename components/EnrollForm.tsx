@@ -88,9 +88,32 @@ export default function EnrollForm() {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<FormData>(EMPTY);
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
   function set(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
+  }
+
+  function validateStep1() {
+    const e: Partial<Record<keyof FormData, string>> = {};
+    if (!form.fullName.trim()) e.fullName = "Full name is required";
+    if (!form.phone.trim()) e.phone = "Phone number is required";
+    else if (!/^[+\d\s\-()]{8,15}$/.test(form.phone)) e.phone = "Enter a valid phone number";
+    if (!form.email.trim()) e.email = "Email address is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
+
+  function validateStep2() {
+    const e: Partial<Record<keyof FormData, string>> = {};
+    if (!form.college.trim()) e.college = "College name is required";
+    if (!form.batchYear) e.batchYear = "Please select your batch year";
+    if (!form.programme) e.programme = "Please select your programme";
+    if (!form.domain) e.domain = "Please select a domain";
+    setErrors(e);
+    return Object.keys(e).length === 0;
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -122,8 +145,8 @@ export default function EnrollForm() {
               ))}
             </div>
             <div style={{ paddingTop: "28px", borderTop: "1px solid var(--border)" }}>
-              <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "6px" }}>Talk to us directly</div>
-              <a href="tel:+919876543210" className="serif" style={{ fontWeight: 700, fontSize: "1.25rem", color: "var(--gold)", textDecoration: "none" }}>+91 98765 43210</a>
+              <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "6px" }}>Call us (Mon–Sat, 10am–7pm)</div>
+              <a href="tel:+918686863183" className="serif" style={{ fontWeight: 700, fontSize: "1.25rem", color: "var(--gold)", textDecoration: "none" }}>+91 86868 63183</a>
             </div>
           </div>
 
@@ -161,22 +184,55 @@ export default function EnrollForm() {
                   {step === 1 && (
                     <>
                       <div className="field">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Aditya Kumar" required value={form.fullName} onChange={e => set("fullName", e.target.value)} />
+                        <label>Full Name <span style={{ color: "#F87171" }}>*</span></label>
+                        <input
+                          type="text"
+                          placeholder="Aditya Kumar"
+                          value={form.fullName}
+                          onChange={e => set("fullName", e.target.value)}
+                          style={{ borderColor: errors.fullName ? "#F87171" : undefined }}
+                        />
+                        {errors.fullName && (
+                          <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                            {errors.fullName}
+                          </span>
+                        )}
                       </div>
                       <div className="field">
-                        <label>Phone Number</label>
-                        <input type="tel" placeholder="+91 98765 43210" required value={form.phone} onChange={e => set("phone", e.target.value)} />
+                        <label>Phone Number <span style={{ color: "#F87171" }}>*</span></label>
+                        <input
+                          type="tel"
+                          placeholder="+91 98765 43210"
+                          value={form.phone}
+                          onChange={e => set("phone", e.target.value)}
+                          style={{ borderColor: errors.phone ? "#F87171" : undefined }}
+                        />
+                        {errors.phone && (
+                          <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                            {errors.phone}
+                          </span>
+                        )}
                       </div>
                       <div className="field">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="aditya@college.edu" required value={form.email} onChange={e => set("email", e.target.value)} />
+                        <label>Email Address <span style={{ color: "#F87171" }}>*</span></label>
+                        <input
+                          type="email"
+                          placeholder="aditya@college.edu"
+                          value={form.email}
+                          onChange={e => set("email", e.target.value)}
+                          style={{ borderColor: errors.email ? "#F87171" : undefined }}
+                        />
+                        {errors.email && (
+                          <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                            {errors.email}
+                          </span>
+                        )}
                       </div>
                       <button
                         type="button"
                         className="btn-primary"
                         style={{ width: "100%", justifyContent: "center" }}
-                        onClick={() => { if (form.fullName && form.phone && form.email) setStep(2); }}
+                        onClick={() => { if (validateStep1()) setStep(2); }}
                       >
                         Next →
                       </button>
@@ -186,31 +242,69 @@ export default function EnrollForm() {
                   {step === 2 && (
                     <>
                       <div className="field">
-                        <label>College / B-School</label>
-                        <input type="text" placeholder="IIM Indore" required value={form.college} onChange={e => set("college", e.target.value)} />
+                        <label>College / B-School <span style={{ color: "#F87171" }}>*</span></label>
+                        <input
+                          type="text"
+                          placeholder="IIM Indore"
+                          value={form.college}
+                          onChange={e => set("college", e.target.value)}
+                          style={{ borderColor: errors.college ? "#F87171" : undefined }}
+                        />
+                        {errors.college && (
+                          <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                            {errors.college}
+                          </span>
+                        )}
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                         <div className="field">
-                          <label>Batch Year</label>
-                          <select required value={form.batchYear} onChange={e => set("batchYear", e.target.value)}>
+                          <label>Batch Year <span style={{ color: "#F87171" }}>*</span></label>
+                          <select
+                            value={form.batchYear}
+                            onChange={e => set("batchYear", e.target.value)}
+                            style={{ borderColor: errors.batchYear ? "#F87171" : undefined }}
+                          >
                             <option value="">Select year</option>
                             {years.map(y => <option key={y}>{y}</option>)}
                           </select>
+                          {errors.batchYear && (
+                            <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                              {errors.batchYear}
+                            </span>
+                          )}
                         </div>
                         <div className="field">
-                          <label>Programme</label>
-                          <select required value={form.programme} onChange={e => set("programme", e.target.value)}>
+                          <label>Programme <span style={{ color: "#F87171" }}>*</span></label>
+                          <select
+                            value={form.programme}
+                            onChange={e => set("programme", e.target.value)}
+                            style={{ borderColor: errors.programme ? "#F87171" : undefined }}
+                          >
                             <option value="">Select</option>
                             {programmes.map(p => <option key={p}>{p}</option>)}
                           </select>
+                          {errors.programme && (
+                            <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                              {errors.programme}
+                            </span>
+                          )}
                         </div>
                       </div>
                       <div className="field">
-                        <label>Domain Interest</label>
-                        <select required value={form.domain} onChange={e => set("domain", e.target.value)}>
+                        <label>Domain Interest <span style={{ color: "#F87171" }}>*</span></label>
+                        <select
+                          value={form.domain}
+                          onChange={e => set("domain", e.target.value)}
+                          style={{ borderColor: errors.domain ? "#F87171" : undefined }}
+                        >
                           <option value="">Select domain</option>
                           {domains.map(d => <option key={d}>{d}</option>)}
                         </select>
+                        {errors.domain && (
+                          <span style={{ fontSize: "0.76rem", color: "#F87171", marginTop: "4px", display: "block" }}>
+                            {errors.domain}
+                          </span>
+                        )}
                       </div>
                       <div style={{ display: "flex", gap: "12px" }}>
                         <button
@@ -228,7 +322,7 @@ export default function EnrollForm() {
                           type="button"
                           className="btn-primary"
                           style={{ flex: 2, justifyContent: "center" }}
-                          onClick={() => { if (form.college && form.batchYear && form.programme && form.domain) setStep(3); }}
+                          onClick={() => { if (validateStep2()) setStep(3); }}
                         >
                           Next →
                         </button>
