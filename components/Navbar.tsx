@@ -7,15 +7,16 @@ const mbaLinks = [
   { label: "Courses", href: "#courses" },
   { label: "Mentors", href: "#mentors" },
   { label: "Testimonials", href: "#testimonials" },
-  { label: "Resources", href: "#resources" },
+  { label: "College Collab", href: "#college-collab" },
+  { label: "FAQs", href: "#faqs" },
 ];
 
 const catLinks = [
   { label: "CAT Strategy", href: "#cat-strategy" },
   { label: "Sections", href: "#cat-sections" },
+  { label: "Mocks", href: "#cat-mocks" },
   { label: "GDPI Prep", href: "#gdpi" },
-  { label: "B-School Guide", href: "#bschool" },
-  { label: "Mock Tests", href: "#mocks" },
+  { label: "Predictor", href: "#college-predictor" },
 ];
 
 type Mode = "mba" | "cat";
