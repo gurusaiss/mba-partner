@@ -11,7 +11,7 @@ const colleges = [
 
 export default function CollegeCollab() {
   return (
-    <section id="college-collab" style={{ padding: "96px 0", background: "var(--navy)" }}>
+    <section id="college-collab" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080E12 0%, #0A1016 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}

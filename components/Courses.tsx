@@ -202,7 +202,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
   };
 
   return (
-    <section id="courses" style={{ padding: "96px 0" }}>
+    <section id="courses" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080C10 0%, #0A0E14 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "40px" }}>
           <div className="section-label">Pricing</div>

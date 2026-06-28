@@ -46,7 +46,7 @@ export default function FAQs() {
   }
 
   return (
-    <section id="faqs" style={{ padding: "96px 0", background: "var(--card)" }}>
+    <section id="faqs" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0D0A1A 0%, #100C20 100%)" }}>
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}

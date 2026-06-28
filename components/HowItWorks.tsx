@@ -9,7 +9,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section style={{ padding: "96px 0", background: "var(--card)" }}>
+    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #0D0A1A 0%, #100C20 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">The Process</div>

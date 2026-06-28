@@ -95,7 +95,7 @@ export default function GroupOffer() {
   ];
 
   return (
-    <section id="group-offer" style={{ padding: "96px 0" }}>
+    <section id="group-offer" style={{ padding: "96px 0", background: "linear-gradient(180deg, #081210 0%, #0A1612 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Group Enrollment</div>

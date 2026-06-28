@@ -34,7 +34,7 @@ export default function VideoTestimonials() {
   return (
     <section
       id="video-testimonials"
-      style={{ padding: "96px 0", background: "var(--card)" }}
+      style={{ padding: "96px 0", background: "linear-gradient(180deg, #100814 0%, #0C0610 100%)" }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 

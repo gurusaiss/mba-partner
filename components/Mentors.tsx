@@ -29,7 +29,7 @@ export default function Mentors() {
   }
 
   return (
-    <section id="mentors" style={{ padding: "96px 0", background: "var(--card)" }}>
+    <section id="mentors" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0C1008 0%, #0E1410 100%)" }}>
       <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}

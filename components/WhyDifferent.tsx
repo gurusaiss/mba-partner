@@ -72,7 +72,7 @@ function CTAButton({ href, children, primary }: { href: string; children: React.
 
 export default function WhyDifferent() {
   return (
-    <section style={{ padding: "96px 0" }}>
+    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #0A0814 0%, #0D0A18 100%)" }}>
       <style>{`
         [data-theme="light"] .wd-table-card {
           background: #FFFFFF !important;

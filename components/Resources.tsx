@@ -11,7 +11,7 @@ const resources = [
 
 export default function Resources() {
   return (
-    <section id="resources" style={{ padding: "96px 0", background: "var(--card)" }}>
+    <section id="resources" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080E0A 0%, #0A1208 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Resource Repository</div>
