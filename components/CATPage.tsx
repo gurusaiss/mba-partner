@@ -238,7 +238,7 @@ export default function CATPage() {
         display: "flex",
         alignItems: "center",
       }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "80px 40px", width: "100%" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 40px", width: "100%" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "center" }}>
 
             <div>
@@ -313,7 +313,7 @@ export default function CATPage() {
 
       {/* ── Section-wise Strategy ── */}
       <section id="cat-sections" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "48px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -371,7 +371,7 @@ export default function CATPage() {
 
       {/* ── FREE SECTIONAL MOCKS ── */}
       <section id="cat-mocks" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "48px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -485,7 +485,7 @@ export default function CATPage() {
 
       {/* ── OMETs MOCKS ── */}
       <section id="omet-mocks" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -529,7 +529,7 @@ export default function CATPage() {
 
       {/* ── PERCENTILE CALCULATOR ── */}
       <section id="percentile-calc" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -646,7 +646,7 @@ export default function CATPage() {
 
       {/* ── COLLEGE PREDICTOR ── */}
       <section id="college-predictor" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -743,7 +743,7 @@ export default function CATPage() {
 
       {/* ── 6-Month Timeline ── */}
       <section id="cat-strategy" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -779,7 +779,7 @@ export default function CATPage() {
 
       {/* ── GDPI Prep ── */}
       <section id="gdpi" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -809,7 +809,7 @@ export default function CATPage() {
 
       {/* ── B-School Guide ── */}
       <section id="bschool" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -842,7 +842,7 @@ export default function CATPage() {
 
       {/* ── Mock Tests & Resources ── */}
       <section id="mocks" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -869,7 +869,7 @@ export default function CATPage() {
 
       {/* ── Free RC Material ── */}
       <section id="rc-material" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -928,7 +928,7 @@ export default function CATPage() {
 
       {/* ── AI Tools ── */}
       <section id="ai-tools" style={{ padding: "96px 0", background: "var(--card)" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div style={{ marginBottom: "56px" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
               <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
@@ -983,7 +983,7 @@ export default function CATPage() {
 
       {/* ── CTA ── */}
       <section id="cat-enroll" style={{ padding: "96px 0" }}>
-        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
           <div className="card" style={{ padding: "80px 60px", textAlign: "center", background: `linear-gradient(160deg, ${indigo} 0%, var(--card) 60%)`, border: `1px solid ${indigoBorder}` }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "24px", background: indigo, border: `1px solid ${indigoBorder}`, borderRadius: "100px", padding: "6px 14px" }}>
               Free CAT Counselling

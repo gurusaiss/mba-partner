@@ -36,7 +36,7 @@ export default function VideoTestimonials() {
       id="video-testimonials"
       style={{ padding: "96px 0", background: "var(--card)" }}
     >
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}
         <div style={{ marginBottom: "52px" }}>

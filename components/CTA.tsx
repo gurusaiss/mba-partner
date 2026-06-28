@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export default function CTA() {
   return (
     <section style={{ padding: "96px 0", background: "var(--card)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div className="card" style={{
           padding: "80px 60px", textAlign: "center",
           background: "linear-gradient(160deg, rgba(201,168,76,0.06) 0%, var(--card) 60%)",

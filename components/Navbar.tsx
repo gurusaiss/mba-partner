@@ -40,7 +40,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
       backdropFilter: "blur(18px)",
       borderBottom: solid ? "1px solid rgba(201,168,76,0.12)" : "1px solid transparent",
     }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
 
         {/* Logo */}
         <a href="#" onClick={() => { setMode("mba"); window.scrollTo(0,0); }} style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}>
@@ -114,7 +114,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
 
       {open && (
         <div style={{ background: "rgba(5,13,28,0.97)", backdropFilter: "blur(18px)", borderTop: "1px solid var(--border)" }}>
-          <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "20px 40px", display: "flex", flexDirection: "column", gap: "14px" }}>
+          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "20px 40px", display: "flex", flexDirection: "column", gap: "14px" }}>
             {links.map(l => (
               <a key={l.href} href={l.href} onClick={() => setOpen(false)}
                 style={{ fontSize: "1rem", fontWeight: 500, color: "var(--muted)", textDecoration: "none" }}>

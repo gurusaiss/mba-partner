@@ -9,7 +9,7 @@ export default function FreeMaterialBanner() {
 
   return (
     <div style={{ background: "linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.06))", borderBottom: "1px solid rgba(201,168,76,0.2)", padding: "14px 40px" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
 
         {/* Left: Label */}
         <span style={{ color: "var(--gold)", fontSize: "0.88rem", fontWeight: 500 }}>

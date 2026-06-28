@@ -12,7 +12,7 @@ const colleges = [
 export default function CollegeCollab() {
   return (
     <section id="college-collab" style={{ padding: "96px 0", background: "var(--navy)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}
         <div style={{ marginBottom: "56px" }}>

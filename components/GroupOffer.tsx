@@ -85,7 +85,7 @@ export default function GroupOffer() {
 
   return (
     <section id="group-offer" style={{ padding: "96px 0" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Group Enrollment</div>
           <h2 className="serif" style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "10px" }}>

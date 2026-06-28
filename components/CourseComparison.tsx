@@ -155,7 +155,7 @@ export default function CourseComparison({ selectedIds, courses, onRemove, onAdd
 
   return (
     <section id="course-compare" style={{ padding: "96px 0", background: "var(--card)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         {/* Header */}
         <div style={{ marginBottom: "48px" }}>
           <div className="section-label">Course Comparison</div>

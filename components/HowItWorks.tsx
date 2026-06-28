@@ -10,7 +10,7 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section style={{ padding: "96px 0", background: "var(--card)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">The Process</div>
           <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>

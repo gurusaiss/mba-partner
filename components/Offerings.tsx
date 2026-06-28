@@ -20,7 +20,7 @@ const items = [
 export default function Offerings() {
   return (
     <section id="offerings" style={{ padding: "96px 0" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Our Offerings</div>
           <h2 className="serif" style={{ fontSize: "clamp(2.4rem, 3.8vw, 3.2rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>

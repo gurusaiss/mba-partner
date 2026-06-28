@@ -24,7 +24,7 @@ const links = {
 export default function Footer() {
   return (
     <footer style={{ padding: "64px 0 40px", background: "var(--card)", borderTop: "1px solid var(--border)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr", gap: "40px", marginBottom: "48px" }}>
 
           <div>

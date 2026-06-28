@@ -81,7 +81,7 @@ function getInitials(name: string) {
 export default function Testimonials() {
   return (
     <section id="testimonials" style={{ padding: "96px 0" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}
         <div style={{ marginBottom: "48px" }}>

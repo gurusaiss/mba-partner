@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const stats = [
   { value: "5,000+", label: "Student Network" },
@@ -9,102 +9,147 @@ const stats = [
 ];
 
 const highlights = [
-  { icon: "🎯", text: "Live Projects across 6 domains" },
-  { icon: "🏆", text: "Case Competition coaching by AIR 1" },
-  { icon: "💼", text: "SIP & Final Placement Bootcamp" },
-  { icon: "📚", text: "5-year Placement Intelligence Repository" },
+  "Live Projects across 6 domains — real CV deliverables",
+  "Case Competition coaching by AIR 1, AIR 6, AIR 10",
+  "SIP & Final Placement Bootcamp — CV to offer",
+  "5-year Placement Intelligence Repository",
 ];
+
+const companies = ["McKinsey", "Goldman Sachs", "BCG", "Bain", "HUL", "Amazon", "Deloitte", "EY", "TAS", "Kearney", "L'Oreal", "Accenture"];
 
 export default function Hero() {
   return (
     <section id="home" style={{
       backgroundImage: `
-        radial-gradient(ellipse 85% 65% at 50% -5%, rgba(212,170,82,0.10) 0%, transparent 65%),
-        radial-gradient(ellipse 45% 50% at 85% 60%, rgba(99,102,241,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(212,170,82,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 55% at 90% 65%, rgba(99,102,241,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 5% 80%, rgba(14,40,80,0.4) 0%, transparent 60%),
         linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
         var(--navy)
       `,
-      backgroundSize: "100% 100%, 100% 100%, 64px 64px, 64px 64px, 100% 100%",
+      backgroundSize: "100% 100%, 100% 100%, 100% 100%, 64px 64px, 64px 64px, 100% 100%",
       minHeight: "100vh",
       display: "flex",
       alignItems: "center",
-      paddingTop: "72px",
+      paddingTop: "68px",
     }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "64px 40px", width: "100%" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "center" }}>
+      <div style={{ maxWidth: "1380px", margin: "0 auto", padding: "72px 48px", width: "100%" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "72px", alignItems: "center" }}>
 
+          {/* Left — copy */}
           <div>
-            <div className="section-label" style={{ marginBottom: "24px" }}>Founded by IIM Alumni</div>
+            <div className="section-label" style={{ marginBottom: "28px", fontSize: "0.72rem" }}>
+              Founded by IIM Alumni · 5,000+ Students
+            </div>
 
             <h1 className="serif" style={{
-              fontSize: "clamp(2.4rem, 3.8vw, 3.8rem)",
+              fontSize: "clamp(3rem, 5.2vw, 5.8rem)",
               fontWeight: 900,
-              lineHeight: 1.12,
-              letterSpacing: "-0.02em",
+              lineHeight: 1.08,
+              letterSpacing: "-0.025em",
               color: "var(--text)",
-              marginBottom: "20px",
+              marginBottom: "28px",
             }}>
-              The Mentorship Platform<br />
-              <span style={{ background: "linear-gradient(130deg, #EDD47A 0%, #D4AA52 40%, #C09038 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Serious MBA Students</span><br />
-              Rely On.
+              The Mentorship<br />Platform{" "}
+              <span style={{
+                background: "linear-gradient(128deg, #EDD47A 0%, #D4AA52 45%, #B8943C 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                display: "inline",
+              }}>
+                Serious<br />MBA Students
+              </span>{" "}Rely On.
             </h1>
 
-            <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.75, marginBottom: "36px", maxWidth: "420px" }}>
-              Live Projects. Case Competitions. Placement Prep. A curated Resource Repository.
+            <p style={{ color: "var(--muted)", fontSize: "1.12rem", lineHeight: 1.8, marginBottom: "40px", maxWidth: "520px" }}>
+              Live Projects. Case Competitions. Placement Prep. A curated five-year Resource Repository.
               All delivered by IIM alumni who have been exactly where you are.
             </p>
 
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
-              <a href="#courses" className="btn-primary pulse" data-animate="pulse">View Courses <ArrowRight size={15} /></a>
-              <a href="#enroll" className="btn-secondary">Free Enquiry</a>
+            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "52px" }}>
+              <a href="#courses" className="btn-primary pulse" data-animate="pulse" style={{ fontSize: "0.95rem", padding: "14px 32px" }}>
+                View Courses <ArrowRight size={16} />
+              </a>
+              <a href="#enroll" className="btn-secondary" style={{ fontSize: "0.95rem", padding: "14px 32px" }}>
+                Free Enquiry
+              </a>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {highlights.map(h => (
-                <div key={h.text} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <span style={{ fontSize: "1.1rem" }}>{h.icon}</span>
-                  <span style={{ fontSize: "0.95rem", color: "var(--muted)" }}>{h.text}</span>
+                <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+                  <CheckCircle2 size={17} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
+                  <span style={{ fontSize: "1rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {/* Right — stats + companies */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+
+            {/* Stats 2×2 */}
             <div style={{
-              display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px",
-              background: "var(--border)", borderRadius: "16px", overflow: "hidden",
-              border: "1px solid rgba(212,170,82,0.12)",
-              boxShadow: "0 0 40px rgba(212,170,82,0.04), inset 0 1px 0 rgba(212,170,82,0.05)",
+              display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px",
+              background: "rgba(212,170,82,0.08)",
+              borderRadius: "20px", overflow: "hidden",
+              border: "1px solid rgba(212,170,82,0.18)",
+              boxShadow: "0 0 50px rgba(212,170,82,0.06), inset 0 1px 0 rgba(212,170,82,0.10)",
             }}>
-              {stats.map(s => (
+              {stats.map((s, i) => (
                 <div key={s.label} style={{
-                  background: "linear-gradient(160deg, #0E1D38 0%, #0B1628 100%)",
-                  padding: "28px 24px",
+                  background: i % 2 === 0
+                    ? "linear-gradient(160deg, #0F1F3A 0%, #0C1830 100%)"
+                    : "linear-gradient(160deg, #0D1B34 0%, #0A1628 100%)",
+                  padding: "32px 28px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
-                  gap: "6px",
+                  gap: "8px",
                 }}>
-                  <div className="stat-num" style={{ fontSize: "2.3rem", borderBottom: "2px solid var(--gold)", paddingBottom: "6px" }}>{s.value}</div>
-                  <div style={{ fontSize: "0.78rem", color: "var(--muted)", letterSpacing: "0.04em" }}>{s.label}</div>
+                  <div className="stat-num" style={{
+                    fontSize: "2.8rem",
+                    paddingBottom: "8px",
+                    borderBottom: "2px solid rgba(212,170,82,0.6)",
+                    lineHeight: 1,
+                  }}>{s.value}</div>
+                  <div style={{ fontSize: "0.84rem", color: "var(--muted)", letterSpacing: "0.04em", fontWeight: 500 }}>{s.label}</div>
                 </div>
               ))}
             </div>
 
-            <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px" }}>
-              <div style={{ fontSize: "0.72rem", color: "var(--gold)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "14px" }}>
-                Students placed at
+            {/* Placed at card */}
+            <div style={{
+              background: "linear-gradient(155deg, #0E1D36 0%, #0B1628 100%)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              borderRadius: "18px",
+              padding: "28px",
+            }}>
+              <div style={{ fontSize: "0.7rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "18px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ display: "inline-block", width: "20px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
+                Students Placed At
+                <span style={{ display: "inline-block", width: "20px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {["McKinsey", "Goldman Sachs", "BCG", "Bain", "HUL", "Amazon", "Deloitte", "EY", "TAS", "Kearney", "L'Oreal"].map(c => (
-                  <span key={c} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.11)", borderRadius: "6px", padding: "4px 10px", fontSize: "0.78rem", color: "var(--text)", fontWeight: 500 }}>{c}</span>
+                {companies.map(c => (
+                  <span key={c} style={{
+                    background: "rgba(255,255,255,0.055)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    borderRadius: "8px",
+                    padding: "6px 14px",
+                    fontSize: "0.85rem",
+                    color: "var(--text)",
+                    fontWeight: 500,
+                    letterSpacing: "0.01em",
+                  }}>{c}</span>
                 ))}
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>
