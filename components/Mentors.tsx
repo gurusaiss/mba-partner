@@ -30,7 +30,7 @@ export default function Mentors() {
 
   return (
     <section id="mentors" style={{ padding: "96px 0", background: "var(--card)" }}>
-      <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
         <div style={{ marginBottom: "56px" }}>
@@ -46,15 +46,15 @@ export default function Mentors() {
         {/* Mentor Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {mentors.map((m, i) => (
-            <div key={i} className="card" style={{ padding: "24px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.85rem", flexShrink: 0, background: m.bg, color: m.color, border: `1px solid ${m.color}33` }}>
+            <div key={i} className="card" style={{ padding: "28px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
+              <div style={{ width: "54px", height: "54px", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.95rem", flexShrink: 0, background: m.bg, color: m.color, border: `1px solid ${m.color}40` }}>
                 {m.initials}
               </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "var(--text)", marginBottom: "2px" }}>{m.name}</div>
-                <div style={{ fontSize: "0.82rem", color: "var(--gold)", marginBottom: "4px" }}>{m.school}</div>
-                <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "12px" }}>{m.company}</div>
-                <span className="tag" style={{ fontSize: "0.65rem" }}>{m.domain}</span>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)", marginBottom: "3px" }}>{m.name}</div>
+                <div style={{ fontSize: "0.88rem", color: "var(--gold)", marginBottom: "4px", fontWeight: 500 }}>{m.school}</div>
+                <div style={{ fontSize: "0.88rem", color: "var(--muted)", marginBottom: "14px" }}>{m.company}</div>
+                <span className="tag" style={{ fontSize: "0.75rem", padding: "5px 12px" }}>{m.domain}</span>
               </div>
             </div>
           ))}
