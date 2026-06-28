@@ -1,5 +1,54 @@
 "use client";
+import { useRef, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+
+function CountUpStat({ raw, label }: { raw: string; label: string }) {
+  const [display, setDisplay] = useState("0");
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const m = raw.match(/^([\d,]+\.?\d*)(.*)/);
+    if (!m) { setDisplay(raw); return; }
+    const target = parseFloat(m[1].replace(/,/g, ""));
+    const suffix = m[2];
+    const isDecimal = m[1].includes(".");
+    const hasComma = target >= 1000;
+    const duration = 1800;
+
+    let started = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started) {
+        started = true;
+        const t0 = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - t0) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const v = eased * target;
+          const formatted = isDecimal ? v.toFixed(1) : hasComma ? Math.round(v).toLocaleString() : Math.round(v).toString();
+          setDisplay(formatted + suffix);
+          if (p < 1) requestAnimationFrame(tick);
+          else setDisplay(raw);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [raw]);
+
+  return (
+    <div ref={ref} style={{ display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center", gap:"8px",
+      padding:"32px 28px",
+      background: "linear-gradient(160deg,#0F1F3A 0%,#0C1830 100%)" }}>
+      <div className="stat-num" style={{ fontSize:"2.8rem", paddingBottom:"8px", borderBottom:"2px solid rgba(212,170,82,0.6)", lineHeight:1 }}>
+        {display}
+      </div>
+      <div style={{ fontSize:"0.84rem", color:"var(--muted)", letterSpacing:"0.04em", fontWeight:500 }}>{label}</div>
+    </div>
+  );
+}
 
 const stats = [
   { value: "5,000+", label: "Student Network" },
@@ -98,27 +147,7 @@ export default function Hero() {
               border: "1px solid rgba(212,170,82,0.18)",
               boxShadow: "0 0 50px rgba(212,170,82,0.06), inset 0 1px 0 rgba(212,170,82,0.10)",
             }}>
-              {stats.map((s, i) => (
-                <div key={s.label} style={{
-                  background: i % 2 === 0
-                    ? "linear-gradient(160deg, #0F1F3A 0%, #0C1830 100%)"
-                    : "linear-gradient(160deg, #0D1B34 0%, #0A1628 100%)",
-                  padding: "32px 28px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  gap: "8px",
-                }}>
-                  <div className="stat-num" style={{
-                    fontSize: "2.8rem",
-                    paddingBottom: "8px",
-                    borderBottom: "2px solid rgba(212,170,82,0.6)",
-                    lineHeight: 1,
-                  }}>{s.value}</div>
-                  <div style={{ fontSize: "0.84rem", color: "var(--muted)", letterSpacing: "0.04em", fontWeight: 500 }}>{s.label}</div>
-                </div>
-              ))}
+              {stats.map(s => <CountUpStat key={s.label} raw={s.value} label={s.label} />)}
             </div>
 
             {/* Placed at card */}

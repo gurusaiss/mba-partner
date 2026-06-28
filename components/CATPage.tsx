@@ -175,6 +175,7 @@ export default function CATPage() {
   const [cpAcademic, setCpAcademic] = useState("Strong (85%+ throughout)");
   const [cpBackground, setCpBackground] = useState("Engineering");
   const [cpResults, setCpResults] = useState<null | { name: string; adjCutoff: number; status: "likely" | "borderline" | "reach" }[]>(null);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   function runPredictor() {
     if (cpPct === "") return;
@@ -435,51 +436,68 @@ export default function CATPage() {
             ))}
           </div>
 
-          {/* Leaderboard */}
-          <div style={{ background: "var(--card2)", border: `1px solid ${indigoBorder}`, borderRadius: "16px", padding: "32px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
-              <div>
-                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--text)", marginBottom: "4px" }}>
-                  Leaderboard — VARC Mock 1
-                </h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--muted)" }}>Your score will appear here after you attempt the mock.</p>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
+            <button
+              onClick={() => setShowLeaderboard(p => !p)}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "10px 24px", borderRadius: "10px", cursor: "pointer",
+                background: showLeaderboard ? "rgba(99,102,241,0.12)" : "transparent",
+                border: `1px solid ${showLeaderboard ? "rgba(99,102,241,0.4)" : indigoBorder}`,
+                color: indigoText, fontSize: "0.88rem", fontWeight: 600,
+                transition: "all 0.2s", fontFamily: "Inter, system-ui, sans-serif"
+              }}
+            >
+              {showLeaderboard ? "▲ Hide Leaderboard" : "🏆 View Leaderboard"}
+            </button>
+          </div>
+
+          {showLeaderboard && (
+            <div style={{ background: "var(--card2)", border: `1px solid ${indigoBorder}`, borderRadius: "16px", padding: "32px", marginTop: "20px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
+                <div>
+                  <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--text)", marginBottom: "4px" }}>
+                    Leaderboard — VARC Mock 1
+                  </h3>
+                  <p style={{ fontSize: "0.85rem", color: "var(--muted)" }}>Your score will appear here after you attempt the mock.</p>
+                </div>
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <thead>
+                    <tr style={{ background: indigo }}>
+                      {["Rank", "Name", "Score", "Percentile"].map(h => (
+                        <th key={h} style={{ padding: "10px 16px", textAlign: "left", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: indigoText }}>
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leaderboardData.map((row, i) => (
+                      <tr key={row.rank} style={{ borderTop: "1px solid var(--border)", background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.01)" }}>
+                        <td style={{ padding: "12px 16px" }}>
+                          <div className="serif" style={{ fontWeight: 900, fontSize: "1.1rem", color: row.rank === 1 ? "#C9A84C" : row.rank === 2 ? "#9ca3af" : row.rank === 3 ? "#b45309" : "var(--muted)" }}>
+                            #{row.rank}
+                          </div>
+                        </td>
+                        <td style={{ padding: "12px 16px", fontSize: "0.9rem", color: "var(--text)", fontWeight: 500 }}>{row.name}</td>
+                        <td style={{ padding: "12px 16px", fontSize: "0.9rem", color: "var(--muted)" }}>{row.score}</td>
+                        <td style={{ padding: "12px 16px" }}>
+                          <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#4ade80" }}>{row.percentile}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ marginTop: "20px", display: "flex", justifyContent: "flex-end" }}>
+                <button disabled style={{ padding: "9px 20px", borderRadius: "8px", border: "1px solid var(--border)", background: "transparent", color: "var(--dim)", fontSize: "0.85rem", fontWeight: 600, cursor: "not-allowed", fontFamily: "Inter, system-ui, sans-serif" }}>
+                  View Full Leaderboard → (Coming Soon)
+                </button>
               </div>
             </div>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <thead>
-                  <tr style={{ background: indigo }}>
-                    {["Rank", "Name", "Score", "Percentile"].map(h => (
-                      <th key={h} style={{ padding: "10px 16px", textAlign: "left", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: indigoText }}>
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {leaderboardData.map((row, i) => (
-                    <tr key={row.rank} style={{ borderTop: "1px solid var(--border)", background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.01)" }}>
-                      <td style={{ padding: "12px 16px" }}>
-                        <div className="serif" style={{ fontWeight: 900, fontSize: "1.1rem", color: row.rank === 1 ? "#C9A84C" : row.rank === 2 ? "#9ca3af" : row.rank === 3 ? "#b45309" : "var(--muted)" }}>
-                          #{row.rank}
-                        </div>
-                      </td>
-                      <td style={{ padding: "12px 16px", fontSize: "0.9rem", color: "var(--text)", fontWeight: 500 }}>{row.name}</td>
-                      <td style={{ padding: "12px 16px", fontSize: "0.9rem", color: "var(--muted)" }}>{row.score}</td>
-                      <td style={{ padding: "12px 16px" }}>
-                        <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#4ade80" }}>{row.percentile}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div style={{ marginTop: "20px", display: "flex", justifyContent: "flex-end" }}>
-              <button disabled style={{ padding: "9px 20px", borderRadius: "8px", border: "1px solid var(--border)", background: "transparent", color: "var(--dim)", fontSize: "0.85rem", fontWeight: 600, cursor: "not-allowed", fontFamily: "Inter, system-ui, sans-serif" }}>
-                View Full Leaderboard → (Coming Soon)
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 

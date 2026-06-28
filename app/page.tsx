@@ -21,6 +21,7 @@ import ChatBot from "@/components/ChatBot";
 import Footer from "@/components/Footer";
 import CATPage from "@/components/CATPage";
 import ModeSelector from "@/components/ModeSelector";
+import Ticker from "@/components/Ticker";
 
 type Mode = "mba" | "cat";
 
@@ -57,6 +58,7 @@ export default function Home() {
             <>
               <FreeMaterialBanner />
               <Hero />
+              <Ticker />
               <Offerings />
               <HowItWorks />
               <Courses
