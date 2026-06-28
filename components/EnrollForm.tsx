@@ -5,13 +5,100 @@ const domains = ["Consulting", "Finance", "Marketing", "Human Resources", "Opera
 const programmes = ["MBA", "PGDM", "Executive MBA", "Other"];
 const years = ["2024", "2025", "2026", "2027"];
 
+const STEPS = [
+  { number: 1, title: "Contact Info" },
+  { number: 2, title: "Your Program" },
+  { number: 3, title: "Your Goal" },
+];
+
+const STEP_META: Record<number, { heading: string; subtitle: string }> = {
+  1: { heading: "Your Contact Details", subtitle: "We'll use this to get in touch with you." },
+  2: { heading: "Your Academic Profile", subtitle: "Tell us about your program and interests." },
+  3: { heading: "Your Placement Goal", subtitle: "Anything specific you'd like us to know?" },
+};
+
+interface FormData {
+  fullName: string;
+  phone: string;
+  email: string;
+  college: string;
+  batchYear: string;
+  programme: string;
+  domain: string;
+  message: string;
+}
+
+const EMPTY: FormData = {
+  fullName: "", phone: "", email: "",
+  college: "", batchYear: "", programme: "", domain: "",
+  message: "",
+};
+
+function StepBar({ step, current }: { step: { number: number; title: string }; current: number }) {
+  const state = step.number < current ? "done" : step.number === current ? "active" : "pending";
+
+  const barStyle: React.CSSProperties = {
+    height: "3px",
+    borderRadius: "2px",
+    marginBottom: "10px",
+    background:
+      state === "active"
+        ? "linear-gradient(90deg, #D4AA52, #EDD47A)"
+        : state === "done"
+        ? "rgba(212,170,82,0.45)"
+        : "rgba(255,255,255,0.08)",
+  };
+
+  const circleStyle: React.CSSProperties = {
+    width: "28px",
+    height: "28px",
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "0.78rem",
+    fontWeight: 700,
+    flexShrink: 0,
+    marginBottom: "8px",
+    ...(state === "active"
+      ? { background: "rgba(212,170,82,0.12)", border: "1.5px solid rgba(212,170,82,0.5)", color: "var(--gold)" }
+      : state === "done"
+      ? { background: "rgba(212,170,82,0.2)", border: "1.5px solid rgba(212,170,82,0.6)", color: "var(--gold)" }
+      : { background: "transparent", border: "1.5px solid var(--border)", color: "var(--dim)" }),
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontSize: "0.72rem",
+    fontWeight: 600,
+    letterSpacing: "0.03em",
+    color: state === "pending" ? "var(--dim)" : "var(--gold)",
+    whiteSpace: "nowrap",
+  };
+
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+      <div style={barStyle} />
+      <div style={circleStyle}>{state === "done" ? "✓" : step.number}</div>
+      <div style={labelStyle}>{step.title}</div>
+    </div>
+  );
+}
+
 export default function EnrollForm() {
+  const [step, setStep] = useState(1);
+  const [form, setForm] = useState<FormData>(EMPTY);
   const [sent, setSent] = useState(false);
+
+  function set(field: keyof FormData, value: string) {
+    setForm(prev => ({ ...prev, [field]: value }));
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSent(true);
   }
+
+  const meta = STEP_META[step];
 
   return (
     <section id="enroll" style={{ padding: "96px 0" }}>
@@ -40,41 +127,162 @@ export default function EnrollForm() {
             </div>
           </div>
 
-          <div className="card" style={{ padding: "36px" }}>
+          <div className="card" style={{ padding: "40px" }}>
             {sent ? (
-              <div style={{ textAlign: "center", padding: "40px 0" }}>
-                <div style={{ fontSize: "2.5rem", marginBottom: "16px" }}>✓</div>
-                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.4rem", color: "var(--text)", marginBottom: "12px" }}>Enquiry Received</h3>
-                <p style={{ fontSize: "1rem", color: "var(--muted)" }}>We will contact you within 24 hours with a personalised recommendation. Check your inbox and WhatsApp.</p>
+              <div style={{ textAlign: "center", padding: "48px 0" }}>
+                <div style={{
+                  width: "64px", height: "64px", borderRadius: "50%",
+                  background: "rgba(212,170,82,0.12)", border: "2px solid rgba(212,170,82,0.5)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  margin: "0 auto 24px",
+                  fontSize: "1.8rem", color: "var(--gold)",
+                }}>✓</div>
+                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.6rem", color: "var(--text)", marginBottom: "14px", letterSpacing: "-0.02em" }}>
+                  Enquiry Received
+                </h3>
+                <p style={{ fontSize: "1rem", color: "var(--muted)", lineHeight: 1.7, maxWidth: "340px", margin: "0 auto" }}>
+                  We will contact you within 24 hours with a personalised recommendation. Check your inbox and WhatsApp.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div className="field"><label>Full Name</label><input type="text" placeholder="Aditya Kumar" required /></div>
-                  <div className="field"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" required /></div>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+
+                <div style={{ display: "flex", gap: "0" }}>
+                  {STEPS.map(s => <StepBar key={s.number} step={s} current={step} />)}
                 </div>
-                <div className="field"><label>Email Address</label><input type="email" placeholder="aditya@college.edu" required /></div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div className="field"><label>College / B-School</label><input type="text" placeholder="IIM Indore" required /></div>
-                  <div className="field"><label>Batch Year</label>
-                    <select required><option value="">Select year</option>{years.map(y => <option key={y}>{y}</option>)}</select>
-                  </div>
+
+                <div>
+                  <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.25rem", color: "var(--text)", marginBottom: "4px" }}>{meta.heading}</h3>
+                  <p style={{ fontSize: "0.9rem", color: "var(--muted)" }}>{meta.subtitle}</p>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div className="field"><label>Programme</label>
-                    <select required><option value="">Select</option>{programmes.map(p => <option key={p}>{p}</option>)}</select>
-                  </div>
-                  <div className="field"><label>Domain Interest</label>
-                    <select required><option value="">Select domain</option>{domains.map(d => <option key={d}>{d}</option>)}</select>
-                  </div>
+
+                <div key={step} style={{ display: "flex", flexDirection: "column", gap: "16px", animation: "fadeIn 0.18s ease" }}>
+
+                  {step === 1 && (
+                    <>
+                      <div className="field">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Aditya Kumar" required value={form.fullName} onChange={e => set("fullName", e.target.value)} />
+                      </div>
+                      <div className="field">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="+91 98765 43210" required value={form.phone} onChange={e => set("phone", e.target.value)} />
+                      </div>
+                      <div className="field">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="aditya@college.edu" required value={form.email} onChange={e => set("email", e.target.value)} />
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        style={{ width: "100%", justifyContent: "center" }}
+                        onClick={() => { if (form.fullName && form.phone && form.email) setStep(2); }}
+                      >
+                        Next →
+                      </button>
+                    </>
+                  )}
+
+                  {step === 2 && (
+                    <>
+                      <div className="field">
+                        <label>College / B-School</label>
+                        <input type="text" placeholder="IIM Indore" required value={form.college} onChange={e => set("college", e.target.value)} />
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                        <div className="field">
+                          <label>Batch Year</label>
+                          <select required value={form.batchYear} onChange={e => set("batchYear", e.target.value)}>
+                            <option value="">Select year</option>
+                            {years.map(y => <option key={y}>{y}</option>)}
+                          </select>
+                        </div>
+                        <div className="field">
+                          <label>Programme</label>
+                          <select required value={form.programme} onChange={e => set("programme", e.target.value)}>
+                            <option value="">Select</option>
+                            {programmes.map(p => <option key={p}>{p}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="field">
+                        <label>Domain Interest</label>
+                        <select required value={form.domain} onChange={e => set("domain", e.target.value)}>
+                          <option value="">Select domain</option>
+                          {domains.map(d => <option key={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div style={{ display: "flex", gap: "12px" }}>
+                        <button
+                          type="button"
+                          style={{
+                            flex: 1, padding: "12px", borderRadius: "8px",
+                            background: "transparent", border: "1.5px solid var(--border)",
+                            color: "var(--muted)", fontSize: "0.95rem", cursor: "pointer",
+                          }}
+                          onClick={() => setStep(1)}
+                        >
+                          ← Back
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-primary"
+                          style={{ flex: 2, justifyContent: "center" }}
+                          onClick={() => { if (form.college && form.batchYear && form.programme && form.domain) setStep(3); }}
+                        >
+                          Next →
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {step === 3 && (
+                    <>
+                      <div className="field">
+                        <label>Message <span style={{ color: "var(--dim)", fontWeight: 400 }}>(optional)</span></label>
+                        <textarea
+                          rows={4}
+                          placeholder="Tell us about your placement goal or timeline..."
+                          value={form.message}
+                          onChange={e => set("message", e.target.value)}
+                        />
+                      </div>
+                      <p style={{ fontSize: "0.8rem", color: "var(--dim)", marginTop: "-8px" }}>
+                        We respond within 24 hours. No spam, ever.
+                      </p>
+                      <div style={{ display: "flex", gap: "12px" }}>
+                        <button
+                          type="button"
+                          style={{
+                            flex: 1, padding: "12px", borderRadius: "8px",
+                            background: "transparent", border: "1.5px solid var(--border)",
+                            color: "var(--muted)", fontSize: "0.95rem", cursor: "pointer",
+                          }}
+                          onClick={() => setStep(2)}
+                        >
+                          ← Back
+                        </button>
+                        <button type="submit" className="btn-primary" style={{ flex: 2, justifyContent: "center" }}>
+                          Submit Enquiry →
+                        </button>
+                      </div>
+                    </>
+                  )}
+
                 </div>
-                <div className="field"><label>Message (optional)</label><textarea rows={3} placeholder="Tell us about your placement goal or timeline..." /></div>
-                <button type="submit" className="btn-primary" style={{ width: "100%", justifyContent: "center" }}>Submit Enquiry</button>
               </form>
             )}
           </div>
+
         </div>
       </div>
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }

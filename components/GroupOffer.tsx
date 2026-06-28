@@ -86,7 +86,6 @@ export default function GroupOffer() {
   return (
     <section id="group-offer" style={{ padding: "96px 0" }}>
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
-        {/* Header */}
         <div style={{ marginBottom: "56px" }}>
           <div className="section-label">Group Enrollment</div>
           <h2 className="serif" style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "10px" }}>
@@ -97,7 +96,6 @@ export default function GroupOffer() {
           </p>
         </div>
 
-        {/* Tier cards */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px", marginBottom: "56px" }}>
           {tierCards.map(tier => (
             <div
@@ -124,7 +122,6 @@ export default function GroupOffer() {
           ))}
         </div>
 
-        {/* Discount table */}
         <div style={{ marginBottom: "64px", overflowX: "auto" }}>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text)", marginBottom: "20px" }}>
             Course-Specific Discounts
@@ -172,8 +169,7 @@ export default function GroupOffer() {
           </table>
         </div>
 
-        {/* Enrollment form */}
-        <div style={{ maxWidth: "680px" }}>
+        <div style={{ maxWidth: "720px" }}>
           <h3 className="serif" style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--text)", marginBottom: "8px" }}>
             Group Enrollment Form
           </h3>
@@ -183,87 +179,111 @@ export default function GroupOffer() {
 
           {sent ? (
             <div style={{
-              background: "rgba(74,222,128,0.08)",
-              border: "1px solid rgba(74,222,128,0.25)",
-              borderRadius: "14px",
-              padding: "32px",
+              background: "rgba(74,222,128,0.06)",
+              border: "1px solid rgba(74,222,128,0.22)",
+              borderRadius: "16px",
+              padding: "40px",
               textAlign: "center"
             }}>
-              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>✅</div>
-              <p style={{ color: "#4ade80", fontWeight: 600, fontSize: "1rem" }}>
-                Group enrollment request sent! We&apos;ll contact both of you within 24 hours with a discounted payment link.
+              <div style={{ fontSize: "2.4rem", marginBottom: "16px" }}>✅</div>
+              <p style={{ color: "#4ade80", fontWeight: 700, fontSize: "1.05rem", marginBottom: "8px" }}>
+                Group enrollment request sent!
+              </p>
+              <p style={{ color: "var(--muted)", fontSize: "0.92rem" }}>
+                We&apos;ll contact both of you within 24 hours with a discounted payment link.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              {/* Row 1: Student 1 */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
-                    Student 1 — Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Full name"
-                    value={form.s1Name}
-                    onChange={set("s1Name")}
-                    className="field"
-                    style={{ width: "100%" }}
-                  />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+                <div style={{ border: "1px solid rgba(212,170,82,0.2)", borderRadius: "14px", overflow: "hidden" }}>
+                  <div style={{
+                    background: "rgba(212,170,82,0.10)",
+                    borderBottom: "1px solid rgba(212,170,82,0.18)",
+                    padding: "12px 20px"
+                  }}>
+                    <span style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.09em", color: "var(--gold)" }}>
+                      Student 1
+                    </span>
+                  </div>
+                  <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "14px" }}>
+                    <div className="field">
+                      <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Full name"
+                        value={form.s1Name}
+                        onChange={set("s1Name")}
+                        className="field"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                    <div className="field">
+                      <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="email@example.com"
+                        value={form.s1Email}
+                        onChange={set("s1Email")}
+                        className="field"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
-                    Student 1 — Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="email@example.com"
-                    value={form.s1Email}
-                    onChange={set("s1Email")}
-                    className="field"
-                    style={{ width: "100%" }}
-                  />
+
+                <div style={{ border: "1px solid rgba(99,102,241,0.2)", borderRadius: "14px", overflow: "hidden" }}>
+                  <div style={{
+                    background: "rgba(99,102,241,0.10)",
+                    borderBottom: "1px solid rgba(99,102,241,0.18)",
+                    padding: "12px 20px"
+                  }}>
+                    <span style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.09em", color: "#a5b4fc" }}>
+                      Student 2
+                    </span>
+                  </div>
+                  <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "14px" }}>
+                    <div className="field">
+                      <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Full name"
+                        value={form.s2Name}
+                        onChange={set("s2Name")}
+                        className="field"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                    <div className="field">
+                      <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="email@example.com"
+                        value={form.s2Email}
+                        onChange={set("s2Email")}
+                        className="field"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Row 2: Student 2 */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
-                    Student 2 — Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Full name"
-                    value={form.s2Name}
-                    onChange={set("s2Name")}
-                    className="field"
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
-                    Student 2 — Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="email@example.com"
-                    value={form.s2Email}
-                    onChange={set("s2Email")}
-                    className="field"
-                    style={{ width: "100%" }}
-                  />
-                </div>
-              </div>
-
-              {/* Row 3: Course + Group Size */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                  <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
                     Course
                   </label>
                   <select
@@ -278,7 +298,7 @@ export default function GroupOffer() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                  <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
                     Group Size
                   </label>
                   <select
@@ -294,9 +314,8 @@ export default function GroupOffer() {
                 </div>
               </div>
 
-              {/* Row 4: Message */}
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", color: "var(--muted)", marginBottom: "6px", fontWeight: 600 }}>
                   Message <span style={{ fontWeight: 400 }}>(optional)</span>
                 </label>
                 <textarea
