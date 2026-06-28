@@ -41,11 +41,11 @@ function CountUpStat({ raw, label }: { raw: string; label: string }) {
   return (
     <div ref={ref} style={{ display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center", gap:"8px",
       padding:"32px 28px",
-      background: "linear-gradient(160deg,#0F1F3A 0%,#0C1830 100%)" }}>
-      <div className="stat-num" style={{ fontSize:"2.8rem", paddingBottom:"8px", borderBottom:"2px solid rgba(212,170,82,0.6)", lineHeight:1 }}>
+      background: "linear-gradient(160deg, #131420 0%, #0F1018 100%)" }}>
+      <div className="stat-num" style={{ fontSize:"3.2rem", paddingBottom:"8px", borderBottom:"2px solid rgba(240,170,0,0.6)", lineHeight:1 }}>
         {display}
       </div>
-      <div style={{ fontSize:"0.84rem", color:"var(--muted)", letterSpacing:"0.04em", fontWeight:500 }}>{label}</div>
+      <div style={{ fontSize:"0.92rem", color:"var(--muted)", letterSpacing:"0.04em", fontWeight:600 }}>{label}</div>
     </div>
   );
 }
@@ -70,9 +70,9 @@ export default function Hero() {
   return (
     <section id="home" style={{
       backgroundImage: `
-        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(212,170,82,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(240,170,0,0.09) 0%, transparent 60%),
         radial-gradient(ellipse 50% 55% at 90% 65%, rgba(99,102,241,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 40% at 5% 80%, rgba(14,40,80,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 5% 80%, rgba(240,170,0,0.05) 0%, transparent 60%),
         linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
         var(--navy)
@@ -93,7 +93,7 @@ export default function Hero() {
             </div>
 
             <h1 className="serif" style={{
-              fontSize: "clamp(3rem, 5.2vw, 5.8rem)",
+              fontSize: "clamp(3.5rem, 5.8vw, 6.8rem)",
               fontWeight: 900,
               lineHeight: 1.08,
               letterSpacing: "-0.025em",
@@ -129,8 +129,8 @@ export default function Hero() {
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {highlights.map(h => (
                 <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <CheckCircle2 size={17} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
-                  <span style={{ fontSize: "1rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
+                  <CheckCircle2 size={19} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
+                  <span style={{ fontSize: "1.15rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
                 </div>
               ))}
             </div>
@@ -142,10 +142,10 @@ export default function Hero() {
             {/* Stats 2×2 */}
             <div style={{
               display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px",
-              background: "rgba(212,170,82,0.08)",
+              background: "rgba(240,170,0,0.08)",
               borderRadius: "20px", overflow: "hidden",
-              border: "1px solid rgba(212,170,82,0.18)",
-              boxShadow: "0 0 50px rgba(212,170,82,0.06), inset 0 1px 0 rgba(212,170,82,0.10)",
+              border: "1px solid rgba(240,170,0,0.18)",
+              boxShadow: "0 0 50px rgba(240,170,0,0.06), inset 0 1px 0 rgba(240,170,0,0.10)",
             }}>
               {stats.map(s => <CountUpStat key={s.label} raw={s.value} label={s.label} />)}
             </div>
@@ -168,8 +168,8 @@ export default function Hero() {
                     background: "rgba(255,255,255,0.055)",
                     border: "1px solid rgba(255,255,255,0.12)",
                     borderRadius: "8px",
-                    padding: "6px 14px",
-                    fontSize: "0.85rem",
+                    padding: "8px 16px",
+                    fontSize: "0.92rem",
                     color: "var(--text)",
                     fontWeight: 500,
                     letterSpacing: "0.01em",

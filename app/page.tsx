@@ -22,6 +22,10 @@ import Footer from "@/components/Footer";
 import CATPage from "@/components/CATPage";
 import ModeSelector from "@/components/ModeSelector";
 import Ticker from "@/components/Ticker";
+import HiringCompanies from "@/components/HiringCompanies";
+import WallOfFame from "@/components/WallOfFame";
+import WhyDifferent from "@/components/WhyDifferent";
+import SocialProofToast from "@/components/SocialProofToast";
 
 type Mode = "mba" | "cat";
 
@@ -59,7 +63,9 @@ export default function Home() {
               <FreeMaterialBanner />
               <Hero />
               <Ticker />
+              <HiringCompanies />
               <Offerings />
+              <WhyDifferent />
               <HowItWorks />
               <Courses
                 comparedIds={comparedIds}
@@ -72,6 +78,7 @@ export default function Home() {
                 onAdd={scrollToCourses}
               />
               <GroupOffer />
+              <WallOfFame />
               <Mentors />
               <Testimonials />
               <VideoTestimonials />
@@ -85,6 +92,7 @@ export default function Home() {
             <CATPage />
           )}
           <Footer />
+          <SocialProofToast />
           <ChatBot />
         </>
       )}
