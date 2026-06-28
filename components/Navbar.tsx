@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, LayoutDashboard, LogOut, Sun, Moon } from "lucide-react";
 import AuthModal from "./AuthModal";
 
 const mbaLinks = [
@@ -25,6 +25,7 @@ type Mode = "mba" | "cat";
 export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mode) => void }) {
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [showAuth, setShowAuth] = useState(false);
   const [authTab, setAuthTab] = useState<"login" | "signup">("login");
@@ -41,6 +42,8 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
     try {
       const s = localStorage.getItem("mp_session");
       if (s) setUser(JSON.parse(s));
+      const t = localStorage.getItem("mp_theme") as "dark" | "light" | null;
+      if (t) setTheme(t);
     } catch { /* */ }
   }, []);
 
@@ -54,6 +57,13 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
     return () => document.removeEventListener("mousedown", handleClick);
   }, [userMenuOpen]);
 
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    localStorage.setItem("mp_theme", next);
+    document.documentElement.setAttribute("data-theme", next);
+  }
+
   function handleLogout() {
     localStorage.removeItem("mp_session");
     setUser(null);
@@ -63,16 +73,23 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
 
   const links = mode === "mba" ? mbaLinks : catLinks;
   const initials = user ? user.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() : "";
+  const isLight = theme === "light";
+
+  const linkHoverColor = mode === "cat" ? "#a5b4fc" : (isLight ? "var(--gold)" : "var(--gold2)");
+  const dropdownBg = isLight ? "#FFFFFF" : "#0C1626";
+  const dropdownBorder = isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.10)";
 
   return (
     <>
-      <header style={{
-        position: "fixed", inset: "0 0 auto 0", zIndex: 50, transition: "all 0.3s ease",
-        background: solid ? "rgba(5,13,28,0.95)" : "rgba(5,13,28,0.6)",
-        backdropFilter: "blur(18px)",
-        borderBottom: solid ? "1px solid rgba(201,168,76,0.12)" : "1px solid transparent",
-      }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
+      <header
+        className={`navbar-glass${solid ? " solid" : ""}`}
+        style={{
+          position: "fixed", inset: "0 0 auto 0", zIndex: 50,
+          backdropFilter: "blur(20px)",
+          borderBottom: `1px solid ${solid ? (isLight ? "rgba(184,146,10,0.18)" : "rgba(212,170,82,0.12)") : "transparent"}`,
+        }}
+      >
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
 
           {/* Logo */}
           <a href="#" onClick={() => { setMode("mba"); window.scrollTo(0,0); }} style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}>
@@ -85,65 +102,86 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
           {/* Mode toggle pill */}
           <div style={{
             display: "flex", alignItems: "center",
-            background: "var(--card2)", border: "1px solid var(--border)",
+            background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)",
+            border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
             borderRadius: "100px", padding: "4px", gap: "2px", flexShrink: 0,
           }}>
             <button onClick={() => { setMode("mba"); window.scrollTo(0,0); }}
               style={{
                 padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
-                fontSize: "0.78rem", fontWeight: 600, transition: "all 0.22s ease",
+                fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
                 background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
-                color: mode === "mba" ? "#050D1C" : "var(--muted)",
-                fontFamily: "Inter, system-ui, sans-serif",
+                color: mode === "mba" ? "#030810" : "var(--muted)",
+                fontFamily: "var(--font-sans)",
               }}>
               MBA Student
             </button>
             <button onClick={() => { setMode("cat"); window.scrollTo(0,0); }}
               style={{
                 padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
-                fontSize: "0.78rem", fontWeight: 600, transition: "all 0.22s ease",
+                fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
                 background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
                 color: mode === "cat" ? "#ffffff" : "var(--muted)",
-                fontFamily: "Inter, system-ui, sans-serif",
+                fontFamily: "var(--font-sans)",
               }}>
               CAT / OMETs Aspirant
             </button>
           </div>
 
           {/* Desktop nav links */}
-          <nav className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+          <nav className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
             {links.map(l => (
-              <a key={l.href} href={l.href} style={{ fontSize: "0.88rem", fontWeight: 500, color: "var(--muted)", textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
-                onMouseEnter={e => (e.currentTarget.style.color = mode === "cat" ? "#a5b4fc" : "var(--gold)")}
+              <a key={l.href} href={l.href}
+                style={{ fontSize: "0.86rem", fontWeight: 600, color: "var(--muted)", textDecoration: "none", transition: "color 0.18s", whiteSpace: "nowrap", position: "relative" }}
+                onMouseEnter={e => (e.currentTarget.style.color = linkHoverColor)}
                 onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
                 {l.label}
               </a>
             ))}
           </nav>
 
-          {/* CTA / Auth */}
+          {/* Right side: theme toggle + auth */}
           <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+
+            {/* Theme toggle — small pill */}
+            <button
+              onClick={toggleTheme}
+              title={isLight ? "Switch to dark mode" : "Switch to light mode"}
+              style={{
+                width: 34, height: 34,
+                borderRadius: "10px",
+                background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)",
+                border: `1px solid ${isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.10)"}`,
+                cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                color: isLight ? "#B8920A" : "#D4AA52",
+                transition: "all 0.2s ease", flexShrink: 0,
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.10)" : "rgba(212,170,82,0.12)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)"; }}
+            >
+              {isLight ? <Moon size={15} strokeWidth={2} /> : <Sun size={15} strokeWidth={2} />}
+            </button>
+
             {user ? (
-              /* Logged-in: avatar chip with dropdown */
               <div ref={dropdownRef} style={{ position: "relative" }}>
                 <button
                   onClick={() => setUserMenuOpen(p => !p)}
                   style={{
                     display: "flex", alignItems: "center", gap: "8px",
                     padding: "5px 12px 5px 5px", borderRadius: "100px",
-                    background: "rgba(212,170,82,0.08)",
-                    border: "1px solid rgba(212,170,82,0.2)",
+                    background: isLight ? "rgba(184,146,10,0.07)" : "rgba(212,170,82,0.08)",
+                    border: `1px solid ${isLight ? "rgba(184,146,10,0.18)" : "rgba(212,170,82,0.20)"}`,
                     cursor: "pointer", transition: "all 0.2s",
-                    fontFamily: "Inter, system-ui, sans-serif",
+                    fontFamily: "var(--font-sans)",
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(212,170,82,0.14)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(212,170,82,0.08)"; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(184,146,10,0.12)" : "rgba(212,170,82,0.14)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(184,146,10,0.07)" : "rgba(212,170,82,0.08)"; }}
                 >
                   <span style={{
                     width: 30, height: 30, borderRadius: "50%",
                     background: "linear-gradient(135deg, #D4AA52, #B8943C)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "0.72rem", fontWeight: 800, color: "#040B19", flexShrink: 0,
+                    fontSize: "0.72rem", fontWeight: 800, color: "#030810", flexShrink: 0,
                   }}>{initials}</span>
                   <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", maxWidth: "96px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                     {user.name.split(" ")[0]}
@@ -154,23 +192,25 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 {userMenuOpen && (
                   <div style={{
                     position: "absolute", top: "calc(100% + 8px)", right: 0,
-                    background: "#0C1830", border: "1px solid rgba(255,255,255,0.10)",
+                    background: dropdownBg,
+                    border: `1px solid ${dropdownBorder}`,
                     borderRadius: 14, padding: "8px", minWidth: 200,
-                    boxShadow: "0 20px 48px rgba(0,0,0,0.5)",
+                    boxShadow: isLight ? "0 12px 40px rgba(0,0,0,0.14)" : "0 20px 50px rgba(0,0,0,0.55)",
                     zIndex: 100,
                   }}>
-                    <div style={{ padding: "10px 12px 12px", borderBottom: "1px solid rgba(255,255,255,0.07)", marginBottom: 6 }}>
+                    <div style={{ padding: "10px 12px 12px", borderBottom: `1px solid ${dropdownBorder}`, marginBottom: 6 }}>
                       <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text)" }}>{user.name}</div>
                       <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: 2 }}>{user.email}</div>
                     </div>
                     <a href="/dashboard/" style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderRadius: 9, textDecoration: "none", color: "var(--muted)", fontSize: "0.85rem", fontWeight: 500, transition: "all 0.15s" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; }}>
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)"; el.style.color = "var(--text)"; }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "transparent"; el.style.color = "var(--muted)"; }}>
                       <LayoutDashboard size={15} />
                       My Dashboard
                     </a>
-                    <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderRadius: 9, width: "100%", background: "transparent", border: "none", color: "#FCA5A5", fontSize: "0.85rem", fontWeight: 500, cursor: "pointer", transition: "all 0.15s", fontFamily: "Inter, system-ui, sans-serif" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(251,113,133,0.08)"; }}
+                    <button onClick={handleLogout}
+                      style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderRadius: 9, width: "100%", background: "transparent", border: "none", color: "#F87171", fontSize: "0.85rem", fontWeight: 500, cursor: "pointer", transition: "all 0.15s", fontFamily: "var(--font-sans)" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.07)"; }}
                       onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}>
                       <LogOut size={15} />
                       Sign Out
@@ -179,7 +219,6 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 )}
               </div>
             ) : (
-              /* Logged-out: Login + Enroll / Start CAT Prep */
               <>
                 {mode === "mba" ? (
                   <>
@@ -206,7 +245,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
         </div>
 
         {open && (
-          <div style={{ background: "rgba(5,13,28,0.97)", backdropFilter: "blur(18px)", borderTop: "1px solid var(--border)" }}>
+          <div style={{ background: isLight ? "rgba(243,239,228,0.98)" : "rgba(3,8,16,0.97)", backdropFilter: "blur(18px)", borderTop: `1px solid var(--border)` }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "20px 40px", display: "flex", flexDirection: "column", gap: "14px" }}>
               {links.map(l => (
                 <a key={l.href} href={l.href} onClick={() => setOpen(false)}
@@ -217,7 +256,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
               {user ? (
                 <>
                   <a href="/dashboard/" style={{ fontSize: "1rem", fontWeight: 600, color: "var(--gold)", textDecoration: "none" }}>My Dashboard</a>
-                  <button onClick={handleLogout} style={{ textAlign: "left", background: "none", border: "none", color: "#FCA5A5", fontSize: "1rem", fontWeight: 500, cursor: "pointer", padding: 0, fontFamily: "Inter, system-ui, sans-serif" }}>Sign Out</button>
+                  <button onClick={handleLogout} style={{ textAlign: "left", background: "none", border: "none", color: "#F87171", fontSize: "1rem", fontWeight: 500, cursor: "pointer", padding: 0, fontFamily: "var(--font-sans)" }}>Sign Out</button>
                 </>
               ) : (
                 <>
@@ -231,6 +270,12 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                   </a>
                 </>
               )}
+              <button
+                onClick={toggleTheme}
+                style={{ display:"flex", alignItems:"center", gap:"8px", background:"none", border:"none", color:"var(--muted)", fontSize:"0.9rem", fontWeight:500, cursor:"pointer", padding:"4px 0", fontFamily:"var(--font-sans)" }}>
+                {isLight ? <Moon size={16} /> : <Sun size={16} />}
+                {isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              </button>
             </div>
           </div>
         )}
