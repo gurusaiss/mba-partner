@@ -867,6 +867,120 @@ export default function CATPage() {
         </div>
       </section>
 
+      {/* ── Free RC Material ── */}
+      <section id="rc-material" style={{ padding: "96px 0" }}>
+        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+          <div style={{ marginBottom: "56px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
+              <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
+              Free VARC Resources
+              <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
+            </div>
+            <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "14px" }}>
+              Free RC Material
+            </h2>
+            <p style={{ color: "var(--muted)", fontSize: "1.05rem", maxWidth: "560px" }}>
+              Curated reading comprehension resources used by 99+ percentilers. Download and practice these before your first mock.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px", marginBottom: "48px" }}>
+            {[
+              { title: "Aristotle RC Series — Volume 1", desc: "400+ RC passages graded by difficulty. The single best RC practice book for CAT VARC.", badge: "Must Read", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+              { title: "Aristotle RC Series — Volume 2", desc: "Advanced passages including dense academic and scientific texts — mirrors actual CAT RC difficulty.", badge: "Advanced", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+              { title: "RC Tricks & Tips by IIM Alumni", desc: "MBA Partner's curated 20-page guide: elimination strategy, inference vs. direct, passage mapping, and time hacks.", badge: "Exclusive", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+              { title: "CAT Past RC Passages (2015–2023)", desc: "Every Reading Comprehension passage from the last 8 years of CAT, with answers and detailed explanations.", badge: "Practice", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+              { title: "Editorial Archive — The Hindu (2024)", desc: "12 months of curated editorials — the same kind of texts CAT examiners use. Builds both reading habit and vocabulary.", badge: "Daily Habit", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+              { title: "Para Jumbles & Summary — 200 Qs", desc: "TITA question practice set for Para Jumbles, Para Summary, and Odd Sentence — the trickiest VARC question types.", badge: "TITA Focus", link: "https://drive.google.com/drive/folders/1YpeTHDAoxJLovGQX4TxNI7fMQaExWbU7" },
+            ].map(item => (
+              <div key={item.title} className="card" style={{ padding: "28px", display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "14px" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", padding: "4px 10px", borderRadius: "100px", background: indigo, border: `1px solid ${indigoBorder}`, color: indigoText }}>{item.badge}</span>
+                </div>
+                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)", marginBottom: "10px" }}>{item.title}</h3>
+                <p style={{ fontSize: "0.88rem", lineHeight: 1.7, color: "var(--muted)", flex: 1, marginBottom: "20px" }}>{item.desc}</p>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.82rem", fontWeight: 600, color: indigoText, textDecoration: "none", padding: "8px 16px", border: `1px solid ${indigoBorder}`, borderRadius: "8px", background: indigo, width: "fit-content" }}
+                >
+                  📥 Download Free
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ background: indigo, border: `1px solid ${indigoBorder}`, borderRadius: "14px", padding: "24px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+            <div>
+              <div className="serif" style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)", marginBottom: "4px" }}>Want personalised VARC coaching?</div>
+              <p style={{ fontSize: "0.88rem", color: "var(--muted)" }}>Our IIM alumni mentors do 1:1 VARC sessions focused on your weak areas — RC strategy, TITA questions, or reading speed.</p>
+            </div>
+            <a
+              href="#cat-enroll"
+              style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "11px 22px", borderRadius: "10px", background: "linear-gradient(135deg, #6366f1, #4f46e5)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}
+            >
+              Book Free Session →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── AI Tools ── */}
+      <section id="ai-tools" style={{ padding: "96px 0", background: "var(--card)" }}>
+        <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>
+          <div style={{ marginBottom: "56px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: indigoText, marginBottom: "20px" }}>
+              <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
+              Powered by AI
+              <span style={{ display: "block", width: "28px", height: "1px", background: indigoText, opacity: 0.6 }} />
+            </div>
+            <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "14px" }}>
+              AI-Powered CAT Prep Tools
+            </h2>
+            <p style={{ color: "var(--muted)", fontSize: "1.05rem", maxWidth: "560px" }}>
+              Smart tools built for CAT aspirants — coming soon. Get early access when they launch.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px", marginBottom: "48px" }}>
+            {[
+              { icon: "🧠", title: "AI Mock Analyser", desc: "Upload your mock test result and get a personalised debrief: error patterns, time analysis, and a custom improvement plan.", status: "Coming Soon" },
+              { icon: "📝", title: "RC Difficulty Rater", desc: "Paste any passage and our AI rates its CAT difficulty level, highlights inference-heavy sentences, and suggests an approach strategy.", status: "Coming Soon" },
+              { icon: "⚡", title: "VARC Speed Trainer", desc: "Timed RC sessions with adaptive difficulty. The AI adjusts passage complexity based on your accuracy over time.", status: "Coming Soon" },
+              { icon: "🎯", title: "AI Study Plan Generator", desc: "Input your CAT score target, available hours/day, and current level — get a week-by-week prep roadmap.", status: "Beta" },
+              { icon: "💬", title: "GD Topic Simulator", desc: "Practice Group Discussion with an AI that plays multiple participant roles. Get scored on content, communication, and leadership.", status: "Coming Soon" },
+              { icon: "📊", title: "Percentile Predictor 2.0", desc: "Go beyond the basic calculator. Input sectional scores across multiple mocks and get a predictive range for your actual CAT percentile.", status: "Coming Soon" },
+            ].map(tool => (
+              <div key={tool.title} className="card" style={{ padding: "28px" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "16px" }}>{tool.icon}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                  <h3 className="serif" style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)" }}>{tool.title}</h3>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", padding: "3px 8px", borderRadius: "100px", background: tool.status === "Beta" ? "rgba(74,222,128,0.1)" : indigo, border: tool.status === "Beta" ? "1px solid rgba(74,222,128,0.25)" : `1px solid ${indigoBorder}`, color: tool.status === "Beta" ? "#4ade80" : indigoText, whiteSpace: "nowrap" }}>{tool.status}</span>
+                </div>
+                <p style={{ fontSize: "0.88rem", lineHeight: 1.7, color: "var(--muted)" }}>{tool.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center", background: "linear-gradient(160deg, rgba(99,102,241,0.08) 0%, transparent 70%)", border: `1px solid ${indigoBorder}`, borderRadius: "20px", padding: "56px 40px" }}>
+            <div style={{ fontSize: "2.5rem", marginBottom: "20px" }}>🚀</div>
+            <h3 className="serif" style={{ fontWeight: 900, fontSize: "1.6rem", color: "var(--text)", marginBottom: "14px" }}>
+              Get Early Access
+            </h3>
+            <p style={{ color: "var(--muted)", maxWidth: "440px", margin: "0 auto 28px", fontSize: "0.95rem", lineHeight: 1.75 }}>
+              Be the first to try our AI tools when they launch. Early access students get free lifetime access to the AI Mock Analyser.
+            </p>
+            <a
+              href="mailto:bharat.kapoor@prodmarkconsulting.in?subject=AI Tools Early Access"
+              style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "13px 28px", borderRadius: "10px", background: "linear-gradient(135deg, #6366f1, #4f46e5)", color: "#fff", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}
+            >
+              Request Early Access →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section id="cat-enroll" style={{ padding: "96px 0" }}>
         <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 40px" }}>

@@ -13,10 +13,10 @@ const mbaLinks = [
 
 const catLinks = [
   { label: "CAT Strategy", href: "#cat-strategy" },
-  { label: "Sections", href: "#cat-sections" },
   { label: "Mocks", href: "#cat-mocks" },
   { label: "GDPI Prep", href: "#gdpi" },
-  { label: "Predictor", href: "#college-predictor" },
+  { label: "Free RC", href: "#rc-material" },
+  { label: "AI Tools", href: "#ai-tools" },
 ];
 
 type Mode = "mba" | "cat";

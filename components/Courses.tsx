@@ -15,6 +15,7 @@ export interface CourseData {
   featured: boolean;
   nudge: string | null;
   groupOffer: string | null;
+  brochure?: string;
 }
 
 export const courses: CourseData[] = [
@@ -68,7 +69,8 @@ export const courses: CourseData[] = [
     link: "https://www.mbapartner.in/product/case-competition-bootcamp/",
     featured: false,
     nudge: "🏆 20+ National Winners from our students",
-    groupOffer: "2 students = 30% off · 3+ students = 40% off"
+    groupOffer: "2 students = 30% off · 3+ students = 40% off",
+    brochure: "/brochures/case-comp-brochure.pdf"
   },
   {
     id: 4, category: "projects", tag: "tag", tagLabel: "Live Project — 2 Months",
@@ -85,7 +87,8 @@ export const courses: CourseData[] = [
     link: "https://www.mbapartner.in/product/live-project-consulting/",
     featured: false,
     nudge: "✅ Works under a real consulting company — not a simulation",
-    groupOffer: "2 students = 30% off"
+    groupOffer: "2 students = 30% off",
+    brochure: "/brochures/case-comp-brochure.pdf"
   },
   {
     id: 5, category: "projects", tag: "tag", tagLabel: "Live Project — 1 Month",
@@ -303,6 +306,30 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
                     >
                       Enroll Now
                     </a>
+                    {c.brochure && (
+                      <a
+                        href={c.brochure}
+                        download
+                        style={{
+                          fontSize: "0.75rem",
+                          color: "var(--gold)",
+                          textDecoration: "none",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                          padding: "5px 12px",
+                          border: "1px solid rgba(201,168,76,0.25)",
+                          borderRadius: "8px",
+                          background: "rgba(201,168,76,0.06)",
+                          whiteSpace: "nowrap",
+                          transition: "all 0.2s"
+                        }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.12)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.06)"; }}
+                      >
+                        📄 Brochure
+                      </a>
+                    )}
                     <button
                       onClick={() => handleCompare(c.id)}
                       disabled={compareDisabled}
