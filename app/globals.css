@@ -107,20 +107,25 @@
 ───────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
 }
 
 [data-reveal].reveal-slide-up {
-  transform: translateY(28px);
+  transform: translateY(22px);
 }
 
 [data-reveal].reveal-fade-right {
-  transform: translateX(28px);
+  transform: translateX(22px);
 }
 
 [data-reveal].revealed {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+/* Safety fallback: if JS doesn't run, reveal after animation */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
 
 /* ─────────────────────────────────────────────
@@ -157,10 +162,18 @@
 /* ─────────────────────────────────────────────
    LIGHT MODE SECTION OVERRIDES
    Overrides hardcoded dark inline styles on <section> elements
+   and adds alternating section backgrounds for visual rhythm
 ───────────────────────────────────────────── */
 [data-theme="light"] section:not(.hero-section) {
   background: var(--navy) !important;
   background-image: none !important;
+}
+/* Alternating cream backgrounds for visual rhythm */
+[data-theme="light"] section:not(.hero-section):nth-of-type(even) {
+  background: var(--card2) !important;
+}
+[data-theme="light"] section:not(.hero-section):nth-of-type(3n) {
+  background: #FFFFFF !important;
 }
 [data-theme="light"] .hero-section {
   background: var(--navy) !important;
@@ -169,6 +182,10 @@
     radial-gradient(ellipse 50% 55% at 90% 65%, rgba(30,58,95,0.05) 0%, transparent 55%),
     radial-gradient(ellipse 40% 40% at 5% 80%, rgba(232,93,4,0.04) 0%, transparent 60%) !important;
   animation: none !important;
+}
+/* Section divider lines for crisp separation */
+[data-theme="light"] section + section {
+  border-top: 1px solid rgba(0,0,0,0.055) !important;
 }
 
 /* ─────────────────────────────────────────────

@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 const mentors = [
-  { initials: "YG", name: "Yash Gohil", school: "IIM Ahmedabad", company: "Accenture Consulting", domain: "Consulting", bg: "rgba(201,168,76,0.12)", color: "var(--gold)" },
+  { initials: "YG", name: "Yash Gohil", school: "IIM Ahmedabad", company: "Accenture Consulting", domain: "Consulting", bg: "rgba(232,93,4,0.12)", color: "var(--gold)" },
   { initials: "SS", name: "Shen Shaji", school: "IIM Bangalore", company: "Media.Net", domain: "Product Management", bg: "rgba(96,165,250,0.1)", color: "#93C5FD" },
   { initials: "VB", name: "Vidhi Barolia", school: "IIM Lucknow", company: "PwC US", domain: "Finance", bg: "rgba(74,222,128,0.1)", color: "#86EFAC" },
   { initials: "AG", name: "Aadesh Gupta", school: "IIM Mumbai", company: "L'Oreal", domain: "Marketing", bg: "rgba(251,113,133,0.1)", color: "#FCA5A5" },
   { initials: "AR", name: "Ananyo Roy", school: "XLRI Jamshedpur", company: "TAS", domain: "HR", bg: "rgba(165,180,252,0.1)", color: "#C4B5FD" },
-  { initials: "AG", name: "Ashutosh Gupta", school: "IIM Lucknow", company: "Gulf Oil", domain: "Operations", bg: "rgba(201,168,76,0.12)", color: "var(--gold)" },
+  { initials: "AG", name: "Ashutosh Gupta", school: "IIM Lucknow", company: "Gulf Oil", domain: "Operations", bg: "rgba(232,93,4,0.12)", color: "var(--gold)" },
 ];
 
 const domainOptions = ["Consulting", "Finance", "Marketing", "HR", "Operations", "Product"];

@@ -139,8 +139,8 @@ function CompanyPill({ company }: { company: string }) {
         fontSize: "0.68rem",
         fontWeight: 700,
         color: "var(--gold)",
-        background: "rgba(201,168,76,0.1)",
-        border: "1px solid rgba(201,168,76,0.25)",
+        background: "rgba(232,93,4,0.1)",
+        border: "1px solid rgba(232,93,4,0.25)",
         borderRadius: "100px",
         padding: "3px 10px",
         letterSpacing: "0.02em",
@@ -172,7 +172,7 @@ function ProfilePreview({ student }: { student: (typeof students)[0] }) {
         transform: "translateX(-50%)",
         width: "240px",
         background: "linear-gradient(155deg, #1a1c2e 0%, #141620 100%)",
-        border: "1px solid rgba(201,168,76,0.35)",
+        border: "1px solid rgba(232,93,4,0.35)",
         borderRadius: "14px",
         padding: "16px",
         boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
@@ -190,7 +190,7 @@ function ProfilePreview({ student }: { student: (typeof students)[0] }) {
           width: "13px",
           height: "13px",
           background: "linear-gradient(135deg, transparent 50%, #141620 50%)",
-          border: "1px solid rgba(201,168,76,0.35)",
+          border: "1px solid rgba(232,93,4,0.35)",
           borderTop: "none",
           borderLeft: "none",
         }}
@@ -430,8 +430,8 @@ export default function WallOfFame() {
               display: "inline-flex",
               alignItems: "center",
               gap: "10px",
-              background: "linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.06) 100%)",
-              border: "1px solid rgba(201,168,76,0.35)",
+              background: "linear-gradient(135deg, rgba(232,93,4,0.12) 0%, rgba(232,93,4,0.06) 100%)",
+              border: "1px solid rgba(232,93,4,0.35)",
               borderRadius: "100px",
               padding: "16px 32px",
               fontSize: "1rem",
@@ -442,13 +442,13 @@ export default function WallOfFame() {
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.background =
-                "linear-gradient(135deg, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.1) 100%)";
+                "linear-gradient(135deg, rgba(232,93,4,0.2) 0%, rgba(232,93,4,0.1) 100%)";
               (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-                "0 8px 32px rgba(201,168,76,0.15)";
+                "0 8px 32px rgba(232,93,4,0.15)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.background =
-                "linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.06) 100%)";
+                "linear-gradient(135deg, rgba(232,93,4,0.12) 0%, rgba(232,93,4,0.06) 100%)";
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = "none";
             }}
           >

@@ -86,6 +86,13 @@ export default function Hero() {
   // Scroll reveal via IntersectionObserver
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    // Reveal immediately any element already in viewport
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 1.1) {
+        el.classList.add("revealed");
+      }
+    });
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -94,9 +101,11 @@ export default function Hero() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.05, rootMargin: "0px 0px 80px 0px" }
     );
-    elements.forEach((el) => observer.observe(el));
+    elements.forEach((el) => {
+      if (!el.classList.contains("revealed")) observer.observe(el);
+    });
     return () => observer.disconnect();
   }, []);
 
@@ -133,17 +142,39 @@ export default function Hero() {
         >
           {/* Left: Headline + CTAs + Bullets */}
           <div>
+            {/* India's Premier MBA Career Platform — highlighted badge */}
             <div
               data-reveal
               className="reveal-slide-up"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.22)",
-                borderRadius: "100px", padding: "6px 14px", marginBottom: "28px",
-                fontSize: "0.72rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
+                background: "linear-gradient(135deg, rgba(232,93,4,0.12), rgba(249,115,22,0.06))",
+                border: "1px solid rgba(232,93,4,0.28)",
+                borderRadius: "100px", padding: "7px 18px", marginBottom: "14px",
+                fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase",
               }}
             >
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--gold)", display: "inline-block" }} />
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#E85D04", display: "inline-block", flexShrink: 0, boxShadow: "0 0 0 2px rgba(232,93,4,0.25)" }} />
+              <span style={{
+                background: "linear-gradient(90deg, #E85D04 0%, #F97316 50%, #E85D04 100%)",
+                backgroundSize: "200% 100%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                animation: "shimmer-gold 2.5s linear infinite",
+              }}>India&rsquo;s Premier MBA Career Platform</span>
+            </div>
+
+            <div
+              data-reveal
+              className="reveal-slide-up"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                background: "rgba(249,115,22,0.06)", border: "1px solid rgba(249,115,22,0.16)",
+                borderRadius: "100px", padding: "5px 12px", marginBottom: "26px",
+                fontSize: "0.7rem", color: "var(--muted)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase",
+              }}
+            >
               An initiative by Alumni of Old IIM · Since 2020
             </div>
 
@@ -162,12 +193,12 @@ export default function Hero() {
               Get Mentored<br />
               by the{" "}
               <span style={{
-                background: "linear-gradient(128deg, #EDD47A 0%, #D4AA52 45%, #B8943C 100%)",
+                background: "linear-gradient(128deg, #F97316 0%, #E85D04 45%, #C04A00 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>Top 1%.</span><br />
-              <span style={{ fontSize: "0.72em", color: "var(--muted)", fontWeight: 700 }}>Land Your Dream Placement.</span>
+              <span style={{ fontSize: "0.72em", color: "var(--violet)", fontWeight: 800 }}>Land Your Dream Placement.</span>
             </h1>
 
             <p

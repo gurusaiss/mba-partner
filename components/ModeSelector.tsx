@@ -32,19 +32,38 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
       {/* Card */}
       <div style={{
         background: "var(--card)",
-        border: "1px solid rgba(201,168,76,0.18)",
+        border: "1px solid rgba(232,93,4,0.18)",
         borderRadius: "24px",
-        padding: "56px 48px",
+        padding: "48px 48px 44px",
         maxWidth: "560px",
         width: "90%",
         textAlign: "center",
-        boxShadow: "0 40px 100px rgba(0,0,0,0.7)",
+        boxShadow: "0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,93,4,0.06)",
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition: "transform 0.4s ease",
       }}>
 
+        {/* India's Premier MBA Career Platform — highlighted text */}
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: "8px",
+          background: "linear-gradient(135deg, rgba(232,93,4,0.10), rgba(249,115,22,0.05))",
+          border: "1px solid rgba(232,93,4,0.25)",
+          borderRadius: "100px", padding: "7px 18px", marginBottom: "20px",
+          fontSize: "0.73rem", fontWeight: 800, letterSpacing: "0.07em", textTransform: "uppercase",
+        }}>
+          <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#E85D04", display: "inline-block", flexShrink: 0, animation: "pulse 2s infinite" }} />
+          <span style={{
+            background: "linear-gradient(90deg, #E85D04, #F97316, #E85D04)",
+            backgroundSize: "200% 100%",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            animation: "shimmer-gold 2.8s linear infinite",
+          }}>India&rsquo;s Premier MBA Career Platform</span>
+        </div>
+
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "32px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "20px" }}>
           <span className="btn-primary" style={{ width: "38px", height: "38px", padding: 0, borderRadius: "10px", fontSize: "0.75rem", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>MP</span>
           <span className="serif" style={{ fontWeight: 700, fontSize: "1.25rem", color: "var(--text)" }}>
             MBA<span className="gold-text">Partner</span>
@@ -57,8 +76,8 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
         <h2 className="serif" style={{ fontSize: "1.9rem", fontWeight: 900, lineHeight: 1.2, color: "var(--text)", marginBottom: "10px" }}>
           Choose Your Path
         </h2>
-        <p style={{ fontSize: "0.95rem", color: "var(--muted)", marginBottom: "40px", lineHeight: 1.65 }}>
-          Choose your path and we'll show you exactly what you need.
+        <p style={{ fontSize: "0.95rem", color: "var(--muted)", marginBottom: "36px", lineHeight: 1.65 }}>
+          Choose your path and we&rsquo;ll show you exactly what you need.
         </p>
 
         {/* Options */}
@@ -68,11 +87,11 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
           <button onClick={() => choose("mba")}
             style={{
               background: choosing === "mba"
-                ? "linear-gradient(135deg, #C9A84C, #A8863A)"
+                ? "linear-gradient(135deg, #E85D04, #A8863A)"
                 : "var(--card2)",
               border: choosing === "mba"
-                ? "2px solid #C9A84C"
-                : "2px solid rgba(201,168,76,0.25)",
+                ? "2px solid #E85D04"
+                : "2px solid rgba(232,93,4,0.25)",
               borderRadius: "16px",
               padding: "28px 20px",
               cursor: "pointer",
@@ -84,12 +103,12 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
             onMouseEnter={e => {
               if (choosing !== "mba") {
                 e.currentTarget.style.borderColor = "var(--gold)";
-                e.currentTarget.style.background = "rgba(201,168,76,0.07)";
+                e.currentTarget.style.background = "rgba(232,93,4,0.07)";
               }
             }}
             onMouseLeave={e => {
               if (choosing !== "mba") {
-                e.currentTarget.style.borderColor = "rgba(201,168,76,0.25)";
+                e.currentTarget.style.borderColor = "rgba(232,93,4,0.25)";
                 e.currentTarget.style.background = "var(--card2)";
               }
             }}>
