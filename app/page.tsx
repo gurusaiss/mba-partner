@@ -26,6 +26,7 @@ import HiringCompanies from "@/components/HiringCompanies";
 import WallOfFame from "@/components/WallOfFame";
 import WhyDifferent from "@/components/WhyDifferent";
 import SocialProofToast from "@/components/SocialProofToast";
+import CommunitySection from "@/components/CommunitySection";
 
 type Mode = "mba" | "cat";
 
@@ -82,6 +83,7 @@ export default function Home() {
               <Mentors />
               <Testimonials />
               <VideoTestimonials />
+              <CommunitySection />
               <CollegeCollab />
               <FAQs />
               <Resources />
