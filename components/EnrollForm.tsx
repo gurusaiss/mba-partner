@@ -17,6 +17,20 @@ const STEP_META: Record<number, { heading: string; subtitle: string }> = {
   3: { heading: "Your Placement Goal", subtitle: "Anything specific you'd like us to know?" },
 };
 
+interface StoredUser {
+  name: string;
+  email: string;
+  password: string;
+  college: string;
+  year: string;
+  domain: string;
+  joinedDate: string;
+  referralCode: string;
+  referralBonus: number;
+  referrals: string[];
+  referredBy?: string;
+}
+
 interface FormData {
   fullName: string;
   phone: string;
@@ -90,9 +104,46 @@ export default function EnrollForm() {
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
+  // Referral state
+  const [referralCode, setReferralCode] = useState("");
+  const [referralCodeStatus, setReferralCodeStatus] = useState<"idle" | "valid" | "invalid">("idle");
+  const [referrerName, setReferrerName] = useState("");
+  const [showReferralField, setShowReferralField] = useState(false);
+
   function set(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
+  }
+
+  function getUsers(): StoredUser[] {
+    try {
+      return JSON.parse(localStorage.getItem("mp_users") || "[]") as StoredUser[];
+    } catch {
+      return [];
+    }
+  }
+
+  function validateReferral(code: string) {
+    const trimmed = code.trim().toUpperCase();
+    if (!trimmed) {
+      setReferralCodeStatus("idle");
+      setReferrerName("");
+      return;
+    }
+    const users = getUsers();
+    const referrer = users.find((u) => u.referralCode === trimmed);
+    if (referrer) {
+      setReferralCodeStatus("valid");
+      setReferrerName(referrer.name);
+    } else {
+      setReferralCodeStatus("invalid");
+      setReferrerName("");
+    }
+  }
+
+  function handleReferralChange(val: string) {
+    setReferralCode(val);
+    validateReferral(val);
   }
 
   function validateStep1() {
@@ -118,6 +169,23 @@ export default function EnrollForm() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // If a valid referral code was used, credit the referrer
+    if (referralCodeStatus === "valid" && referralCode.trim()) {
+      const users = getUsers();
+      const trimmedCode = referralCode.trim().toUpperCase();
+      const referrerIdx = users.findIndex((u) => u.referralCode === trimmedCode);
+      if (referrerIdx !== -1) {
+        const updated = [...users];
+        updated[referrerIdx] = {
+          ...updated[referrerIdx],
+          referrals: [...updated[referrerIdx].referrals, form.fullName.trim() || form.email],
+          referralBonus: updated[referrerIdx].referralBonus + 750,
+        };
+        localStorage.setItem("mp_users", JSON.stringify(updated));
+      }
+    }
+
     setSent(true);
   }
 
@@ -165,6 +233,9 @@ export default function EnrollForm() {
                 </h3>
                 <p style={{ fontSize: "1rem", color: "var(--muted)", lineHeight: 1.7, maxWidth: "340px", margin: "0 auto" }}>
                   We will contact you within 24 hours with a personalised recommendation. Check your inbox and WhatsApp.
+                  {referralCodeStatus === "valid" && (
+                    <><br /><br /><span style={{ color: "var(--gold)", fontWeight: 600 }}>Your 10% discount has been applied.</span></>
+                  )}
                 </p>
               </div>
             ) : (
@@ -228,6 +299,58 @@ export default function EnrollForm() {
                           </span>
                         )}
                       </div>
+
+                      {/* Referral code toggle */}
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => setShowReferralField(p => !p)}
+                          style={{
+                            background: "none", border: "none", cursor: "pointer",
+                            color: "var(--gold)", fontSize: "0.82rem", fontWeight: 600,
+                            padding: 0, fontFamily: "inherit", textDecoration: "underline",
+                            textUnderlineOffset: "3px",
+                          }}
+                        >
+                          {showReferralField ? "▾ Hide referral code" : "▸ Have a referral code?"}
+                        </button>
+                        {showReferralField && (
+                          <div style={{ marginTop: 12 }}>
+                            <div className="field">
+                              <label>Referral Code</label>
+                              <div style={{ position: "relative" }}>
+                                <input
+                                  type="text"
+                                  placeholder="e.g. MPAR4K2X"
+                                  value={referralCode}
+                                  onChange={e => handleReferralChange(e.target.value)}
+                                  onBlur={() => validateReferral(referralCode)}
+                                  style={{
+                                    textTransform: "uppercase",
+                                    borderColor: referralCodeStatus === "valid"
+                                      ? "rgba(52,211,153,0.5)"
+                                      : referralCodeStatus === "invalid"
+                                      ? "rgba(251,113,133,0.5)"
+                                      : undefined,
+                                  }}
+                                  autoComplete="off"
+                                />
+                              </div>
+                              {referralCodeStatus === "valid" && (
+                                <span style={{ fontSize: "0.76rem", color: "#34D399", marginTop: "6px", display: "block", padding: "6px 10px", background: "rgba(52,211,153,0.08)", borderRadius: 8, border: "1px solid rgba(52,211,153,0.2)" }}>
+                                  ✓ 10% discount applied — code from {referrerName}&apos;s referral
+                                </span>
+                              )}
+                              {referralCodeStatus === "invalid" && referralCode.trim() && (
+                                <span style={{ fontSize: "0.76rem", color: "#FCA5A5", marginTop: "4px", display: "block" }}>
+                                  ✗ Invalid referral code
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
                       <button
                         type="button"
                         className="btn-primary"
@@ -341,6 +464,11 @@ export default function EnrollForm() {
                           onChange={e => set("message", e.target.value)}
                         />
                       </div>
+                      {referralCodeStatus === "valid" && (
+                        <div style={{ padding: "10px 14px", borderRadius: 10, background: "rgba(52,211,153,0.07)", border: "1px solid rgba(52,211,153,0.2)", fontSize: "0.85rem", color: "#34D399", fontWeight: 500 }}>
+                          🎉 10% referral discount will be applied to your enrollment
+                        </div>
+                      )}
                       <p style={{ fontSize: "0.8rem", color: "var(--dim)", marginTop: "-8px" }}>
                         We respond within 24 hours. No spam, ever.
                       </p>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   LayoutDashboard, BookOpen, FolderOpen, Calendar, User,
-  LogOut, Download, CheckCircle, Lock, Star, ChevronRight, ExternalLink
+  LogOut, Download, CheckCircle, Lock, Star, ChevronRight, ExternalLink, Gift
 } from "lucide-react";
 
 interface UserData {
@@ -14,9 +14,26 @@ interface UserData {
   domain?: string;
   joinedDate?: string;
   linkedin?: string;
+  referralCode?: string;
+  referralBonus?: number;
+  referrals?: string[];
 }
 
-type Tab = "overview" | "courses" | "resources" | "sessions" | "profile";
+interface StoredUser {
+  name: string;
+  email: string;
+  password: string;
+  college: string;
+  year: string;
+  domain: string;
+  joinedDate: string;
+  referralCode: string;
+  referralBonus: number;
+  referrals: string[];
+  referredBy?: string;
+}
+
+type Tab = "overview" | "courses" | "resources" | "sessions" | "profile" | "referrals";
 
 const enrolledCourses = [
   { title: "Placement Bootcamp — Master", tag: "Placements", tagClass: "tag-blue", progress: 65, nextLesson: "Domain Prep: Consulting", mentor: "Yash Gohil", expires: "Dec 2025" },
@@ -35,6 +52,8 @@ export default function DashboardPage() {
   const [sessionBooked, setSessionBooked] = useState(false);
   const [saveMsg, setSaveMsg] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "info" | "error" } | null>(null);
+  const [referralData, setReferralData] = useState<{ referralCode: string; referralBonus: number; referrals: string[]; referredUsers: { name: string; email: string; joinedDate: string }[] }>({ referralCode: "", referralBonus: 0, referrals: [], referredUsers: [] });
+  const [codeCopied, setCodeCopied] = useState(false);
 
   function showToast(msg: string, type: "success" | "info" | "error" = "success") {
     setToast({ msg, type });
@@ -58,6 +77,29 @@ export default function DashboardPage() {
         domain: s.domain || "",
         linkedin: s.linkedin || "",
       });
+
+      // Load referral data
+      try {
+        const allUsers = JSON.parse(localStorage.getItem("mp_users") || "[]") as StoredUser[];
+        const me = allUsers.find((u) => u.email.toLowerCase() === s.email.toLowerCase());
+        if (me) {
+          const referredUsers = (me.referrals || []).map((emailOrName) => {
+            const found = allUsers.find((u) => u.email === emailOrName || u.name === emailOrName);
+            return found
+              ? { name: found.name, email: found.email, joinedDate: found.joinedDate }
+              : { name: emailOrName, email: emailOrName, joinedDate: "" };
+          });
+          setReferralData({
+            referralCode: me.referralCode || s.referralCode || "",
+            referralBonus: me.referralBonus || s.referralBonus || 0,
+            referrals: me.referrals || [],
+            referredUsers,
+          });
+        } else if (s.referralCode) {
+          setReferralData({ referralCode: s.referralCode, referralBonus: s.referralBonus || 0, referrals: [], referredUsers: [] });
+        }
+      } catch { /**/ }
+
       setLoaded(true);
     } catch {
       window.location.href = "/";
@@ -109,6 +151,7 @@ export default function DashboardPage() {
     { id: "courses", label: "My Courses", Icon: BookOpen },
     { id: "resources", label: "Resources", Icon: FolderOpen },
     { id: "sessions", label: "Sessions", Icon: Calendar },
+    { id: "referrals", label: "Referrals", Icon: Gift },
     { id: "profile", label: "Profile", Icon: User },
   ];
 
@@ -227,6 +270,7 @@ export default function DashboardPage() {
               {activeTab === "courses" && "My Courses"}
               {activeTab === "resources" && "Resources"}
               {activeTab === "sessions" && "Sessions"}
+              {activeTab === "referrals" && "Referrals"}
               {activeTab === "profile" && "My Profile"}
             </h1>
             {activeTab === "overview" && (
@@ -497,6 +541,182 @@ export default function DashboardPage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── REFERRALS ── */}
+          {activeTab === "referrals" && (
+            <div>
+              {/* Section A: Referral Code Card */}
+              <div style={{ background: "linear-gradient(135deg, rgba(212,170,82,0.10), rgba(184,148,60,0.05))", border: "1.5px solid rgba(212,170,82,0.35)", borderRadius: 20, padding: 32, marginBottom: 24 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
+                  <div style={{ flex: 1, minWidth: 220 }}>
+                    <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", color: dimColor, textTransform: "uppercase", marginBottom: 12 }}>Your Referral Code</div>
+                    {referralData.referralCode ? (
+                      <>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                          <div style={{
+                            padding: "14px 28px", borderRadius: 12,
+                            background: "rgba(212,170,82,0.10)", border: "1.5px solid rgba(212,170,82,0.4)",
+                            fontFamily: "'Space Grotesk', monospace, system-ui",
+                            fontSize: "2rem", fontWeight: 900, letterSpacing: "0.14em", color: goldColor,
+                          }}>
+                            {referralData.referralCode}
+                          </div>
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(referralData.referralCode).then(() => {
+                                setCodeCopied(true);
+                                setTimeout(() => setCodeCopied(false), 2000);
+                              }).catch(() => {});
+                            }}
+                            style={{
+                              padding: "12px 18px", borderRadius: 10, cursor: "pointer",
+                              background: codeCopied ? "rgba(52,211,153,0.15)" : "rgba(212,170,82,0.12)",
+                              border: `1px solid ${codeCopied ? "rgba(52,211,153,0.4)" : "rgba(212,170,82,0.35)"}`,
+                              color: codeCopied ? "#34D399" : goldColor,
+                              fontSize: "0.85rem", fontWeight: 700, fontFamily: "inherit",
+                              transition: "all 0.2s",
+                            }}
+                          >
+                            {codeCopied ? "✓ Copied!" : "Copy"}
+                          </button>
+                          <a
+                            href={`https://wa.me/?text=${encodeURIComponent(`Hey! I'm using MBA Partner for placement prep — it's been super helpful. Use my referral code ${referralData.referralCode} to get 10% off! Check it out: https://mbapartner.in`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              padding: "12px 18px", borderRadius: 10, cursor: "pointer",
+                              background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.35)",
+                              color: "#25D366", fontSize: "0.85rem", fontWeight: 700,
+                              textDecoration: "none", display: "flex", alignItems: "center", gap: 6,
+                              transition: "all 0.2s",
+                            }}
+                          >
+                            <span>📲</span> WhatsApp
+                          </a>
+                        </div>
+                        <div style={{ fontSize: "0.88rem", color: mutedColor }}>
+                          <span style={{ color: goldColor, fontWeight: 700 }}>{referralData.referrals.length}</span> friend{referralData.referrals.length !== 1 ? "s" : ""} referred
+                          {" · "}
+                          <span style={{ color: goldColor, fontWeight: 700 }}>₹{referralData.referralBonus.toLocaleString("en-IN")}</span> earned
+                        </div>
+                      </>
+                    ) : (
+                      <div style={{ fontSize: "0.9rem", color: mutedColor }}>No referral code found. Please log out and log back in.</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Section B: How It Works */}
+              <div style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 18, padding: 28, marginBottom: 24 }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.10em", color: dimColor, textTransform: "uppercase", marginBottom: 22 }}>How It Works</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+                  {[
+                    { step: "1", icon: "📤", title: "Share Your Code", desc: "Send your unique referral code to friends preparing for MBA placements." },
+                    { step: "2", icon: "🎓", title: "Friend Enrolls", desc: "Your friend enrolls using your code and gets 10% off their program fee." },
+                    { step: "3", icon: "💰", title: "You Earn ₹750", desc: "₹750 is credited to your MBA Partner account per successful referral." },
+                  ].map((item) => (
+                    <div key={item.step} style={{ padding: 22, borderRadius: 14, background: "rgba(212,170,82,0.04)", border: "1px solid rgba(212,170,82,0.12)", textAlign: "center" }}>
+                      <div style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg,#D4AA52,#B8922E)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.88rem", fontWeight: 800, color: "#030810", margin: "0 auto 14px" }}>{item.step}</div>
+                      <div style={{ fontSize: "1.6rem", marginBottom: 10 }}>{item.icon}</div>
+                      <div style={{ fontSize: "0.95rem", fontWeight: 700, color: textColor, marginBottom: 8 }}>{item.title}</div>
+                      <div style={{ fontSize: "0.82rem", color: mutedColor, lineHeight: 1.55 }}>{item.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Section C: Referral History */}
+              <div style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 18, padding: 28, marginBottom: 24 }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.10em", color: dimColor, textTransform: "uppercase", marginBottom: 20 }}>Referral History</div>
+                {referralData.referredUsers.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: "48px 20px" }}>
+                    <div style={{ fontSize: "3rem", marginBottom: 16 }}>🎁</div>
+                    <div style={{ fontSize: "1.1rem", fontWeight: 700, color: textColor, marginBottom: 8 }}>No referrals yet</div>
+                    <div style={{ fontSize: "0.9rem", color: mutedColor, marginBottom: 22, maxWidth: 340, margin: "0 auto 22px" }}>
+                      Share your referral code with friends — they get 10% off and you earn ₹750 for each one!
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(referralData.referralCode).then(() => {
+                          setCodeCopied(true);
+                          showToast("Referral code copied! Share it with your friends.", "success");
+                          setTimeout(() => setCodeCopied(false), 2000);
+                        }).catch(() => {});
+                      }}
+                      style={{
+                        padding: "12px 28px", borderRadius: 10, cursor: "pointer",
+                        background: "linear-gradient(135deg,#D4AA52,#B8922E)", border: "none",
+                        color: "#030810", fontSize: "0.9rem", fontWeight: 700, fontFamily: "inherit",
+                      }}
+                    >
+                      Copy &amp; Share Code
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                      <thead>
+                        <tr style={{ borderBottom: `1px solid ${borderColor}` }}>
+                          {["Friend Name", "Email", "Date Joined", "Status", "Bonus"].map(h => (
+                            <th key={h} style={{ padding: "12px 18px", textAlign: "left", fontSize: "0.72rem", fontWeight: 700, color: dimColor, letterSpacing: "0.08em", textTransform: "uppercase" }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {referralData.referredUsers.map((ru, i) => (
+                          <tr key={i} style={{ borderBottom: i < referralData.referredUsers.length - 1 ? `1px solid ${borderColor}` : "none" }}>
+                            <td style={{ padding: "14px 18px", fontSize: "0.9rem", fontWeight: 600, color: textColor }}>{ru.name}</td>
+                            <td style={{ padding: "14px 18px", fontSize: "0.85rem", color: mutedColor }}>{ru.email}</td>
+                            <td style={{ padding: "14px 18px", fontSize: "0.85rem", color: mutedColor }}>
+                              {ru.joinedDate ? new Date(ru.joinedDate).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}
+                            </td>
+                            <td style={{ padding: "14px 18px" }}>
+                              <span style={{ padding: "4px 12px", borderRadius: 7, fontSize: "0.75rem", fontWeight: 700, background: "rgba(52,211,153,0.10)", color: "#34D399", border: "1px solid rgba(52,211,153,0.25)" }}>Enrolled</span>
+                            </td>
+                            <td style={{ padding: "14px 18px", fontSize: "0.95rem", fontWeight: 700, color: goldColor, fontFamily: "'Space Grotesk', system-ui" }}>₹750</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              {/* Section D: Earnings Card */}
+              <div style={{ background: "linear-gradient(135deg, rgba(212,170,82,0.08), rgba(212,170,82,0.03))", border: "1px solid rgba(212,170,82,0.22)", borderRadius: 18, padding: 28 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+                  <div>
+                    <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.10em", color: dimColor, textTransform: "uppercase", marginBottom: 10 }}>Total Earnings</div>
+                    <div style={{ fontSize: "3rem", fontWeight: 900, color: goldColor, fontFamily: "'Space Grotesk', system-ui", lineHeight: 1, marginBottom: 8 }}>
+                      ₹{referralData.referralBonus.toLocaleString("en-IN")}
+                    </div>
+                    <div style={{ fontSize: "0.85rem", color: mutedColor }}>from {referralData.referrals.length} successful referral{referralData.referrals.length !== 1 ? "s" : ""}</div>
+                  </div>
+                  <div style={{ padding: 20, borderRadius: 14, background: "rgba(255,255,255,0.03)", border: `1px solid ${borderColor}`, maxWidth: 320 }}>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 700, color: textColor, marginBottom: 8 }}>💳 How to Redeem</div>
+                    <div style={{ fontSize: "0.82rem", color: mutedColor, lineHeight: 1.6 }}>
+                      Contact us on WhatsApp to redeem your referral bonus via UPI or bank transfer. Minimum redemption: ₹750.
+                    </div>
+                    <a
+                      href="https://wa.me/917042732092"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-flex", alignItems: "center", gap: 6,
+                        marginTop: 14, padding: "9px 18px", borderRadius: 9,
+                        background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.3)",
+                        color: "#25D366", fontSize: "0.82rem", fontWeight: 700,
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span>📲</span> Redeem on WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
