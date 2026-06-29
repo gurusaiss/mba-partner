@@ -145,9 +145,9 @@ const iimCutoffs: { name: string; base: number }[] = [
 
 /* ── Component ──────────────────────────────────────────────── */
 
-const indigo = "rgba(99,102,241,0.12)";
-const indigoBorder = "rgba(99,102,241,0.25)";
-const indigoText = "#a5b4fc";
+const indigo = "rgba(99,102,241,0.08)";
+const indigoBorder = "var(--border)";
+const indigoText = "var(--violet)";
 
 type MockTab = "VARC" | "QA" | "LRDI";
 
@@ -229,9 +229,9 @@ export default function CATPage() {
       {/* ── Hero ── */}
       <section style={{
         backgroundImage: `
-          radial-gradient(ellipse 70% 55% at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 65%),
-          linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+          radial-gradient(ellipse 70% 55% at 50% 0%, rgba(99,102,241,0.06) 0%, transparent 65%),
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
           var(--navy)
         `,
         backgroundSize: "100% 100%, 64px 64px, 64px 64px, 100% 100%",

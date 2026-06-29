@@ -124,7 +124,7 @@ export default function Mentors() {
   }
 
   return (
-    <section id="mentors" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0C1008 0%, #0E1410 100%)" }}>
+    <section id="mentors" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card2) 100%)" }}>
       <style>{`
         .mentor-card {
           transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -132,9 +132,6 @@ export default function Mentors() {
         }
         .mentor-card:hover {
           transform: translateY(-4px);
-        }
-        [data-theme="light"] .mentor-card {
-          background: #fff !important;
         }
       `}</style>
       <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 32px" }}>

@@ -223,7 +223,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
   };
 
   return (
-    <section id="courses" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080C10 0%, #0A0E14 100%)" }}>
+    <section id="courses" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <style>{`
         /* Course card — colored top border on hover */
         .course-card {

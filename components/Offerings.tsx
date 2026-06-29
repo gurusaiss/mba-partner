@@ -31,7 +31,7 @@ export default function Offerings() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <section id="offerings" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, #0D0F1A 100%)" }}>
+    <section id="offerings" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card2) 100%)" }}>
       <style>{`
         /* Offering cards — hover expand animation */
         .offering-card {

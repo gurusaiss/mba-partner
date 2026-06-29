@@ -55,12 +55,12 @@ function CTAButton({ href, children, primary }: { href: string; children: React.
         transition: "all 0.22s",
         ...(primary
           ? {
-              background: hovered ? "#D4920A" : "#F97316",
-              color: "#0A0A0F",
+              background: hovered ? "var(--gold2)" : "var(--gold)",
+              color: "#030712",
             }
           : {
               background: hovered ? "rgba(255,255,255,0.07)" : "transparent",
-              border: "1px solid rgba(255,255,255,0.15)",
+              border: "1px solid var(--border)",
               color: "var(--text)",
             }),
       }}
@@ -72,17 +72,17 @@ function CTAButton({ href, children, primary }: { href: string; children: React.
 
 export default function WhyDifferent() {
   return (
-    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #0A0814 0%, #0D0A18 100%)" }}>
+    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <style>{`
         [data-theme="light"] .wd-table-card {
-          background: #FFFFFF !important;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.07) !important;
+          background: var(--card) !important;
+          box-shadow: var(--shadow-md) !important;
         }
         [data-theme="light"] .wd-row-border {
-          border-bottom-color: rgba(0,0,0,0.05) !important;
+          border-bottom-color: var(--border) !important;
         }
         [data-theme="light"] .wd-header-row {
-          border-bottom-color: rgba(0,0,0,0.08) !important;
+          border-bottom-color: var(--border) !important;
         }
         @media (max-width: 900px) {
           .wd-layout { flex-direction: column !important; }
@@ -126,7 +126,7 @@ export default function WhyDifferent() {
             style={{
               width: "60%",
               background: "var(--card)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: "1px solid var(--border)",
               borderRadius: 20,
               overflow: "hidden",
             }}
@@ -137,13 +137,13 @@ export default function WhyDifferent() {
                 display: "grid",
                 gridTemplateColumns: "1fr 130px 100px",
                 padding: "14px 28px",
-                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                borderBottom: "1px solid var(--border)",
               }}
             >
               <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 Feature
               </span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#F97316", textAlign: "center" }}>
+              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--gold)", textAlign: "center" }}>
                 MBA Partner ✓
               </span>
               <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--muted)", textAlign: "center", opacity: 0.6 }}>
@@ -159,7 +159,7 @@ export default function WhyDifferent() {
                   display: "grid",
                   gridTemplateColumns: "1fr 130px 100px",
                   padding: "16px 28px",
-                  borderBottom: i !== features.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  borderBottom: i !== features.length - 1 ? "1px solid var(--border)" : "none",
                   background: i % 2 === 1 ? "rgba(255,255,255,0.015)" : "transparent",
                   alignItems: "center",
                 }}
@@ -185,8 +185,8 @@ export default function WhyDifferent() {
           <div className="wd-right" style={{ width: "40%", display: "flex", flexDirection: "column", gap: 20 }}>
             <div
               style={{
-                background: "linear-gradient(145deg, rgba(249,115,22,0.08) 0%, rgba(249,115,22,0.03) 100%)",
-                border: "1px solid rgba(249,115,22,0.18)",
+                background: "linear-gradient(145deg, rgba(255,107,0,0.08) 0%, rgba(255,107,0,0.03) 100%)",
+                border: "1px solid var(--border)",
                 borderRadius: 20,
                 padding: 28,
               }}
@@ -221,8 +221,8 @@ export default function WhyDifferent() {
 
             <div
               style={{
-                background: "linear-gradient(145deg, rgba(120,80,220,0.07) 0%, rgba(120,80,220,0.03) 100%)",
-                border: "1px solid rgba(120,80,220,0.18)",
+                background: "linear-gradient(145deg, rgba(0,178,255,0.07) 0%, rgba(0,178,255,0.03) 100%)",
+                border: "1px solid var(--border)",
                 borderRadius: 20,
                 padding: 28,
               }}

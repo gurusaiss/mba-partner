@@ -362,7 +362,7 @@ export default function WallOfFame() {
     <section
       style={{
         padding: "96px 0",
-        background: "linear-gradient(180deg, #0A0C10 0%, #0D0F18 100%)",
+        background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)",
       }}
     >
       <style>{`

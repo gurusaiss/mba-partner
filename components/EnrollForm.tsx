@@ -192,7 +192,7 @@ export default function EnrollForm() {
   const meta = STEP_META[step];
 
   return (
-    <section id="enroll" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0C0814 0%, #0E0A18 100%)" }}>
+    <section id="enroll" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: "64px", alignItems: "start" }}>
 

@@ -53,7 +53,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #090A15 0%, #0D0F1E 100%)" }}>
+    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         <div style={{ textAlign: "center", marginBottom: "64px" }}>
@@ -82,7 +82,7 @@ export default function HowItWorks() {
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow = `0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px ${s.color}33`;
+                (e.currentTarget as HTMLDivElement).style.boxShadow = `var(--shadow-xl), 0 0 0 1px ${s.color}33`;
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
@@ -133,8 +133,8 @@ export default function HowItWorks() {
         <div style={{
           marginTop: "48px",
           padding: "32px 40px",
-          background: "linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(59,130,246,0.06) 100%)",
-          border: "1px solid rgba(249,115,22,0.18)",
+          background: "var(--card2)",
+          border: "1px solid var(--border)",
           borderRadius: "20px",
           display: "flex",
           alignItems: "center",
@@ -150,7 +150,7 @@ export default function HowItWorks() {
             { val: "200+", label: "Live Projects Done" },
           ].map(stat => (
             <div key={stat.label} style={{ textAlign: "center", flex: 1, minWidth: "120px" }}>
-              <div className="stat-num" style={{ fontSize: "2rem" }}>{stat.val}</div>
+              <div className="stat-num" style={{ fontSize: "2rem", color: "var(--text)" }}>{stat.val}</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "4px" }}>{stat.label}</div>
             </div>
           ))}

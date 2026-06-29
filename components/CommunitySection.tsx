@@ -150,7 +150,7 @@ export default function CommunitySection() {
   return (
     <section style={{
       padding: "96px 0",
-      background: "linear-gradient(180deg, #08100A 0%, #0A1210 100%)",
+      background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)",
     }}>
       <style>{`
         @keyframes communityPulse {

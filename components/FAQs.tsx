@@ -102,7 +102,7 @@ export default function FAQs() {
       id="faqs"
       role="region"
       aria-label="Frequently Asked Questions"
-      style={{ padding: "96px 0", background: "linear-gradient(180deg, #0D0A1A 0%, #100C20 100%)" }}
+      style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}
     >
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 40px" }}>
 

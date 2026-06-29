@@ -11,7 +11,7 @@ const colleges = [
 
 export default function CollegeCollab() {
   return (
-    <section id="college-collab" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080E12 0%, #0A1016 100%)" }}>
+    <section id="college-collab" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         {/* Header */}
@@ -41,7 +41,7 @@ export default function CollegeCollab() {
         </div>
 
         {/* CTA Card */}
-        <div style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)", borderRadius: "16px", padding: "48px 40px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+        <div style={{ background: "var(--card2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "48px 40px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
           <h3 className="serif" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "var(--text)", marginBottom: "12px" }}>
             Want MBA Partner at Your Campus?
           </h3>

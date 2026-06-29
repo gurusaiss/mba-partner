@@ -154,7 +154,7 @@ export default function CourseComparison({ selectedIds, courses, onRemove, onAdd
   const colWidths = `200px ${Array(colCount - 1).fill("1fr").join(" ")}`;
 
   return (
-    <section id="course-compare" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0D0A1A 0%, #100E20 100%)" }}>
+    <section id="course-compare" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         {/* Header */}
         <div style={{ marginBottom: "48px" }}>

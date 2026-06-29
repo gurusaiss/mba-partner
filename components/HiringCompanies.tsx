@@ -28,6 +28,7 @@ function Pill({ name }: { name: string }) {
   const [hovered, setHovered] = useState(false);
   return (
     <span
+      className="hiring-pill"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -36,9 +37,9 @@ function Pill({ name }: { name: string }) {
         borderRadius: 100,
         fontSize: "1rem",
         fontWeight: 700,
-        background: hovered ? "rgba(249,115,22,0.09)" : "rgba(255,255,255,0.04)",
-        border: hovered ? "1px solid rgba(249,115,22,0.30)" : "1px solid rgba(255,255,255,0.09)",
-        color: hovered ? "#F97316" : "#F5F0E8",
+        background: hovered ? "rgba(255,107,0,0.09)" : "rgba(255,255,255,0.04)",
+        border: hovered ? "1px solid rgba(255,107,0,0.30)" : "1px solid rgba(255,255,255,0.09)",
+        color: hovered ? "var(--gold)" : "var(--text)",
         transition: "all 0.2s",
         whiteSpace: "nowrap",
         cursor: "default",
@@ -55,9 +56,9 @@ export default function HiringCompanies() {
     <section
       style={{
         padding: "80px 0",
-        background: "linear-gradient(180deg, rgba(249,115,22,0.03) 0%, transparent 100%)",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        background: "linear-gradient(180deg, rgba(255,107,0,0.03) 0%, transparent 100%)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
         overflow: "hidden",
       }}
     >

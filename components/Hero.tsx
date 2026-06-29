@@ -115,11 +115,11 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage: `
-          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(249,115,22,0.09) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 55% at 90% 65%, rgba(59,130,246,0.07) 0%, transparent 55%),
-          radial-gradient(ellipse 40% 40% at 5% 80%, rgba(249,115,22,0.05) 0%, transparent 60%),
-          linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
+          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(255,107,0,0.08) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 55% at 90% 65%, rgba(0,178,255,0.05) 0%, transparent 55%),
+          radial-gradient(ellipse 40% 40% at 5% 80%, rgba(255,107,0,0.04) 0%, transparent 60%),
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
           var(--navy)
         `,
         backgroundSize: "100% 100%, 100% 100%, 100% 100%, 64px 64px, 64px 64px, 100% 100%",
@@ -148,15 +148,15 @@ export default function Hero() {
               className="reveal-slide-up"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "linear-gradient(135deg, rgba(232,93,4,0.12), rgba(249,115,22,0.06))",
-                border: "1px solid rgba(232,93,4,0.28)",
+                background: "linear-gradient(135deg, rgba(255,107,0,0.12), rgba(255,107,0,0.06))",
+                border: "1px solid rgba(255,107,0,0.28)",
                 borderRadius: "100px", padding: "7px 18px", marginBottom: "14px",
                 fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase",
               }}
             >
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#E85D04", display: "inline-block", flexShrink: 0, boxShadow: "0 0 0 2px rgba(232,93,4,0.25)" }} />
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF6B00", display: "inline-block", flexShrink: 0, boxShadow: "0 0 0 2px rgba(255,107,0,0.25)" }} />
               <span style={{
-                background: "linear-gradient(90deg, #E85D04 0%, #F97316 50%, #E85D04 100%)",
+                background: "linear-gradient(90deg, #FF6B00 0%, #FF8833 50%, #FF6B00 100%)",
                 backgroundSize: "200% 100%",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -170,7 +170,7 @@ export default function Hero() {
               className="reveal-slide-up"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "rgba(249,115,22,0.06)", border: "1px solid rgba(249,115,22,0.16)",
+                background: "rgba(255,107,0,0.04)", border: "1px solid var(--border)",
                 borderRadius: "100px", padding: "5px 12px", marginBottom: "26px",
                 fontSize: "0.7rem", color: "var(--muted)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase",
               }}
@@ -193,7 +193,7 @@ export default function Hero() {
               Get Mentored<br />
               by the{" "}
               <span style={{
-                background: "linear-gradient(128deg, #F97316 0%, #E85D04 45%, #C04A00 100%)",
+                background: "linear-gradient(128deg, #FF6B00 0%, #FF8833 45%, #D94F00 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -283,8 +283,8 @@ export default function Hero() {
                   <div
                     key={s.label}
                     style={{
-                      background: "linear-gradient(160deg, #0E1117 0%, #0B0E15 100%)",
-                      border: "1px solid rgba(255,255,255,0.10)",
+                      background: "linear-gradient(160deg, var(--card) 0%, var(--card2) 100%)",
+                      border: "1px solid var(--border)",
                       borderRadius: "14px",
                       padding: "16px",
                       textAlign: "center",
@@ -309,18 +309,18 @@ export default function Hero() {
             >
               {/* COHORT SNAPSHOT */}
               <div style={{
-                background: "linear-gradient(160deg, #0E1117 0%, #0B0E15 100%)",
-                border: "1px solid rgba(255,255,255,0.10)",
+                background: "linear-gradient(160deg, var(--card) 0%, var(--card2) 100%)",
+                border: "1px solid var(--border)",
                 borderRadius: "20px",
                 overflow: "hidden",
-                boxShadow: "0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(249,115,22,0.06)",
+                boxShadow: "var(--shadow-xl), 0 0 0 1px rgba(255,107,0,0.06)",
               }}>
                 {/* Card header */}
                 <div style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                   padding: "18px 24px",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
-                  background: "rgba(255,255,255,0.025)",
+                  borderBottom: "1px solid var(--border)",
+                  background: "rgba(255,255,255,0.015)",
                 }}>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--muted)" }}>
                     Cohort Snapshot
@@ -337,10 +337,10 @@ export default function Hero() {
                     <div key={s.label} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "20px 24px",
-                      borderBottom: i < cohortStats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                      borderBottom: i < cohortStats.length - 1 ? "1px solid var(--border)" : "none",
                       transition: "background 0.2s",
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.025)")}
+                    onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,107,0,0.03)")}
                     onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                     >
                       <span style={{ fontSize: "0.9rem", color: "var(--muted)", fontWeight: 500 }}>{s.label}</span>
@@ -354,8 +354,8 @@ export default function Hero() {
                 {/* Card footer */}
                 <div style={{
                   padding: "14px 24px",
-                  borderTop: "1px solid rgba(255,255,255,0.05)",
-                  background: "rgba(249,115,22,0.03)",
+                  borderTop: "1px solid var(--border)",
+                  background: "rgba(255,107,0,0.02)",
                   display: "flex", alignItems: "center", gap: "8px",
                 }}>
                   <span style={{ fontSize: "0.72rem", color: "var(--dim)" }}>Data verified · Updated batch 2024–25</span>
@@ -364,8 +364,8 @@ export default function Hero() {
 
               {/* Companies card */}
               <div style={{
-                background: "linear-gradient(155deg, #0E1D36 0%, #0B1628 100%)",
-                border: "1px solid rgba(255,255,255,0.10)",
+                background: "linear-gradient(155deg, var(--card) 0%, var(--card2) 100%)",
+                border: "1px solid var(--border)",
                 borderRadius: "18px",
                 padding: "24px",
               }}>
@@ -377,8 +377,8 @@ export default function Hero() {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                   {companies.map(c => (
                     <span key={c} style={{
-                      background: "rgba(255,255,255,0.055)",
-                      border: "1px solid rgba(255,255,255,0.12)",
+                      background: "var(--card2)",
+                      border: "1px solid var(--border)",
                       borderRadius: "8px",
                       padding: "7px 14px",
                       fontSize: "0.88rem",
