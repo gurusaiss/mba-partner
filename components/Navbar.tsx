@@ -162,6 +162,22 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
               {isLight ? <Moon size={15} strokeWidth={2} /> : <Sun size={15} strokeWidth={2} />}
             </button>
 
+              {/* Phone pill */}
+            <a href="tel:+917042732092" style={{
+              display: "inline-flex", alignItems: "center", gap: "6px",
+              padding: "7px 14px", borderRadius: "100px",
+              background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
+              fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)", textDecoration: "none",
+              transition: "all 0.2s", whiteSpace: "nowrap",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--gold)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(240,170,0,0.3)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"; }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              +91 70427 32092
+            </a>
+
             {user ? (
               <div ref={dropdownRef} style={{ position: "relative" }}>
                 <button

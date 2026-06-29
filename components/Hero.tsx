@@ -2,9 +2,9 @@
 import { useRef, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-function CountUpStat({ raw, label }: { raw: string; label: string }) {
+function CountUpNum({ raw }: { raw: string }) {
   const [display, setDisplay] = useState("0");
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -16,7 +16,6 @@ function CountUpStat({ raw, label }: { raw: string; label: string }) {
     const isDecimal = m[1].includes(".");
     const hasComma = target >= 1000;
     const duration = 1800;
-
     let started = false;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !started) {
@@ -38,17 +37,16 @@ function CountUpStat({ raw, label }: { raw: string; label: string }) {
     return () => observer.disconnect();
   }, [raw]);
 
-  return (
-    <div ref={ref} style={{ display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center", gap:"8px",
-      padding:"32px 28px",
-      background: "linear-gradient(160deg, #131420 0%, #0F1018 100%)" }}>
-      <div className="stat-num" style={{ fontSize:"3.2rem", paddingBottom:"8px", borderBottom:"2px solid rgba(240,170,0,0.6)", lineHeight:1 }}>
-        {display}
-      </div>
-      <div style={{ fontSize:"0.92rem", color:"var(--muted)", letterSpacing:"0.04em", fontWeight:600 }}>{label}</div>
-    </div>
-  );
+  return <span ref={ref}>{display}</span>;
 }
+
+const cohortStats = [
+  { label: "Average student rating", val: "9.6", suffix: "/10", color: "#F0AA00" },
+  { label: "Placed in desired domain", val: "98.7", suffix: "%", color: "#10B981" },
+  { label: "Average package", val: "38", suffix: "L+", prefix: "₹", color: "#8B5CF6" },
+  { label: "Students mentored", val: "5,000", suffix: "+", color: "#60A5FA" },
+  { label: "Verified reviews", val: "700", suffix: "+", color: "#F59E0B" },
+];
 
 const highlights = [
   "Live Projects across 6 domains — real CV deliverables",
@@ -79,55 +77,53 @@ export default function Hero() {
       <div style={{ maxWidth: "1380px", margin: "0 auto", padding: "72px 48px", width: "100%" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "72px", alignItems: "center" }}>
 
+          {/* Left: Headline + CTAs + Bullets */}
           <div>
-            <div className="section-label" style={{ marginBottom: "28px", fontSize: "0.72rem" }}>
-              India's #1 MBA Career Platform · Founded by IIM Alumni
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              background: "rgba(240,170,0,0.08)", border: "1px solid rgba(240,170,0,0.22)",
+              borderRadius: "100px", padding: "6px 14px", marginBottom: "28px",
+              fontSize: "0.72rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
+            }}>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--gold)", display: "inline-block" }} />
+              An initiative by Alumni of Old IIM · Since 2020
             </div>
 
             <h1 className="serif" style={{
-              fontSize: "clamp(3.5rem, 5.8vw, 6.8rem)",
+              fontSize: "clamp(3.2rem, 5.5vw, 6.4rem)",
               fontWeight: 900,
               lineHeight: 1.08,
               letterSpacing: "-0.025em",
               color: "var(--text)",
               marginBottom: "28px",
             }}>
-              India's Premier<br />
+              Get Mentored<br />
+              by the{" "}
               <span style={{
                 background: "linear-gradient(128deg, #EDD47A 0%, #D4AA52 45%, #B8943C 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                display: "inline",
-              }}>
-                MBA Career
-              </span><br />
-              Platform
+              }}>Top 1%.</span><br />
+              <span style={{ fontSize: "0.72em", color: "var(--muted)", fontWeight: 700 }}>Land Your Dream Placement.</span>
             </h1>
 
-            <p style={{ color: "var(--muted)", fontSize: "1.12rem", lineHeight: 1.8, marginBottom: "40px", maxWidth: "520px" }}>
-              Live Projects. Case Competitions. Placement Prep. A curated five-year Resource Repository.
-              All delivered by IIM alumni who have been exactly where you are.
+            <p style={{ color: "var(--muted)", fontSize: "1.1rem", lineHeight: 1.8, marginBottom: "40px", maxWidth: "520px" }}>
+              Committee PORs and graduation internships are no longer enough to get shortlisted.
+              Build a CV that actually clears the first cut — with IIM, XLRI and FMS mentors guiding every step.
             </p>
 
             <div style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "rgba(239,68,68,0.08)",
-              border: "1px solid rgba(239,68,68,0.25)",
-              borderRadius: "100px",
-              padding: "6px 14px",
-              marginBottom: "18px",
-              fontSize: "0.78rem",
-              color: "#FCA5A5",
-              fontWeight: 600,
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)",
+              borderRadius: "100px", padding: "6px 14px", marginBottom: "20px",
+              fontSize: "0.78rem", color: "#FCA5A5", fontWeight: 600,
             }}>
               <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#EF4444", display: "inline-block", animation: "pulse 2s infinite" }} />
               Next batch closing — 12 seats remaining
             </div>
 
-            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "12px" }}>
+            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "10px" }}>
               <a href="#courses" className="btn-primary pulse" data-animate="pulse" style={{ fontSize: "0.95rem", padding: "14px 32px" }}>
                 View Courses <ArrowRight size={16} />
               </a>
@@ -136,15 +132,15 @@ export default function Hero() {
               </a>
             </div>
 
-            <div style={{ fontSize: "0.82rem", color: "var(--dim)", marginTop: "-36px", marginBottom: "52px" }}>
+            <div style={{ fontSize: "0.82rem", color: "var(--dim)", marginBottom: "40px" }}>
               Starting from <strong style={{ color: "var(--muted)" }}>₹3,499</strong> · EMI from <strong style={{ color: "var(--muted)" }}>₹583/month</strong> · No cost EMI available
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
               {highlights.map(h => (
                 <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <CheckCircle2 size={19} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
-                  <span style={{ fontSize: "1.15rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
+                  <CheckCircle2 size={18} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
+                  <span style={{ fontSize: "1.05rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
                 </div>
               ))}
             </div>
@@ -156,14 +152,9 @@ export default function Hero() {
                 rel="noreferrer"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "8px",
-                  background: "rgba(37,211,102,0.10)",
-                  border: "1px solid rgba(37,211,102,0.30)",
-                  borderRadius: "100px",
-                  padding: "10px 20px",
-                  fontSize: "0.88rem",
-                  fontWeight: 700,
-                  color: "#25D366",
-                  textDecoration: "none",
+                  background: "rgba(37,211,102,0.10)", border: "1px solid rgba(37,211,102,0.30)",
+                  borderRadius: "100px", padding: "10px 20px",
+                  fontSize: "0.88rem", fontWeight: 700, color: "#25D366", textDecoration: "none",
                   transition: "all 0.2s",
                 }}
                 onMouseEnter={e => (e.currentTarget.style.background = "rgba(37,211,102,0.18)")}
@@ -176,32 +167,72 @@ export default function Hero() {
             </div>
           </div>
 
+          {/* Right: COHORT SNAPSHOT card + Companies */}
           <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
 
+            {/* COHORT SNAPSHOT */}
             <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 1fr)",
-              gap: "2px",
-              background: "rgba(240,170,0,0.08)",
+              background: "linear-gradient(160deg, #0E1117 0%, #0B0E15 100%)",
+              border: "1px solid rgba(255,255,255,0.10)",
               borderRadius: "20px",
               overflow: "hidden",
-              border: "1px solid rgba(240,170,0,0.18)",
-              boxShadow: "0 0 50px rgba(240,170,0,0.06), inset 0 1px 0 rgba(240,170,0,0.10)",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,170,0,0.06)",
             }}>
-              <div style={{ gridColumn: "span 2" }}><CountUpStat raw="5,000+" label="Students Mentored" /></div>
-              <div style={{ gridColumn: "span 2" }}><CountUpStat raw="9.6/10" label="Average Rating" /></div>
-              <div style={{ gridColumn: "span 2" }}><CountUpStat raw="98.7%" label="Placement Rate" /></div>
-              <div style={{ gridColumn: "span 3" }}><CountUpStat raw="₹38L+" label="Avg Package" /></div>
-              <div style={{ gridColumn: "span 3" }}><CountUpStat raw="700+" label="Verified Reviews" /></div>
+              {/* Card header */}
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                padding: "18px 24px",
+                borderBottom: "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(255,255,255,0.025)",
+              }}>
+                <span style={{ fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--muted)" }}>
+                  Cohort Snapshot
+                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981", display: "inline-block", animation: "pulse 2s infinite" }} />
+                  <span style={{ fontSize: "0.7rem", color: "#10B981", fontWeight: 600 }}>Live</span>
+                </div>
+              </div>
+
+              {/* Stats rows */}
+              <div>
+                {cohortStats.map((s, i) => (
+                  <div key={s.label} style={{
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "20px 24px",
+                    borderBottom: i < cohortStats.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                    transition: "background 0.2s",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.025)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                  >
+                    <span style={{ fontSize: "0.9rem", color: "var(--muted)", fontWeight: 500 }}>{s.label}</span>
+                    <span style={{ fontSize: "1.6rem", fontWeight: 800, color: s.color, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                      {s.prefix}<CountUpNum raw={s.val} /><span style={{ fontSize: "0.9rem", fontWeight: 600, opacity: 0.8 }}>{s.suffix}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Card footer */}
+              <div style={{
+                padding: "14px 24px",
+                borderTop: "1px solid rgba(255,255,255,0.05)",
+                background: "rgba(240,170,0,0.03)",
+                display: "flex", alignItems: "center", gap: "8px",
+              }}>
+                <span style={{ fontSize: "0.72rem", color: "var(--dim)" }}>Data verified · Updated batch 2024–25</span>
+              </div>
             </div>
 
+            {/* Companies card */}
             <div style={{
               background: "linear-gradient(155deg, #0E1D36 0%, #0B1628 100%)",
               border: "1px solid rgba(255,255,255,0.10)",
               borderRadius: "18px",
-              padding: "28px",
+              padding: "24px",
             }}>
-              <div style={{ fontSize: "0.7rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "18px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <div style={{ fontSize: "0.7rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
                 <span style={{ display: "inline-block", width: "20px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
                 Students Placed At
                 <span style={{ display: "inline-block", width: "20px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
@@ -212,11 +243,10 @@ export default function Hero() {
                     background: "rgba(255,255,255,0.055)",
                     border: "1px solid rgba(255,255,255,0.12)",
                     borderRadius: "8px",
-                    padding: "8px 16px",
-                    fontSize: "0.92rem",
+                    padding: "7px 14px",
+                    fontSize: "0.88rem",
                     color: "var(--text)",
                     fontWeight: 500,
-                    letterSpacing: "0.01em",
                   }}>{c}</span>
                 ))}
               </div>
