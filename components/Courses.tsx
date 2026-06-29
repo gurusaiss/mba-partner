@@ -455,7 +455,8 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
                     {c.brochure && (
                       <a
                         href={c.brochure}
-                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                           fontSize: "0.75rem",
                           color: "var(--gold)",
@@ -470,10 +471,10 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
                           whiteSpace: "nowrap",
                           transition: "all 0.2s"
                         }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.12)"; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.06)"; }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.14)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201,168,76,0.5)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.06)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201,168,76,0.25)"; }}
                       >
-                        📄 Brochure
+                        📄 View Brochure
                       </a>
                     )}
                     <button

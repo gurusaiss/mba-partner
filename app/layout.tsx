@@ -79,9 +79,10 @@ const organizationSchema = {
   foundingDate: "2022",
   description: "India's premier MBA career platform connecting students with IIM alumni mentors for placements, case competitions, and live projects.",
   sameAs: [
-    "https://www.linkedin.com/company/mbapartner",
-    "https://www.instagram.com/mbapartner",
-    "https://www.youtube.com/@mbapartner",
+    "https://www.linkedin.com/in/prodmarkconsulting",
+    "https://www.instagram.com/mba_partner",
+    "https://www.instagram.com/mba_laughterwala",
+    "https://youtube.com/@mbapartner",
   ],
   contactPoint: {
     "@type": "ContactPoint",

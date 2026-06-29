@@ -3,21 +3,116 @@
 import { useState } from "react";
 
 const mentors = [
-  { initials: "YG", name: "Yash Gohil", school: "IIM Ahmedabad", company: "Accenture Consulting", domain: "Consulting", bg: "rgba(232,93,4,0.12)", color: "var(--gold)" },
-  { initials: "SS", name: "Shen Shaji", school: "IIM Bangalore", company: "Media.Net", domain: "Product Management", bg: "rgba(96,165,250,0.1)", color: "#93C5FD" },
-  { initials: "VB", name: "Vidhi Barolia", school: "IIM Lucknow", company: "PwC US", domain: "Finance", bg: "rgba(74,222,128,0.1)", color: "#86EFAC" },
-  { initials: "AG", name: "Aadesh Gupta", school: "IIM Mumbai", company: "L'Oreal", domain: "Marketing", bg: "rgba(251,113,133,0.1)", color: "#FCA5A5" },
-  { initials: "AR", name: "Ananyo Roy", school: "XLRI Jamshedpur", company: "TAS", domain: "HR", bg: "rgba(165,180,252,0.1)", color: "#C4B5FD" },
-  { initials: "AG", name: "Ashutosh Gupta", school: "IIM Lucknow", company: "Gulf Oil", domain: "Operations", bg: "rgba(232,93,4,0.12)", color: "var(--gold)" },
+  {
+    initials: "YG",
+    name: "Yash Gohil",
+    school: "IIM Ahmedabad",
+    company: "Accenture Consulting",
+    domain: "Consulting",
+    bg: "rgba(232,93,4,0.12)",
+    color: "var(--gold)",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    initials: "SS",
+    name: "Shen Shaji",
+    school: "IIM Bangalore",
+    company: "Media.Net",
+    domain: "Product Management",
+    bg: "rgba(96,165,250,0.1)",
+    color: "#93C5FD",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    initials: "VB",
+    name: "Vidhi Barolia",
+    school: "IIM Lucknow",
+    company: "PwC US",
+    domain: "Finance",
+    bg: "rgba(74,222,128,0.1)",
+    color: "#86EFAC",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    initials: "AG",
+    name: "Aadesh Gupta",
+    school: "IIM Mumbai",
+    company: "L'Oreal",
+    domain: "Marketing",
+    bg: "rgba(251,113,133,0.1)",
+    color: "#FCA5A5",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    initials: "AR",
+    name: "Ananyo Roy",
+    school: "XLRI Jamshedpur",
+    company: "TAS",
+    domain: "HR",
+    bg: "rgba(165,180,252,0.1)",
+    color: "#C4B5FD",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    initials: "AG2",
+    name: "Ashutosh Gupta",
+    school: "IIM Lucknow",
+    company: "Gulf Oil",
+    domain: "Operations",
+    bg: "rgba(232,93,4,0.12)",
+    color: "var(--gold)",
+    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
 ];
 
 const domainOptions = ["Consulting", "Finance", "Marketing", "HR", "Operations", "Product"];
 
 const emptyForm = { name: "", bschool: "", domain: "Consulting", linkedin: "", videoLink: "" };
 
+function LinkedInBadge({ href, color }: { href: string; color: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="View LinkedIn profile"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "4px",
+        padding: "4px 10px",
+        borderRadius: "8px",
+        fontSize: "0.72rem",
+        fontWeight: 600,
+        color: "#0A66C2",
+        background: "rgba(10,102,194,0.09)",
+        border: "1px solid rgba(10,102,194,0.22)",
+        textDecoration: "none",
+        transition: "all 0.18s",
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.background = "rgba(10,102,194,0.16)";
+        e.currentTarget.style.borderColor = "rgba(10,102,194,0.4)";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.background = "rgba(10,102,194,0.09)";
+        e.currentTarget.style.borderColor = "rgba(10,102,194,0.22)";
+      }}
+    >
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+        <rect x="2" y="9" width="4" height="12"/>
+        <circle cx="4" cy="4" r="2"/>
+      </svg>
+      LinkedIn
+    </a>
+  );
+}
+
 export default function Mentors() {
   const [form, setForm] = useState(emptyForm);
   const [submitted, setSubmitted] = useState(false);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,6 +125,18 @@ export default function Mentors() {
 
   return (
     <section id="mentors" style={{ padding: "96px 0", background: "linear-gradient(180deg, #0C1008 0%, #0E1410 100%)" }}>
+      <style>{`
+        .mentor-card {
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          position: relative;
+        }
+        .mentor-card:hover {
+          transform: translateY(-4px);
+        }
+        [data-theme="light"] .mentor-card {
+          background: #fff !important;
+        }
+      `}</style>
       <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
@@ -46,15 +153,60 @@ export default function Mentors() {
         {/* Mentor Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {mentors.map((m, i) => (
-            <div key={i} className="card" style={{ padding: "28px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
-              <div style={{ width: "54px", height: "54px", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "0.95rem", flexShrink: 0, background: m.bg, color: m.color, border: `1px solid ${m.color}40` }}>
-                {m.initials}
+            <div
+              key={i}
+              className="card mentor-card"
+              style={{
+                padding: "28px",
+                display: "flex",
+                gap: "20px",
+                alignItems: "flex-start",
+                boxShadow: hoveredIdx === i
+                  ? `0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px ${m.color}40`
+                  : undefined,
+              }}
+              onMouseEnter={() => setHoveredIdx(i)}
+              onMouseLeave={() => setHoveredIdx(null)}
+            >
+              {/* Avatar */}
+              <div style={{
+                width: "56px",
+                height: "56px",
+                borderRadius: "14px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "var(--font-serif)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                flexShrink: 0,
+                background: m.bg,
+                color: m.color,
+                border: `1px solid ${m.color}40`,
+                position: "relative",
+              }}>
+                {m.initials.replace("2", "")}
+                <span style={{
+                  position: "absolute",
+                  bottom: "-4px",
+                  right: "-4px",
+                  width: "16px",
+                  height: "16px",
+                  borderRadius: "50%",
+                  background: "#22C55E",
+                  border: "2px solid var(--card, #0F1018)",
+                  display: hoveredIdx === i ? "block" : "none",
+                }} />
               </div>
-              <div style={{ minWidth: 0 }}>
+
+              <div style={{ minWidth: 0, flex: 1 }}>
                 <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text)", marginBottom: "3px" }}>{m.name}</div>
-                <div style={{ fontSize: "0.88rem", color: "var(--gold)", marginBottom: "4px", fontWeight: 500 }}>{m.school}</div>
-                <div style={{ fontSize: "0.88rem", color: "var(--muted)", marginBottom: "14px" }}>{m.company}</div>
-                <span className="tag" style={{ fontSize: "0.75rem", padding: "5px 12px" }}>{m.domain}</span>
+                <div style={{ fontSize: "0.88rem", color: "var(--gold)", marginBottom: "3px", fontWeight: 600 }}>{m.school}</div>
+                <div style={{ fontSize: "0.85rem", color: "var(--muted)", marginBottom: "12px" }}>{m.company}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                  <span className="tag" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>{m.domain}</span>
+                  <LinkedInBadge href={m.linkedin} color={m.color} />
+                </div>
               </div>
             </div>
           ))}
@@ -81,7 +233,7 @@ export default function Mentors() {
 
           {submitted ? (
             <div style={{ background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: "12px", padding: "24px", color: "#86EFAC", fontSize: "1rem", fontWeight: 500 }}>
-              Application received! We'll review your video and reach out within 3 days.
+              ✅ Application received! We&apos;ll review your video and reach out within 3 days.
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
@@ -150,7 +302,20 @@ export default function Mentors() {
               <div style={{ gridColumn: "1 / -1" }}>
                 <button
                   type="submit"
-                  style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 32px", fontSize: "0.95rem", fontWeight: 600, cursor: "pointer", letterSpacing: "0.01em" }}
+                  style={{
+                    background: "linear-gradient(135deg, #6366f1, #4f46e5)",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "12px 32px",
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    letterSpacing: "0.01em",
+                    transition: "opacity 0.2s",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = "0.88")}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
                 >
                   Submit Application
                 </button>

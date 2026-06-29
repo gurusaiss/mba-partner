@@ -3,41 +3,66 @@
 const channels = [
   {
     name: "WhatsApp Community",
-    desc: "Daily placement tips, job alerts, peer support",
+    desc: "Daily placement tips, job alerts, real-time peer support",
     members: "3,200+ members",
     icon: "whatsapp",
     color: "#25D366",
     colorAlpha: "rgba(37,211,102,0.10)",
     borderColor: "rgba(37,211,102,0.25)",
-    link: "https://wa.me/918686863183",
+    link: "https://wa.me/917042732092",
     cta: "Join WhatsApp Group",
     badge: "Most Active",
   },
   {
-    name: "Telegram Channel",
-    desc: "Instant updates, resources, mock test links",
-    members: "1,800+ subscribers",
-    icon: "telegram",
-    color: "#229ED9",
-    colorAlpha: "rgba(34,158,217,0.10)",
-    borderColor: "rgba(34,158,217,0.25)",
-    link: "https://t.me/mbapartner",
-    cta: "Join Telegram",
-    badge: "Quick Updates",
+    name: "Official Instagram",
+    desc: "Placement tips, success stories, MBA insights & updates",
+    members: "Follow for daily tips",
+    icon: "instagram",
+    color: "#E1306C",
+    colorAlpha: "rgba(225,48,108,0.10)",
+    borderColor: "rgba(225,48,108,0.25)",
+    link: "https://www.instagram.com/mba_partner?igsh=dGZuMmoyb3V2eDlx",
+    cta: "Follow on Instagram",
+    badge: "Official Page",
   },
   {
-    name: "MBA Partner Network",
-    desc: "Alumni network, referrals, LinkedIn connections",
+    name: "MBA Laughterwala 😂",
+    desc: "MBA memes, fun content & relatable B-school life moments",
+    members: "The fun side of MBA",
+    icon: "instagram-fun",
+    color: "#F97316",
+    colorAlpha: "rgba(249,115,22,0.10)",
+    borderColor: "rgba(249,115,22,0.25)",
+    link: "https://www.instagram.com/mba_laughterwala?igsh=ZngzMmRnN3k3ZjZ2",
+    cta: "Follow for Laughs",
+    badge: "Viral Memes",
+  },
+  {
+    name: "YouTube Channel",
+    desc: "Free sessions, placement tips, mentor talks & interviews",
+    members: "Subscribe for free content",
+    icon: "youtube",
+    color: "#FF0000",
+    colorAlpha: "rgba(255,0,0,0.08)",
+    borderColor: "rgba(255,0,0,0.22)",
+    link: "https://youtube.com/@mbapartner?si=0TXLOPjxtMiHvJU7",
+    cta: "Watch Free Sessions",
+    badge: "Free Content",
+  },
+  {
+    name: "LinkedIn Network",
+    desc: "Alumni network, career insights & professional connections",
     members: "5,000+ alumni",
-    icon: "network",
-    color: "#3B82F6",
-    colorAlpha: "rgba(59,130,246,0.10)",
-    borderColor: "rgba(59,130,246,0.25)",
-    link: "#enroll",
-    cta: "Join the Network",
-    badge: "Exclusive",
+    icon: "linkedin",
+    color: "#0A66C2",
+    colorAlpha: "rgba(10,102,194,0.10)",
+    borderColor: "rgba(10,102,194,0.25)",
+    link: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    cta: "Connect on LinkedIn",
+    badge: "Professional",
   },
 ];
+
 
 const activities = [
   "Sneha from NMIMS shared a Goldman Sachs PI transcript",
@@ -56,10 +81,31 @@ function WhatsAppIcon() {
   );
 }
 
-function TelegramIcon() {
+function InstagramIcon() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+  );
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+      <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="currentColor" stroke="none"/>
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+      <rect x="2" y="9" width="4" height="12"/>
+      <circle cx="4" cy="4" r="2"/>
     </svg>
   );
 }
@@ -92,7 +138,9 @@ function ChannelIcon({ icon, color }: { icon: string; color: string }) {
       flexShrink: 0,
     }}>
       {icon === "whatsapp" && <WhatsAppIcon />}
-      {icon === "telegram" && <TelegramIcon />}
+      {(icon === "instagram" || icon === "instagram-fun") && <InstagramIcon />}
+      {icon === "youtube" && <YouTubeIcon />}
+      {icon === "linkedin" && <LinkedInIcon />}
       {icon === "network" && <NetworkIcon />}
     </div>
   );
@@ -175,17 +223,16 @@ export default function CommunitySection() {
           </p>
         </div>
 
-        {/* Two-column layout */}
+        {/* Social channels grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "60% 40%",
-          gap: "32px",
-          alignItems: "start",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: "16px",
+          marginBottom: "40px",
         }}>
 
-          {/* Left: Channel cards */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {channels.map((ch) => (
+          {/* Channel cards */}
+          {channels.map((ch) => (
               <div
                 key={ch.name}
                 className="community-card"
@@ -261,14 +308,14 @@ export default function CommunitySection() {
             ))}
           </div>
 
-          {/* Right: Live activity feed */}
+          {/* Live Activity feed — full width below */}
           <div
             className="community-activity-card"
             style={{
               background: "rgba(255,255,255,0.03)",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: "20px",
-              padding: "24px",
+              padding: "24px 32px",
               overflow: "hidden",
             }}
           >
@@ -297,7 +344,7 @@ export default function CommunitySection() {
             </div>
 
             {/* Activity list */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "2px 24px" }}>
               {activities.map((item, i) => {
                 const isLast = i === activities.length - 1;
                 return (
@@ -314,7 +361,6 @@ export default function CommunitySection() {
                       color: isLast ? "var(--text)" : "var(--muted)",
                       background: isLast ? "rgba(249,115,22,0.05)" : "transparent",
                       borderRadius: isLast ? "0 6px 6px 0" : 0,
-                      marginBottom: i < activities.length - 1 ? 2 : 0,
                     }}
                   >
                     {item}
@@ -335,7 +381,6 @@ export default function CommunitySection() {
             </div>
           </div>
 
-        </div>
       </div>
     </section>
   );

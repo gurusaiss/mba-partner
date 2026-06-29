@@ -148,7 +148,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
           borderBottom: `1px solid ${solid ? (isLight ? "rgba(184,146,10,0.18)" : "rgba(212,170,82,0.12)") : "transparent"}`,
         }}
       >
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
+        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 24px", height: "68px", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "24px" }}>
 
           {/* Logo */}
           <a
@@ -177,75 +177,83 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
             </span>
           </a>
 
-          {/* Mode toggle pill */}
+          {/* Mode toggle pill — CENTER COLUMN */}
           <div style={{
-            display: "flex", alignItems: "center",
-            background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)",
-            border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
-            borderRadius: "100px", padding: "4px", gap: "2px", flexShrink: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <button onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
-              style={{
-                padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
-                fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
-                background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
-                color: mode === "mba" ? "#030810" : "var(--muted)",
-                fontFamily: "var(--font-sans)",
-              }}>
-              MBA Student
-            </button>
-            <button onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
-              style={{
-                padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
-                fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
-                background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
-                color: mode === "cat" ? "#ffffff" : "var(--muted)",
-                fontFamily: "var(--font-sans)",
-              }}>
-              CAT / OMETs Aspirant
-            </button>
+            <div style={{
+              display: "flex", alignItems: "center",
+              background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
+              borderRadius: "100px", padding: "4px", gap: "2px",
+            }}>
+              <button onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
+                style={{
+                  padding: "7px 16px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
+                  background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
+                  color: mode === "mba" ? "#030810" : "var(--muted)",
+                  fontFamily: "var(--font-sans)",
+                  whiteSpace: "nowrap",
+                }}>
+                MBA Student
+              </button>
+              <button onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
+                style={{
+                  padding: "7px 16px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
+                  background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
+                  color: mode === "cat" ? "#ffffff" : "var(--muted)",
+                  fontFamily: "var(--font-sans)",
+                  whiteSpace: "nowrap",
+                }}>
+                CAT / OMETs
+              </button>
+            </div>
           </div>
 
-          {/* Desktop nav links */}
-          <nav className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-            {links.map(l => {
-              const sectionId = l.href.replace("#", "");
-              const isActive = activeSection === sectionId;
-              return (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  style={{
-                    fontSize: "0.86rem",
-                    fontWeight: isActive ? 700 : 600,
-                    color: isActive ? "var(--gold)" : "var(--muted)",
-                    textDecoration: "none",
-                    transition: "color 0.18s",
-                    whiteSpace: "nowrap",
-                    position: "relative",
-                  }}
-                  onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = linkHoverColor; }}
-                  onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; }}
-                >
-                  {l.label}
-                  {isActive && (
-                    <span style={{
-                      position: "absolute",
-                      bottom: "-3px",
-                      left: 0,
-                      right: 0,
-                      height: "2px",
-                      borderRadius: "2px",
-                      background: "var(--gold)",
-                    }} />
-                  )}
-                </a>
-              );
-            })}
-          </nav>
+          {/* RIGHT COLUMN: Desktop nav links + actions */}
+          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "16px" }}>
+            <nav style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              {links.map(l => {
+                const sectionId = l.href.replace("#", "");
+                const isActive = activeSection === sectionId;
 
-          {/* Right side: theme toggle + phone + auth */}
-          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    style={{
+                      fontSize: "0.84rem",
+                      fontWeight: isActive ? 700 : 600,
+                      color: isActive ? "var(--gold)" : "var(--muted)",
+                      textDecoration: "none",
+                      transition: "color 0.18s",
+                      whiteSpace: "nowrap",
+                      position: "relative",
+                    }}
+                    onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = linkHoverColor; }}
+                    onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; }}
+                  >
+                    {l.label}
+                    {isActive && (
+                      <span style={{
+                        position: "absolute",
+                        bottom: "-3px",
+                        left: 0,
+                        right: 0,
+                        height: "2px",
+                        borderRadius: "2px",
+                        background: "var(--gold)",
+                      }} />
+                    )}
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Right side: theme toggle + phone + auth */}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
 
             {/* Theme toggle */}
             <button
@@ -375,10 +383,11 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 )}
               </>
             )}
+            </div>
           </div>
 
-          {/* Hamburger */}
-          <button onClick={() => setOpen(!open)} className="show-mobile" style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: "4px", display: "none" }}>
+          {/* Hamburger — shown on mobile only, right-aligned via CSS */}
+          <button onClick={() => setOpen(!open)} className="show-mobile" style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: "4px", display: "none", justifySelf: "end" }}>
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
