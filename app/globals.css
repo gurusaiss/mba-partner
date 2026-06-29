@@ -11,33 +11,33 @@
   --font-mono:    'SF Mono', 'Fira Code', Consolas, monospace;
 
   /* Backgrounds */
-  --navy:    #08090E;
-  --card:    #0F1018;
-  --card2:   #161722;
-  --bg-deep: #0A0A0F;
-  --surface-mid: #1A2035;
+  --navy:    #030712; /* Deep space black */
+  --card:    #0B0F19; /* Deep indigo glass card */
+  --card2:   #111827; /* Charcoal navy card */
+  --bg-deep: #020617; /* Slate black */
+  --surface-mid: #1E293B; /* Slate grey */
 
   /* Borders */
-  --border: rgba(255,255,255,0.07);
+  --border: rgba(249, 115, 22, 0.08);
 
-  /* Orange accent */
-  --gold:     #F97316;
-  --gold2:    #FB923C;
-  --gold-dim: #C2531A;
+  /* Orange accent (Ultra vibrant neon orange/gold) */
+  --gold:     #FF6B00;
+  --gold2:    #FF8833;
+  --gold-dim: #D94F00;
 
-  /* Blue accent */
-  --violet:     #3B82F6;
-  --violet2:    #60A5FA;
-  --violet-rgb: 59,130,246;
+  /* Blue accent (Vibrant cyan/royal blue) */
+  --violet:     #00B2FF;
+  --violet2:    #38BDF8;
+  --violet-rgb: 0,178,255;
 
-  /* Emerald */
+  /* Emerald (Vibrant neon green) */
   --emerald:  #10B981;
   --emerald2: #34D399;
 
   /* Text */
-  --text:  #F5F0E8;
-  --muted: #9BA5BE;
-  --dim:   #3C4158;
+  --text:  #F8FAFC;
+  --muted: #94A3B8;
+  --dim:   #475569;
 
   /* Shadows */
   --shadow-sm:   0 1px 4px rgba(0,0,0,0.30);
@@ -132,31 +132,31 @@
    DESIGN TOKENS — Light mode
 ───────────────────────────────────────────── */
 [data-theme="light"] {
-  --navy:    #F8F5F1;
-  --card:    #FFFFFF;
-  --card2:   #F0ECE6;
-  --bg-deep: #E6E0D8;
-  --surface-mid: #D8D2C8;
-  --border:  rgba(0,0,0,0.07);
-  --gold:    #E85D04;
-  --gold2:   #F97316;
-  --gold-dim: #C04A00;
-  --violet:  #1E3A5F;
-  --violet2: #2563EB;
+  --navy:    #F8FAFC; /* Cool Slate Light White */
+  --card:    #FFFFFF; /* White */
+  --card2:   #F1F5F9; /* Slate Tint White */
+  --bg-deep: #E2E8F0; /* Deep cool slate */
+  --surface-mid: #CBD5E1; /* Mid cool slate */
+  --border:  rgba(15,23,42,0.06);
+  --gold:    #FF6B00; /* Vibrant Orange/Gold */
+  --gold2:   #FF8833;
+  --gold-dim: #D94F00;
+  --violet:  #0284C7; /* Cool Sky Blue */
+  --violet2: #0EA5E9;
   --emerald:  #059669;
   --emerald2: #10B981;
-  --text:    #0C0D12;
-  --muted:   #4A5570;
-  --dim:     #9BA0B8;
+  --text:    #0F172A; /* Slate Black */
+  --muted:   #475569; /* Slate Gray */
+  --dim:     #64748B;
 
-  --shadow-sm:   0 1px 4px rgba(0,0,0,0.07);
-  --shadow-md:   0 4px 16px rgba(0,0,0,0.09);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.11);
-  --shadow-xl:   0 16px 48px rgba(0,0,0,0.13);
-  --shadow-2xl:  0 32px 80px rgba(0,0,0,0.17);
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.07);
-  --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.13), 0 0 0 1px var(--gold-dim);
-  --shadow-glow-gold:  0 0 28px rgba(232,93,4,0.18);
+  --shadow-sm:   0 1px 3px rgba(15,23,42,0.03), 0 1px 2px rgba(15,23,42,0.06);
+  --shadow-md:   0 4px 6px -1px rgba(15,23,42,0.08), 0 2px 4px -2px rgba(15,23,42,0.08);
+  --shadow-lg:   0 10px 15px -3px rgba(15,23,42,0.1), 0 4px 6px -4px rgba(15,23,42,0.1);
+  --shadow-xl:   0 20px 25px -5px rgba(15,23,42,0.12), 0 8px 10px -6px rgba(15,23,42,0.12);
+  --shadow-2xl:  0 25px 50px -12px rgba(0,0,0,0.15);
+  --shadow-card: 0 4px 20px rgba(15,23,42,0.04);
+  --shadow-card-hover: 0 12px 30px rgba(15,23,42,0.09), 0 0 0 1px var(--gold-dim);
+  --shadow-glow-gold:  0 0 24px rgba(255,107,0,0.12);
 }
 
 /* ─────────────────────────────────────────────
