@@ -96,7 +96,7 @@ export default function SocialProofToast() {
       }}>
         <div style={{
           background: "var(--card)",
-          border: "1px solid rgba(240,170,0,0.20)",
+          border: "1px solid rgba(249,115,22,0.20)",
           borderRadius: 16,
           padding: "14px 18px",
           display: "flex",
@@ -133,7 +133,7 @@ export default function SocialProofToast() {
             width: 40,
             height: 40,
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #F0AA00 0%, #D4AA52 100%)",
+            background: "linear-gradient(135deg, #F97316 0%, #FB923C 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

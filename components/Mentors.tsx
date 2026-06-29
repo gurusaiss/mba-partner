@@ -69,7 +69,7 @@ export default function Mentors() {
         </div>
 
         {/* Apply to be a Mentor Card */}
-        <div style={{ marginTop: "64px", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.25)", borderRadius: "16px", padding: "40px" }}>
+        <div style={{ marginTop: "64px", background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)", borderRadius: "16px", padding: "40px" }}>
           <div style={{ marginBottom: "28px" }}>
             <h3 className="serif" style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", fontWeight: 700, color: "var(--text)", marginBottom: "10px" }}>
               Were You a Successful MBA Partner Student?

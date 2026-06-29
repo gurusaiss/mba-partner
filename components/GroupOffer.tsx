@@ -249,10 +249,10 @@ export default function GroupOffer() {
                   </div>
                 </div>
 
-                <div style={{ border: "1px solid rgba(99,102,241,0.2)", borderRadius: "14px", overflow: "hidden" }}>
+                <div style={{ border: "1px solid rgba(59,130,246,0.2)", borderRadius: "14px", overflow: "hidden" }}>
                   <div style={{
-                    background: "rgba(99,102,241,0.10)",
-                    borderBottom: "1px solid rgba(99,102,241,0.18)",
+                    background: "rgba(59,130,246,0.10)",
+                    borderBottom: "1px solid rgba(59,130,246,0.18)",
                     padding: "12px 20px"
                   }}>
                     <span style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.09em", color: "#a5b4fc" }}>

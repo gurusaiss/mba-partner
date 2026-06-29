@@ -138,7 +138,7 @@ export default function FAQs() {
               fontFamily: "var(--font-sans)",
               transition: "border-color 0.2s",
             }}
-            onFocus={e => (e.currentTarget.style.borderColor = "rgba(240,170,0,0.5)")}
+            onFocus={e => (e.currentTarget.style.borderColor = "rgba(249,115,22,0.5)")}
             onBlur={e => (e.currentTarget.style.borderColor = "var(--border)")}
           />
         </div>
@@ -160,8 +160,8 @@ export default function FAQs() {
                 style={{
                   padding: "7px 18px",
                   borderRadius: "999px",
-                  border: isActive ? "1px solid rgba(240,170,0,0.6)" : "1px solid var(--border)",
-                  background: isActive ? "rgba(240,170,0,0.1)" : "transparent",
+                  border: isActive ? "1px solid rgba(249,115,22,0.6)" : "1px solid var(--border)",
+                  background: isActive ? "rgba(249,115,22,0.1)" : "transparent",
                   color: isActive ? "var(--gold)" : "var(--muted)",
                   fontSize: "0.82rem",
                   fontWeight: isActive ? 700 : 500,
@@ -205,7 +205,7 @@ export default function FAQs() {
                     paddingLeft: isOpen ? "16px" : "0",
                     marginBottom: isOpen ? "8px" : "0",
                     transition: "all 0.25s ease",
-                    background: isOpen ? "rgba(240,170,0,0.04)" : "transparent",
+                    background: isOpen ? "rgba(249,115,22,0.04)" : "transparent",
                     borderBottom: "1px solid var(--border)",
                     borderTop: visibleIndex === 0 ? "1px solid var(--border)" : "none",
                   }}
@@ -239,8 +239,8 @@ export default function FAQs() {
                       flexShrink: 0,
                       width: "30px", height: "30px",
                       borderRadius: "50%",
-                      border: `1px solid ${isOpen ? "rgba(240,170,0,0.5)" : "var(--border)"}`,
-                      background: isOpen ? "rgba(240,170,0,0.08)" : "transparent",
+                      border: `1px solid ${isOpen ? "rgba(249,115,22,0.5)" : "var(--border)"}`,
+                      background: isOpen ? "rgba(249,115,22,0.08)" : "transparent",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       transition: "all 0.25s ease",
                       color: isOpen ? "var(--gold)" : "var(--muted)",

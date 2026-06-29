@@ -55,7 +55,7 @@ function CTAButton({ href, children, primary }: { href: string; children: React.
         transition: "all 0.22s",
         ...(primary
           ? {
-              background: hovered ? "#D4920A" : "#F0AA00",
+              background: hovered ? "#D4920A" : "#F97316",
               color: "#0A0A0F",
             }
           : {
@@ -143,7 +143,7 @@ export default function WhyDifferent() {
               <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 Feature
               </span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#F0AA00", textAlign: "center" }}>
+              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#F97316", textAlign: "center" }}>
                 MBA Partner ✓
               </span>
               <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--muted)", textAlign: "center", opacity: 0.6 }}>
@@ -185,8 +185,8 @@ export default function WhyDifferent() {
           <div className="wd-right" style={{ width: "40%", display: "flex", flexDirection: "column", gap: 20 }}>
             <div
               style={{
-                background: "linear-gradient(145deg, rgba(240,170,0,0.08) 0%, rgba(240,170,0,0.03) 100%)",
-                border: "1px solid rgba(240,170,0,0.18)",
+                background: "linear-gradient(145deg, rgba(249,115,22,0.08) 0%, rgba(249,115,22,0.03) 100%)",
+                border: "1px solid rgba(249,115,22,0.18)",
                 borderRadius: 20,
                 padding: 28,
               }}

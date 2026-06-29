@@ -191,7 +191,7 @@ export default function ChatBot() {
               <div style={{ fontSize: "0.74rem", color: "var(--gold)", fontWeight: 500 }}>MBA Partner · AI Guide</div>
               <div style={{
                 fontSize: "0.7rem",
-                color: "rgba(240,170,0,0.6)",
+                color: "rgba(249,115,22,0.6)",
                 display: "flex",
                 alignItems: "center",
                 gap: "5px",

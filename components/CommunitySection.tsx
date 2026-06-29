@@ -30,9 +30,9 @@ const channels = [
     desc: "Alumni network, referrals, LinkedIn connections",
     members: "5,000+ alumni",
     icon: "network",
-    color: "#8B5CF6",
-    colorAlpha: "rgba(139,92,246,0.10)",
-    borderColor: "rgba(139,92,246,0.25)",
+    color: "#3B82F6",
+    colorAlpha: "rgba(59,130,246,0.10)",
+    borderColor: "rgba(59,130,246,0.25)",
     link: "#enroll",
     cta: "Join the Network",
     badge: "Exclusive",
@@ -150,7 +150,7 @@ export default function CommunitySection() {
             textTransform: "uppercase",
             marginBottom: "16px",
             padding: "5px 14px",
-            border: "1px solid rgba(240,170,0,0.25)",
+            border: "1px solid rgba(249,115,22,0.25)",
             borderRadius: "100px",
           }}>
             Community
@@ -305,14 +305,14 @@ export default function CommunitySection() {
                     key={i}
                     style={{
                       borderLeft: isLast
-                        ? "3px solid rgba(240,170,0,0.7)"
-                        : "3px solid rgba(240,170,0,0.3)",
+                        ? "3px solid rgba(249,115,22,0.7)"
+                        : "3px solid rgba(249,115,22,0.3)",
                       paddingLeft: 12,
                       paddingTop: 10,
                       paddingBottom: 10,
                       fontSize: "0.82rem",
                       color: isLast ? "var(--text)" : "var(--muted)",
-                      background: isLast ? "rgba(240,170,0,0.05)" : "transparent",
+                      background: isLast ? "rgba(249,115,22,0.05)" : "transparent",
                       borderRadius: isLast ? "0 6px 6px 0" : 0,
                       marginBottom: i < activities.length - 1 ? 2 : 0,
                     }}

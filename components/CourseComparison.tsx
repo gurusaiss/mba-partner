@@ -174,15 +174,15 @@ export default function CourseComparison({ selectedIds, courses, onRemove, onAdd
             <div style={{
               textAlign: "center",
               padding: "48px 40px 40px",
-              border: "1px dashed rgba(240,170,0,0.25)",
+              border: "1px dashed rgba(249,115,22,0.25)",
               borderRadius: "20px",
-              background: "rgba(240,170,0,0.03)",
+              background: "rgba(249,115,22,0.03)",
               marginBottom: "32px",
             }}>
               <div style={{
                 width: "56px", height: "56px", borderRadius: "14px",
-                background: "linear-gradient(135deg, rgba(240,170,0,0.15), rgba(240,170,0,0.06))",
-                border: "1px solid rgba(240,170,0,0.22)",
+                background: "linear-gradient(135deg, rgba(249,115,22,0.15), rgba(249,115,22,0.06))",
+                border: "1px solid rgba(249,115,22,0.22)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "1.6rem", margin: "0 auto 20px",
               }}>📊</div>

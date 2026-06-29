@@ -6,16 +6,16 @@ const steps = [
     icon: "🎯",
     title: "Choose Your Track",
     desc: "Pick from Placement Bootcamp, Case Competitions, Live Projects, or a combo. Transparent pricing — no hidden fees.",
-    color: "#F0AA00",
-    colorAlpha: "rgba(240,170,0,0.12)",
+    color: "#F97316",
+    colorAlpha: "rgba(249,115,22,0.12)",
   },
   {
     n: "02",
     icon: "⚡",
     title: "Onboard in 24 hrs",
     desc: "Get matched to your IIM alumni mentor aligned to your domain and target companies. Receive your full resource pack.",
-    color: "#8B5CF6",
-    colorAlpha: "rgba(139,92,246,0.12)",
+    color: "#3B82F6",
+    colorAlpha: "rgba(59,130,246,0.12)",
   },
   {
     n: "03",
@@ -53,7 +53,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #0D0A1A 0%, #100C20 100%)" }}>
+    <section style={{ padding: "96px 0", background: "linear-gradient(180deg, #090A15 0%, #0D0F1E 100%)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
 
         <div style={{ textAlign: "center", marginBottom: "64px" }}>
@@ -133,8 +133,8 @@ export default function HowItWorks() {
         <div style={{
           marginTop: "48px",
           padding: "32px 40px",
-          background: "linear-gradient(135deg, rgba(240,170,0,0.08) 0%, rgba(139,92,246,0.06) 100%)",
-          border: "1px solid rgba(240,170,0,0.18)",
+          background: "linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(59,130,246,0.06) 100%)",
+          border: "1px solid rgba(249,115,22,0.18)",
           borderRadius: "20px",
           display: "flex",
           alignItems: "center",

@@ -21,11 +21,11 @@ export interface CourseData {
 
 // Map tag class → hover border color (CSS color values)
 const tagBorderColor: Record<string, string> = {
-  "tag":        "#F0AA00",
+  "tag":        "#F97316",
   "tag-blue":   "#60A5FA",
   "tag-green":  "#34D399",
   "tag-rose":   "#FCA5A5",
-  "tag-indigo": "#A78BFA",
+  "tag-indigo": "#60A5FA",
 };
 
 export const courses: CourseData[] = [
@@ -235,7 +235,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 3px;
-          background: var(--course-accent, #F0AA00);
+          background: var(--course-accent, #F97316);
           opacity: 0;
           transition: opacity 0.25s ease;
           border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -291,10 +291,10 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
           text-transform: uppercase;
           padding: 3px 10px;
           border-radius: 100px;
-          background: linear-gradient(135deg, #F0AA00, #CC8800);
+          background: linear-gradient(135deg, #F97316, #C2531A);
           color: #08090E;
           white-space: nowrap;
-          box-shadow: 0 2px 8px rgba(240,170,0,0.35);
+          box-shadow: 0 2px 8px rgba(249,115,22,0.35);
         }
         /* Savings badge */
         .savings-badge {
@@ -340,7 +340,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
           {filtered.map((c, idx) => {
             const isCompared = comparedIds.includes(c.id);
             const compareDisabled = !isCompared && comparedIds.length >= 3;
-            const accentColor = tagBorderColor[c.tag] ?? "#F0AA00";
+            const accentColor = tagBorderColor[c.tag] ?? "#F97316";
             const pct = savingsPct(c.price, c.original);
             const isHovered = hoveredId === c.id;
 

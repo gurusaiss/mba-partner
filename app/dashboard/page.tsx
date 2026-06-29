@@ -157,7 +157,7 @@ export default function DashboardPage() {
 
   const toastColors = {
     success: { bg: "#071A0E", border: "rgba(52,211,153,0.35)", text: "#34D399" },
-    info:    { bg: "#070E1E", border: "rgba(99,102,241,0.35)", text: "#818CF8" },
+    info:    { bg: "#070E1E", border: "rgba(59,130,246,0.35)", text: "#818CF8" },
     error:   { bg: "#1A0707", border: "rgba(239,68,68,0.35)", text: "#F87171" },
   };
 
@@ -399,7 +399,7 @@ export default function DashboardPage() {
               ))}
               {/* Upsell card */}
               <div className="dash-card" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 18, padding: 28, transition: "all 0.22s" }}>
-                <span style={{ display: "inline-block", padding: "4px 12px", borderRadius: 7, fontSize: "0.75rem", fontWeight: 700, marginBottom: 14, background: "rgba(167,139,250,0.12)", color: "#A78BFA", border: "1px solid rgba(167,139,250,0.25)" }}>Live Project</span>
+                <span style={{ display: "inline-block", padding: "4px 12px", borderRadius: 7, fontSize: "0.75rem", fontWeight: 700, marginBottom: 14, background: "rgba(167,139,250,0.12)", color: "#60A5FA", border: "1px solid rgba(167,139,250,0.25)" }}>Live Project</span>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: textColor, margin: "0 0 10px", lineHeight: 1.35 }}>Live Project — 2 Month Engagement</h3>
                 <p style={{ fontSize: "0.9rem", color: mutedColor, marginBottom: 22, lineHeight: 1.65 }}>Work on a real MBA consulting or marketing project alongside a senior IIM alumni mentor over 2 months. CV-worthy deliverables.</p>
                 <a href="/#enroll" style={{ display: "inline-flex", padding: "11px 22px", borderRadius: 10, background: "transparent", border: `1px solid rgba(212,170,82,0.4)`, color: goldColor, fontSize: "0.9rem", fontWeight: 700, cursor: "pointer", textDecoration: "none", transition: "all 0.2s" }}>
@@ -418,7 +418,7 @@ export default function DashboardPage() {
                   { icon: "📄", color: "#60A5FA", title: "CV Templates", subtitle: "50+ ATS-optimised CVs", items: ["Consulting CV", "Finance CV", "Marketing CV", "HR CV"], btn: "Download Pack", action: () => { window.open("/brochures/case-comp-brochure.pdf", "_blank"); showToast("CV Template Pack downloading…", "success"); } },
                   { icon: "📊", color: "#34D399", title: "Case Decks", subtitle: "30+ Winning PPTs", items: ["Unilever Case (XLRI)", "Amazon Strategy (MDI)", "P&G Brand (NMIMS)", "Sample Deck"], btn: "View Gallery", action: () => showToast("Case Deck Gallery available in premium portal. Check WhatsApp group.", "info") },
                   { icon: "🎙️", color: "#F59E0B", title: "Interview Transcripts", subtitle: "300+ transcripts", items: ["McKinsey PI (2024)", "BCG Case (2024)", "Goldman GD (2023)", "Amazon HR Round"], btn: "Access Library", action: () => showToast("Interview Library access sent to your email.", "info") },
-                  { icon: "📚", color: "#A78BFA", title: "Domain Compendiums", subtitle: "6 domain guides", items: ["Consulting Compendium", "Finance Compendium", "Marketing Bible", "HR Handbook"], btn: "Download All", action: () => showToast("Domain Compendiums downloading — check Downloads folder.", "success") },
+                  { icon: "📚", color: "#60A5FA", title: "Domain Compendiums", subtitle: "6 domain guides", items: ["Consulting Compendium", "Finance Compendium", "Marketing Bible", "HR Handbook"], btn: "Download All", action: () => showToast("Domain Compendiums downloading — check Downloads folder.", "success") },
                 ].map((r, i) => (
                   <div key={i} className="dash-card" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 18, padding: 28, transition: "all 0.22s" }}>
                     <div style={{ fontSize: "2.4rem", marginBottom: 14 }}>{r.icon}</div>
@@ -454,14 +454,14 @@ export default function DashboardPage() {
                   ].map((s, i) => (
                     <div key={i} className="dash-card" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 18, padding: 26, transition: "all 0.22s" }}>
                       <div style={{ marginBottom: 14 }}>
-                        <span style={{ padding: "4px 12px", borderRadius: 7, fontSize: "0.75rem", fontWeight: 700, background: "rgba(99,102,241,0.12)", color: "#818CF8", border: "1px solid rgba(99,102,241,0.25)" }}>{s.type}</span>
+                        <span style={{ padding: "4px 12px", borderRadius: 7, fontSize: "0.75rem", fontWeight: 700, background: "rgba(59,130,246,0.12)", color: "#818CF8", border: "1px solid rgba(59,130,246,0.25)" }}>{s.type}</span>
                       </div>
                       <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textColor, margin: "0 0 10px", lineHeight: 1.35 }}>{s.topic}</h3>
                       <div style={{ fontSize: "0.85rem", color: mutedColor, marginBottom: 4 }}>📅 {s.date}</div>
                       <div style={{ fontSize: "0.85rem", color: mutedColor, marginBottom: 22 }}>👤 {s.mentor}</div>
                       <button className="dash-btn"
                         onClick={() => showToast("Meeting link sent to your email. Check 1 hour before session.", "info")}
-                        style={{ padding: "10px 22px", borderRadius: 10, background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.4)", color: "#818CF8", fontSize: "0.88rem", fontWeight: 600, cursor: "pointer", transition: "all 0.2s", fontFamily: "inherit" }}>
+                        style={{ padding: "10px 22px", borderRadius: 10, background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.4)", color: "#818CF8", fontSize: "0.88rem", fontWeight: 600, cursor: "pointer", transition: "all 0.2s", fontFamily: "inherit" }}>
                         Join Session
                       </button>
                     </div>

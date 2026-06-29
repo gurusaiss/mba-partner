@@ -8,7 +8,7 @@ export default function FreeMaterialBanner() {
   return (
     <div style={{
       background: "linear-gradient(135deg, #1A0F00 0%, #1F1400 100%)",
-      borderBottom: "1px solid rgba(240,170,0,0.20)",
+      borderBottom: "1px solid rgba(249,115,22,0.20)",
       padding: "10px 40px",
       display: "flex",
       alignItems: "center",
@@ -41,7 +41,7 @@ export default function FreeMaterialBanner() {
         <a href="#enroll" style={{
           fontSize: "0.78rem",
           fontWeight: 700,
-          background: "linear-gradient(135deg, #F0AA00, #CC8800)",
+          background: "linear-gradient(135deg, #F97316, #C2531A)",
           color: "#08090E",
           padding: "6px 16px",
           borderRadius: "100px",

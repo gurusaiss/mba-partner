@@ -27,7 +27,7 @@ const spaceGrotesk = Space_Grotesk({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#F0AA00",
+  themeColor: "#F97316",
 };
 
 const siteUrl = "https://mbapartner.in";
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`scroll-smooth ${jakarta.variable} ${cormorant.variable} ${spaceGrotesk.variable}`}>
       <head>
         {/* Apply saved theme before paint to avoid flash */}
-        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('mp_theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('mp_theme');document.documentElement.setAttribute('data-theme',t||'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}` }} />
         {/* JSON-LD Organization schema */}
         <script
           type="application/ld+json"

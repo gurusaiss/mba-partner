@@ -11,11 +11,11 @@ const cornerColorMap: Record<string, string> = {
 
 // Accent colors for the numbered circle per tag
 const circleColorMap: Record<string, { bg: string; color: string }> = {
-  "tag":        { bg: "rgba(240,170,0,0.15)",     color: "#F0AA00" },
+  "tag":        { bg: "rgba(249,115,22,0.15)",     color: "#F97316" },
   "tag-blue":   { bg: "rgba(96,165,250,0.15)",    color: "#60A5FA" },
   "tag-green":  { bg: "rgba(52,211,153,0.15)",    color: "#34D399" },
   "tag-rose":   { bg: "rgba(252,165,165,0.15)",   color: "#FCA5A5" },
-  "tag-indigo": { bg: "rgba(167,139,250,0.15)",   color: "#A78BFA" },
+  "tag-indigo": { bg: "rgba(167,139,250,0.15)",   color: "#60A5FA" },
 };
 
 const items = [

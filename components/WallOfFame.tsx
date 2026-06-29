@@ -201,7 +201,7 @@ function ProfilePreview({ student }: { student: (typeof students)[0] }) {
             width: "36px",
             height: "36px",
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #F0AA00 0%, #D4720A 100%)",
+            background: "linear-gradient(135deg, #F97316 0%, #D4720A 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -266,7 +266,7 @@ function StudentCard({
       style={{
         background: "linear-gradient(155deg, #141520 0%, #0F1018 100%)",
         border: hovered
-          ? "1px solid rgba(240,170,0,0.35)"
+          ? "1px solid rgba(249,115,22,0.35)"
           : "1px solid rgba(255,255,255,0.07)",
         borderRadius: 18,
         padding: "24px",
@@ -306,7 +306,7 @@ function StudentCard({
           width: 48,
           height: 48,
           borderRadius: "50%",
-          background: "linear-gradient(135deg, #F0AA00 0%, #D4720A 100%)",
+          background: "linear-gradient(135deg, #F97316 0%, #D4720A 100%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

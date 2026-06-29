@@ -104,8 +104,8 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
               marginTop: "4px",
               padding: "8px 18px",
               borderRadius: "100px",
-              background: choosing === "mba" ? "rgba(5,13,28,0.15)" : "rgba(240,170,0,0.12)",
-              border: `1px solid ${choosing === "mba" ? "rgba(5,13,28,0.2)" : "rgba(240,170,0,0.3)"}`,
+              background: choosing === "mba" ? "rgba(5,13,28,0.15)" : "rgba(249,115,22,0.12)",
+              border: `1px solid ${choosing === "mba" ? "rgba(5,13,28,0.2)" : "rgba(249,115,22,0.3)"}`,
               fontSize: "0.82rem",
               fontWeight: 700,
               display: "flex", alignItems: "center", gap: "5px",
@@ -123,7 +123,7 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
                 : "var(--card2)",
               border: choosing === "cat"
                 ? "2px solid #6366f1"
-                : "2px solid rgba(99,102,241,0.25)",
+                : "2px solid rgba(59,130,246,0.25)",
               borderRadius: "16px",
               padding: "28px 20px",
               cursor: "pointer",
@@ -135,12 +135,12 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
             onMouseEnter={e => {
               if (choosing !== "cat") {
                 e.currentTarget.style.borderColor = "#6366f1";
-                e.currentTarget.style.background = "rgba(99,102,241,0.08)";
+                e.currentTarget.style.background = "rgba(59,130,246,0.08)";
               }
             }}
             onMouseLeave={e => {
               if (choosing !== "cat") {
-                e.currentTarget.style.borderColor = "rgba(99,102,241,0.25)";
+                e.currentTarget.style.borderColor = "rgba(59,130,246,0.25)";
                 e.currentTarget.style.background = "var(--card2)";
               }
             }}>
@@ -155,8 +155,8 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
               marginTop: "4px",
               padding: "8px 18px",
               borderRadius: "100px",
-              background: choosing === "cat" ? "rgba(255,255,255,0.15)" : "rgba(99,102,241,0.12)",
-              border: `1px solid ${choosing === "cat" ? "rgba(255,255,255,0.2)" : "rgba(99,102,241,0.3)"}`,
+              background: choosing === "cat" ? "rgba(255,255,255,0.15)" : "rgba(59,130,246,0.12)",
+              border: `1px solid ${choosing === "cat" ? "rgba(255,255,255,0.2)" : "rgba(59,130,246,0.3)"}`,
               fontSize: "0.82rem",
               fontWeight: 700,
               display: "flex", alignItems: "center", gap: "5px",

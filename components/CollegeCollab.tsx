@@ -41,7 +41,7 @@ export default function CollegeCollab() {
         </div>
 
         {/* CTA Card */}
-        <div style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.25)", borderRadius: "16px", padding: "48px 40px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+        <div style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)", borderRadius: "16px", padding: "48px 40px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
           <h3 className="serif" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "var(--text)", marginBottom: "12px" }}>
             Want MBA Partner at Your Campus?
           </h3>

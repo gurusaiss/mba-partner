@@ -72,8 +72,8 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
         position: "fixed",
         bottom: "32px",
         right: "32px",
-        background: "rgba(240,170,0,0.12)",
-        border: "1px solid rgba(240,170,0,0.45)",
+        background: "rgba(249,115,22,0.12)",
+        border: "1px solid rgba(249,115,22,0.45)",
         borderRadius: "12px",
         padding: "14px 20px",
         color: "var(--text)",
@@ -146,7 +146,7 @@ export default function Footer() {
                   minWidth: "220px",
                   transition: "border-color 0.2s",
                 }}
-                onFocus={e => (e.currentTarget.style.borderColor = "rgba(240,170,0,0.5)")}
+                onFocus={e => (e.currentTarget.style.borderColor = "rgba(249,115,22,0.5)")}
                 onBlur={e => (e.currentTarget.style.borderColor = "var(--border)")}
               />
               <button
@@ -228,9 +228,9 @@ export default function Footer() {
                         flexShrink: 0,
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.borderColor = "rgba(240,170,0,0.45)";
+                        e.currentTarget.style.borderColor = "rgba(249,115,22,0.45)";
                         e.currentTarget.style.color = "var(--gold)";
-                        e.currentTarget.style.background = "rgba(240,170,0,0.06)";
+                        e.currentTarget.style.background = "rgba(249,115,22,0.06)";
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.borderColor = "var(--border)";
@@ -279,8 +279,8 @@ export default function Footer() {
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   style={{
-                    background: "rgba(240,170,0,0.08)",
-                    border: "1px solid rgba(240,170,0,0.22)",
+                    background: "rgba(249,115,22,0.08)",
+                    border: "1px solid rgba(249,115,22,0.22)",
                     borderRadius: "8px",
                     color: "var(--gold)",
                     fontSize: "0.82rem",
@@ -293,8 +293,8 @@ export default function Footer() {
                     fontFamily: "var(--font-sans)",
                     transition: "all 0.2s",
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(240,170,0,0.14)")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(240,170,0,0.08)")}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(249,115,22,0.14)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(249,115,22,0.08)")}
                 >
                   ↑ Back to Top
                 </button>

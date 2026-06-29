@@ -41,17 +41,17 @@ function CountUpNum({ raw }: { raw: string }) {
 }
 
 const cohortStats = [
-  { label: "Average student rating", val: "9.6", suffix: "/10", color: "#F0AA00" },
+  { label: "Average student rating", val: "9.6", suffix: "/10", color: "#F97316" },
   { label: "Placed in desired domain", val: "98.7", suffix: "%", color: "#10B981" },
-  { label: "Average package", val: "38", suffix: "L+", prefix: "₹", color: "#8B5CF6" },
+  { label: "Average package", val: "38", suffix: "L+", prefix: "₹", color: "#3B82F6" },
   { label: "Students mentored", val: "5,000", suffix: "+", color: "#60A5FA" },
   { label: "Verified reviews", val: "700", suffix: "+", color: "#F59E0B" },
 ];
 
 const mobileStats = [
-  { label: "Rating", val: "9.6", suffix: "/10", color: "#F0AA00" },
+  { label: "Rating", val: "9.6", suffix: "/10", color: "#F97316" },
   { label: "Placed", val: "98.7", suffix: "%", color: "#10B981" },
-  { label: "Avg pkg", val: "38", suffix: "L+", prefix: "₹", color: "#8B5CF6" },
+  { label: "Avg pkg", val: "38", suffix: "L+", prefix: "₹", color: "#3B82F6" },
   { label: "Students", val: "5,000", suffix: "+", color: "#60A5FA" },
 ];
 
@@ -106,9 +106,9 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage: `
-          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(240,170,0,0.09) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 55% at 90% 65%, rgba(99,102,241,0.07) 0%, transparent 55%),
-          radial-gradient(ellipse 40% 40% at 5% 80%, rgba(240,170,0,0.05) 0%, transparent 60%),
+          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(249,115,22,0.09) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 55% at 90% 65%, rgba(59,130,246,0.07) 0%, transparent 55%),
+          radial-gradient(ellipse 40% 40% at 5% 80%, rgba(249,115,22,0.05) 0%, transparent 60%),
           linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
           var(--navy)
@@ -138,7 +138,7 @@ export default function Hero() {
               className="reveal-slide-up"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "rgba(240,170,0,0.08)", border: "1px solid rgba(240,170,0,0.22)",
+                background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.22)",
                 borderRadius: "100px", padding: "6px 14px", marginBottom: "28px",
                 fontSize: "0.72rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
               }}
@@ -282,7 +282,7 @@ export default function Hero() {
                 border: "1px solid rgba(255,255,255,0.10)",
                 borderRadius: "20px",
                 overflow: "hidden",
-                boxShadow: "0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,170,0,0.06)",
+                boxShadow: "0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(249,115,22,0.06)",
               }}>
                 {/* Card header */}
                 <div style={{
@@ -324,7 +324,7 @@ export default function Hero() {
                 <div style={{
                   padding: "14px 24px",
                   borderTop: "1px solid rgba(255,255,255,0.05)",
-                  background: "rgba(240,170,0,0.03)",
+                  background: "rgba(249,115,22,0.03)",
                   display: "flex", alignItems: "center", gap: "8px",
                 }}>
                   <span style={{ fontSize: "0.72rem", color: "var(--dim)" }}>Data verified · Updated batch 2024–25</span>

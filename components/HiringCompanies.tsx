@@ -36,9 +36,9 @@ function Pill({ name }: { name: string }) {
         borderRadius: 100,
         fontSize: "1rem",
         fontWeight: 700,
-        background: hovered ? "rgba(240,170,0,0.09)" : "rgba(255,255,255,0.04)",
-        border: hovered ? "1px solid rgba(240,170,0,0.30)" : "1px solid rgba(255,255,255,0.09)",
-        color: hovered ? "#F0AA00" : "#F5F0E8",
+        background: hovered ? "rgba(249,115,22,0.09)" : "rgba(255,255,255,0.04)",
+        border: hovered ? "1px solid rgba(249,115,22,0.30)" : "1px solid rgba(255,255,255,0.09)",
+        color: hovered ? "#F97316" : "#F5F0E8",
         transition: "all 0.2s",
         whiteSpace: "nowrap",
         cursor: "default",
@@ -55,7 +55,7 @@ export default function HiringCompanies() {
     <section
       style={{
         padding: "80px 0",
-        background: "linear-gradient(180deg, rgba(240,170,0,0.03) 0%, transparent 100%)",
+        background: "linear-gradient(180deg, rgba(249,115,22,0.03) 0%, transparent 100%)",
         borderTop: "1px solid rgba(255,255,255,0.05)",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
         overflow: "hidden",
@@ -75,8 +75,8 @@ export default function HiringCompanies() {
           border-color: rgba(0,0,0,0.09) !important;
         }
         [data-theme="light"] .hiring-pill:hover {
-          background: rgba(192,120,0,0.08) !important;
-          border-color: rgba(192,120,0,0.28) !important;
+          background: rgba(232,93,4,0.08) !important;
+          border-color: rgba(232,93,4,0.28) !important;
           color: var(--gold) !important;
         }
       `}</style>
