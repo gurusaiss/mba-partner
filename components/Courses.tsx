@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export interface CourseData {
   id: number;
@@ -16,7 +16,17 @@ export interface CourseData {
   nudge: string | null;
   groupOffer: string | null;
   brochure?: string;
+  badge?: string;
 }
+
+// Map tag class → hover border color (CSS color values)
+const tagBorderColor: Record<string, string> = {
+  "tag":        "#F0AA00",
+  "tag-blue":   "#60A5FA",
+  "tag-green":  "#34D399",
+  "tag-rose":   "#FCA5A5",
+  "tag-indigo": "#A78BFA",
+};
 
 export const courses: CourseData[] = [
   {
@@ -35,7 +45,8 @@ export const courses: CourseData[] = [
     link: "https://www.mbapartner.in/product/sip-placement-bootcamp/",
     featured: false,
     nudge: null,
-    groupOffer: "2 students = 20% off · 3+ students = 30% off"
+    groupOffer: "2 students = 20% off · 3+ students = 30% off",
+    badge: "Most Popular"
   },
   {
     id: 2, category: "placements", tag: "tag-blue", tagLabel: "Placements — Mini",
@@ -121,7 +132,8 @@ export const courses: CourseData[] = [
     link: "https://www.mbapartner.in/product/master-bootcamp-case-comp-live-project/",
     featured: true,
     nudge: "🔥 Save ₹8,001 vs buying separately",
-    groupOffer: null
+    groupOffer: null,
+    badge: "Best Value"
   },
   {
     id: 7, category: "combo", tag: "tag-indigo", tagLabel: "Combo",
@@ -178,6 +190,14 @@ const tabs = [
   { key: "certifications", label: "Certifications" },
 ];
 
+/** Compute savings percentage for display */
+function savingsPct(price: string, original: string): number {
+  const p = parseFloat(price.replace(/,/g, ""));
+  const o = parseFloat(original.replace(/,/g, ""));
+  if (!o) return 0;
+  return Math.round(((o - p) / o) * 100);
+}
+
 interface CoursesProps {
   comparedIds: number[];
   onCompareToggle: (id: number) => void;
@@ -185,6 +205,7 @@ interface CoursesProps {
 
 export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) {
   const [active, setActive] = useState("all");
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const filtered = active === "all" ? courses : courses.filter(c => c.category === active);
 
@@ -203,8 +224,97 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
 
   return (
     <section id="courses" style={{ padding: "96px 0", background: "linear-gradient(180deg, #080C10 0%, #0A0E14 100%)" }}>
+      <style>{`
+        /* Course card — colored top border on hover */
+        .course-card {
+          position: relative;
+          overflow: hidden;
+        }
+        .course-card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 3px;
+          background: var(--course-accent, #F0AA00);
+          opacity: 0;
+          transition: opacity 0.25s ease;
+          border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+          z-index: 1;
+        }
+        .course-card:hover::before {
+          opacity: 1;
+        }
+        /* Shine / glare sweep on hover */
+        .course-card::after {
+          content: '';
+          position: absolute;
+          top: 0; left: -100%;
+          width: 60%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 30%,
+            rgba(255,255,255,0.045) 50%,
+            transparent 70%
+          );
+          transition: left 0.55s ease;
+          pointer-events: none;
+          z-index: 2;
+        }
+        .course-card:hover::after {
+          left: 140%;
+        }
+        /* Course grid responsive */
+        .course-grid-responsive {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 20px;
+        }
+        @media (max-width: 768px) {
+          .course-grid-responsive {
+            grid-template-columns: 1fr;
+          }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .course-grid-responsive {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        /* Badge pill */
+        .course-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.68rem;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          padding: 3px 10px;
+          border-radius: 100px;
+          background: linear-gradient(135deg, #F0AA00, #CC8800);
+          color: #08090E;
+          white-space: nowrap;
+          box-shadow: 0 2px 8px rgba(240,170,0,0.35);
+        }
+        /* Savings badge */
+        .savings-badge {
+          display: inline-flex;
+          align-items: center;
+          font-size: 0.68rem;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          padding: 3px 8px;
+          border-radius: 100px;
+          background: rgba(16,185,129,0.15);
+          border: 1px solid rgba(16,185,129,0.35);
+          color: #34D399;
+          white-space: nowrap;
+        }
+      `}</style>
+
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
-        <div style={{ marginBottom: "40px" }}>
+        {/* Section header */}
+        <div style={{ marginBottom: "40px" }} data-reveal data-reveal-delay="1">
           <div className="section-label">Pricing</div>
           <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "10px" }}>
             Courses & Packages
@@ -213,7 +323,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
         </div>
 
         {/* Tabs */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }} data-reveal data-reveal-delay="2">
           {tabs.map(t => (
             <button
               key={t.key}
@@ -226,21 +336,45 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
         </div>
 
         {/* Course Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "20px" }}>
-          {filtered.map(c => {
+        <div className="course-grid-responsive">
+          {filtered.map((c, idx) => {
             const isCompared = comparedIds.includes(c.id);
             const compareDisabled = !isCompared && comparedIds.length >= 3;
+            const accentColor = tagBorderColor[c.tag] ?? "#F0AA00";
+            const pct = savingsPct(c.price, c.original);
+            const isHovered = hoveredId === c.id;
 
             return (
               <div
                 key={c.id}
-                className={`card${c.featured ? " card-featured" : ""}`}
-                style={{ padding: "28px", display: "flex", flexDirection: "column" }}
+                className={`card course-card${c.featured ? " card-featured" : ""}`}
+                style={{
+                  padding: "28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  // CSS custom property consumed by ::before pseudo
+                  ["--course-accent" as string]: accentColor,
+                  // Subtle colored shadow tint on hover
+                  boxShadow: isHovered
+                    ? `0 24px 56px rgba(0,0,0,0.55), 0 0 0 1px ${accentColor}33`
+                    : undefined,
+                }}
+                data-reveal
+                data-reveal-delay={String(Math.min((idx % 3) + 1, 5))}
+                onMouseEnter={() => setHoveredId(c.id)}
+                onMouseLeave={() => setHoveredId(null)}
               >
-                {/* Tag row */}
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
+                {/* Tag row + badge */}
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "20px", flexWrap: "wrap" }}>
                   <span className={`tag ${c.tag}`}>{c.tagLabel}</span>
-                  {c.featured && <span className="tag tag-green">Best Value</span>}
+                  <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
+                    {c.badge && (
+                      <span className="course-badge">
+                        {c.badge === "Best Value" ? "⭐" : "🔥"} {c.badge}
+                      </span>
+                    )}
+                    {c.featured && !c.badge && <span className="tag tag-green">Best Value</span>}
+                  </div>
                 </div>
 
                 {/* Title */}
@@ -292,10 +426,22 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
 
                 {/* Price row */}
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginTop: "auto" }}>
-                  <div>
-                    <div className="serif" style={{ fontWeight: 900, fontSize: "1.6rem", color: "var(--gold)" }}>&#8377;{c.price}</div>
-                    <div style={{ fontSize: "0.8rem", textDecoration: "line-through", color: "var(--dim)" }}>&#8377;{c.original}</div>
+                  {/* Price block */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                      <div className="serif" style={{ fontWeight: 900, fontSize: "1.6rem", color: "var(--gold)", lineHeight: 1 }}>
+                        &#8377;{c.price}
+                      </div>
+                      {pct > 0 && (
+                        <span className="savings-badge">{pct}% off</span>
+                      )}
+                    </div>
+                    <div style={{ fontSize: "0.8rem", textDecoration: "line-through", color: "var(--dim)" }}>
+                      &#8377;{c.original}
+                    </div>
                   </div>
+
+                  {/* CTAs */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px", alignItems: "flex-end" }}>
                     <a
                       href={c.link}

@@ -30,14 +30,25 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
   const [showAuth, setShowAuth] = useState(false);
   const [authTab, setAuthTab] = useState<"login" | "signup">("login");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [phonePillHovered, setPhonePillHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Scroll listener: solid navbar + scroll progress
   useEffect(() => {
-    const fn = () => setSolid(window.scrollY > 40);
-    window.addEventListener("scroll", fn);
+    const fn = () => {
+      setSolid(window.scrollY > 40);
+      const el = document.documentElement;
+      const scrolled = el.scrollTop || document.body.scrollTop;
+      const total = el.scrollHeight - el.clientHeight;
+      setScrollProgress(total > 0 ? (scrolled / total) * 100 : 0);
+    };
+    window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Load session + theme from localStorage
   useEffect(() => {
     try {
       const s = localStorage.getItem("mp_session");
@@ -47,6 +58,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
     } catch { /* */ }
   }, []);
 
+  // Close user dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -56,6 +68,37 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
     if (userMenuOpen) document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [userMenuOpen]);
+
+  // IntersectionObserver: highlight active section
+  useEffect(() => {
+    const links = mode === "mba" ? mbaLinks : catLinks;
+    const ids = links.map(l => l.href.replace("#", ""));
+
+    const observers: IntersectionObserver[] = [];
+    const visible = new Set<string>();
+
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            visible.add(id);
+          } else {
+            visible.delete(id);
+          }
+          // Pick the first visible section in document order
+          const first = ids.find(i => visible.has(i));
+          setActiveSection(first ?? "");
+        },
+        { threshold: 0.25 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, [mode]);
 
   function toggleTheme() {
     const next = theme === "dark" ? "light" : "dark";
@@ -81,6 +124,22 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
 
   return (
     <>
+      {/* Scroll progress bar — fixed above everything */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 60,
+          height: "2px",
+          width: `${scrollProgress}%`,
+          background: "linear-gradient(90deg, var(--gold), var(--violet, #6366f1))",
+          transition: "width 0.1s linear",
+          pointerEvents: "none",
+        }}
+      />
+
       <header
         className={`navbar-glass${solid ? " solid" : ""}`}
         style={{
@@ -92,10 +151,29 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", height: "68px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
 
           {/* Logo */}
-          <a href="#" onClick={() => { setMode("mba"); window.scrollTo(0,0); }} style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}>
+          <a
+            href="#"
+            onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
+            style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}
+          >
             <span className="btn-primary" style={{ width: "34px", height: "34px", padding: 0, borderRadius: "8px", fontSize: "0.72rem", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>MP</span>
-            <span className="serif" style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--text)" }}>
-              MBA<span className="gold-text">Partner</span>
+            <span style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+              <span className="serif" style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--text)", lineHeight: 1.1 }}>
+                MBA<span className="gold-text">Partner</span>
+              </span>
+              {!solid && (
+                <span style={{
+                  fontSize: "0.62rem",
+                  fontWeight: 600,
+                  color: "var(--gold)",
+                  letterSpacing: "0.04em",
+                  opacity: 0.82,
+                  lineHeight: 1,
+                  transition: "opacity 0.3s",
+                }}>
+                  ★ IIM Alumni Founded
+                </span>
+              )}
             </span>
           </a>
 
@@ -106,7 +184,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
             border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
             borderRadius: "100px", padding: "4px", gap: "2px", flexShrink: 0,
           }}>
-            <button onClick={() => { setMode("mba"); window.scrollTo(0,0); }}
+            <button onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
               style={{
                 padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
                 fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
@@ -116,7 +194,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
               }}>
               MBA Student
             </button>
-            <button onClick={() => { setMode("cat"); window.scrollTo(0,0); }}
+            <button onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
               style={{
                 padding: "7px 18px", borderRadius: "100px", border: "none", cursor: "pointer",
                 fontSize: "0.78rem", fontWeight: 700, transition: "all 0.22s ease",
@@ -130,20 +208,46 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
 
           {/* Desktop nav links */}
           <nav className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-            {links.map(l => (
-              <a key={l.href} href={l.href}
-                style={{ fontSize: "0.86rem", fontWeight: 600, color: "var(--muted)", textDecoration: "none", transition: "color 0.18s", whiteSpace: "nowrap", position: "relative" }}
-                onMouseEnter={e => (e.currentTarget.style.color = linkHoverColor)}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
-                {l.label}
-              </a>
-            ))}
+            {links.map(l => {
+              const sectionId = l.href.replace("#", "");
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  style={{
+                    fontSize: "0.86rem",
+                    fontWeight: isActive ? 700 : 600,
+                    color: isActive ? "var(--gold)" : "var(--muted)",
+                    textDecoration: "none",
+                    transition: "color 0.18s",
+                    whiteSpace: "nowrap",
+                    position: "relative",
+                  }}
+                  onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = linkHoverColor; }}
+                  onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; }}
+                >
+                  {l.label}
+                  {isActive && (
+                    <span style={{
+                      position: "absolute",
+                      bottom: "-3px",
+                      left: 0,
+                      right: 0,
+                      height: "2px",
+                      borderRadius: "2px",
+                      background: "var(--gold)",
+                    }} />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Right side: theme toggle + auth */}
+          {/* Right side: theme toggle + phone + auth */}
           <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
 
-            {/* Theme toggle — small pill */}
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               title={isLight ? "Switch to dark mode" : "Switch to light mode"}
@@ -162,20 +266,38 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
               {isLight ? <Moon size={15} strokeWidth={2} /> : <Sun size={15} strokeWidth={2} />}
             </button>
 
-              {/* Phone pill */}
-            <a href="tel:+917042732092" style={{
-              display: "inline-flex", alignItems: "center", gap: "6px",
-              padding: "7px 14px", borderRadius: "100px",
-              background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
-              fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)", textDecoration: "none",
-              transition: "all 0.2s", whiteSpace: "nowrap",
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--gold)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(240,170,0,0.3)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"; }}
+            {/* Phone pill */}
+            <a
+              href="tel:+917042732092"
+              onMouseEnter={() => setPhonePillHovered(true)}
+              onMouseLeave={() => setPhonePillHovered(false)}
+              style={{
+                display: "inline-flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "1px",
+                padding: phonePillHovered ? "5px 14px" : "7px 14px",
+                borderRadius: "100px",
+                background: phonePillHovered
+                  ? (isLight ? "rgba(184,146,10,0.09)" : "rgba(212,170,82,0.10)")
+                  : (isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)"),
+                border: `1px solid ${phonePillHovered ? "rgba(212,170,82,0.35)" : (isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)")}`,
+                textDecoration: "none",
+                transition: "all 0.2s",
+                whiteSpace: "nowrap",
+                minHeight: "34px",
+              }}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              +91 70427 32092
+              <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.78rem", fontWeight: 600, color: phonePillHovered ? "var(--gold)" : "var(--muted)", transition: "color 0.2s" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
+                +91 70427 32092
+              </span>
+              {phonePillHovered && (
+                <span style={{ fontSize: "0.62rem", fontWeight: 500, color: "var(--gold)", opacity: 0.8, letterSpacing: "0.02em" }}>
+                  Talk to a mentor
+                </span>
+              )}
             </a>
 
             {user ? (
@@ -255,29 +377,111 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
             )}
           </div>
 
+          {/* Hamburger */}
           <button onClick={() => setOpen(!open)} className="show-mobile" style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: "4px", display: "none" }}>
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
-        {open && (
-          <div style={{ background: isLight ? "rgba(243,239,228,0.98)" : "rgba(3,8,16,0.97)", backdropFilter: "blur(18px)", borderTop: `1px solid var(--border)` }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "20px 40px", display: "flex", flexDirection: "column", gap: "14px" }}>
-              {links.map(l => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-                  style={{ fontSize: "1rem", fontWeight: 500, color: "var(--muted)", textDecoration: "none" }}>
+        {/* Mobile menu — slide-down */}
+        <div
+          style={{
+            overflow: "hidden",
+            maxHeight: open ? "600px" : "0px",
+            transition: "max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
+            background: isLight ? "rgba(243,239,228,0.98)" : "rgba(3,8,16,0.97)",
+            backdropFilter: "blur(18px)",
+            borderTop: open ? `1px solid var(--border)` : "1px solid transparent",
+          }}
+        >
+          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 24px 24px", display: "flex", flexDirection: "column", gap: "4px" }}>
+
+            {/* Mode toggle in mobile */}
+            <div style={{
+              display: "flex",
+              background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)"}`,
+              borderRadius: "100px", padding: "4px", gap: "2px", marginBottom: "8px",
+            }}>
+              <button
+                onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
+                style={{
+                  flex: 1, padding: "7px 10px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
+                  background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
+                  color: mode === "mba" ? "#030810" : "var(--muted)",
+                  fontFamily: "var(--font-sans)",
+                }}>
+                MBA Student
+              </button>
+              <button
+                onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
+                style={{
+                  flex: 1, padding: "7px 10px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
+                  background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
+                  color: mode === "cat" ? "#ffffff" : "var(--muted)",
+                  fontFamily: "var(--font-sans)",
+                }}>
+                CAT / OMETs
+              </button>
+            </div>
+
+            {/* Nav links */}
+            {links.map(l => {
+              const sectionId = l.href.replace("#", "");
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  style={{
+                    fontSize: "0.98rem",
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? "var(--gold)" : "var(--muted)",
+                    textDecoration: "none",
+                    padding: "10px 4px",
+                    borderBottom: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.04)"}`,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  {isActive && <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--gold)", flexShrink: 0 }} />}
                   {l.label}
                 </a>
-              ))}
+              );
+            })}
+
+            {/* Phone number */}
+            <a
+              href="tel:+917042732092"
+              style={{
+                display: "flex", alignItems: "center", gap: "8px",
+                fontSize: "0.9rem", fontWeight: 600, color: "var(--gold)",
+                textDecoration: "none", padding: "12px 4px",
+                borderBottom: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.04)"}`,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
+              +91 70427 32092
+              <span style={{ fontSize: "0.72rem", color: "var(--muted)", fontWeight: 400 }}>Talk to a mentor</span>
+            </a>
+
+            {/* Auth buttons */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "8px" }}>
               {user ? (
                 <>
-                  <a href="/dashboard/" style={{ fontSize: "1rem", fontWeight: 600, color: "var(--gold)", textDecoration: "none" }}>My Dashboard</a>
+                  <a href="/dashboard/" style={{ fontSize: "1rem", fontWeight: 600, color: "var(--gold)", textDecoration: "none", padding: "4px 0" }}>My Dashboard</a>
                   <button onClick={handleLogout} style={{ textAlign: "left", background: "none", border: "none", color: "#F87171", fontSize: "1rem", fontWeight: 500, cursor: "pointer", padding: 0, fontFamily: "var(--font-sans)" }}>Sign Out</button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => { setAuthTab("login"); setShowAuth(true); setOpen(false); }}
-                    className="btn-secondary" style={{ justifyContent: "center" }}>
+                  <button
+                    onClick={() => { setAuthTab("login"); setShowAuth(true); setOpen(false); }}
+                    className="btn-secondary"
+                    style={{ justifyContent: "center" }}>
                     Login
                   </button>
                   <a href={mode === "mba" ? "#enroll" : "#cat-enroll"} onClick={() => setOpen(false)}
@@ -286,15 +490,17 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                   </a>
                 </>
               )}
-              <button
-                onClick={toggleTheme}
-                style={{ display:"flex", alignItems:"center", gap:"8px", background:"none", border:"none", color:"var(--muted)", fontSize:"0.9rem", fontWeight:500, cursor:"pointer", padding:"4px 0", fontFamily:"var(--font-sans)" }}>
-                {isLight ? <Moon size={16} /> : <Sun size={16} />}
-                {isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-              </button>
             </div>
+
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              style={{ display: "flex", alignItems: "center", gap: "8px", background: "none", border: "none", color: "var(--muted)", fontSize: "0.9rem", fontWeight: 500, cursor: "pointer", padding: "10px 0 4px", fontFamily: "var(--font-sans)" }}>
+              {isLight ? <Moon size={16} /> : <Sun size={16} />}
+              {isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            </button>
           </div>
-        )}
+        </div>
       </header>
 
       {showAuth && (

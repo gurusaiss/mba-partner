@@ -27,26 +27,72 @@ const spaceGrotesk = Space_Grotesk({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#C9A84C",
+  themeColor: "#F0AA00",
 };
 
+const siteUrl = "https://mbapartner.in";
+
 export const metadata: Metadata = {
-  title: "MBA Partner — IIM Alumni Mentorship for Serious MBA Students",
+  title: "MBAPartner — IIM Alumni Mentorship & MBA Placement Prep",
   description:
-    "Join 2,000+ MBA students mentored by IIM alumni. Live Projects, Placement Prep, Case Competitions, and a curated Resource Repository — all in one platform. 98.7% placement rate.",
-  keywords: "MBA mentorship, IIM alumni, MBA placement prep, case competition, live projects, SIP prep, MBA Partner",
+    "India's Premier MBA Career Platform. IIM alumni mentors, 98.7% placement rate, live projects, case competitions & placement prep. Join 2,000+ students.",
+  keywords: "MBA mentorship, IIM alumni, MBA placement prep, case competition, live projects, SIP prep, MBA Partner, India MBA",
   manifest: "/manifest.json",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    title: "MBA Partner — Supercharge Your MBA Journey",
-    description: "9.6/10 rated mentorship platform by IIM alumni. 98.7% placement rate across 2000+ students.",
+    title: "MBAPartner — IIM Alumni Mentorship & MBA Placement Prep",
+    description: "India's Premier MBA Career Platform. 9.6/10 rated. 98.7% placement rate. IIM alumni mentors, live projects & case competitions.",
     type: "website",
-    url: "https://mbapartner.in",
+    url: siteUrl,
+    siteName: "MBAPartner",
+    images: [
+      {
+        url: `${siteUrl}/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "MBAPartner — IIM Alumni Mentorship & MBA Placement Prep",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MBAPartner — IIM Alumni Mentorship & MBA Placement Prep",
+    description: "India's Premier MBA Career Platform. 9.6/10 rated. 98.7% placement rate.",
+    images: [`${siteUrl}/og-default.jpg`],
   },
   other: {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "MBA Partner",
+    "apple-mobile-web-app-title": "MBAPartner",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "MBAPartner",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  foundingDate: "2022",
+  description: "India's premier MBA career platform connecting students with IIM alumni mentors for placements, case competitions, and live projects.",
+  sameAs: [
+    "https://www.linkedin.com/company/mbapartner",
+    "https://www.instagram.com/mbapartner",
+    "https://www.youtube.com/@mbapartner",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    availableLanguage: ["English", "Hindi"],
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "9.6",
+    bestRating: "10",
+    ratingCount: "700",
   },
 };
 
@@ -56,8 +102,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Apply saved theme before paint to avoid flash */}
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('mp_theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}` }} />
+        {/* JSON-LD Organization schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <a href="#main-content" className="skip-to-content">Skip to main content</a>
+        {children}
+      </body>
     </html>
   );
 }
