@@ -137,12 +137,10 @@ export default function Mentors() {
       <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
-        <div style={{ marginBottom: "56px" }}>
-          <div className="section-label">IIM Alumni Network</div>
-          <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "12px" }}>
-            Learn From People Who Have Been There
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", maxWidth: "640px" }}>
+        <div className="sec-header-left">
+          <div className="sec-eyebrow">IIM Alumni Network</div>
+          <h2 className="sec-h2">Learn From People Who Have Been There</h2>
+          <p className="sec-sub">
             Top Ranked Mentors per Domain — voted by 250+ students. 25+ more mentors from across B-Schools.
           </p>
         </div>

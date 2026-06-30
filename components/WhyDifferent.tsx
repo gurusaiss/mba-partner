@@ -92,29 +92,10 @@ export default function WhyDifferent() {
       `}</style>
 
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <div className="section-label" style={{ marginBottom: 16 }}>WHY CHOOSE US</div>
-          <h2
-            className="serif"
-            style={{
-              fontSize: "clamp(2.2rem, 3.8vw, 3.2rem)",
-              fontWeight: 700,
-              color: "var(--text)",
-              marginBottom: 16,
-            }}
-          >
-            Not Your Average MBA Coaching
-          </h2>
-          <p
-            style={{
-              fontSize: "1.1rem",
-              color: "var(--muted)",
-              fontStyle: "italic",
-              margin: 0,
-            }}
-          >
-            We built what we wished existed when we were at IIM.
-          </p>
+        <div className="sec-header">
+          <div className="sec-eyebrow">Why Choose Us</div>
+          <h2 className="sec-h2">Not Your Average MBA Coaching</h2>
+          <p className="sec-sub">We built what we wished existed when we were at IIM.</p>
         </div>
 
         <div

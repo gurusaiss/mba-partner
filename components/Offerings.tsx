@@ -31,7 +31,7 @@ export default function Offerings() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <section id="offerings" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card2) 100%)" }}>
+    <section id="offerings" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--card) 0%, var(--navy) 100%)" }}>
       <style>{`
         /* Offering cards — hover expand animation */
         .offering-card {
@@ -102,11 +102,10 @@ export default function Offerings() {
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
         {/* Section header */}
-        <div style={{ marginBottom: "56px" }} data-reveal data-reveal-delay="1">
-          <div className="section-label">Our Offerings</div>
-          <h2 className="serif" style={{ fontSize: "clamp(2.4rem, 3.8vw, 3.2rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)" }}>
-            Everything a Serious MBA<br />Student Needs to Win
-          </h2>
+        <div className="sec-header" data-reveal data-reveal-delay="1">
+          <div className="sec-eyebrow">Our Offerings</div>
+          <h2 className="sec-h2">Everything a Serious MBA Student Needs to Win</h2>
+          <p className="sec-sub">From live projects to placement bootcamps — every tool you need to land your dream role.</p>
         </div>
 
         {/* Cards grid */}
@@ -155,7 +154,7 @@ export default function Offerings() {
                 </div>
 
                 {/* Title */}
-                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.08rem", color: "var(--text)", marginBottom: "10px" }}>
+                <h3 style={{ fontWeight: 800, fontSize: "1.02rem", color: "var(--text)", marginBottom: "10px", fontFamily: "var(--font-sans)" }}>
                   {item.title}
                 </h3>
 

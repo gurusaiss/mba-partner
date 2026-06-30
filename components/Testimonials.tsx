@@ -299,26 +299,16 @@ export default function Testimonials() {
         {/* Header */}
         <div
           ref={headerRef}
+          className="sec-header-left"
           style={{
-            marginBottom: "48px",
             opacity: headerVisible ? 1 : 0,
             transform: headerVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.5s ease, transform 0.5s ease",
           }}
         >
-          <div className="section-label">700+ Verified Reviews</div>
-          <h2
-            className="serif"
-            style={{
-              fontSize: "clamp(2.2rem, 3.5vw, 3rem)",
-              fontWeight: 900,
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              color: "var(--text)",
-            }}
-          >
-            Students Who Made It
-          </h2>
+          <div className="sec-eyebrow">700+ Verified Reviews</div>
+          <h2 className="sec-h2">Students Who Made It</h2>
+          <p className="sec-sub">Real placements. Real people. Verified outcomes from IIM, XLRI, JBIMS, and 40+ B-Schools.</p>
         </div>
 
         {/* Part A: College chips */}
