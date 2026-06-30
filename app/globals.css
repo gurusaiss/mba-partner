@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────
-   DESIGN TOKENS — Dark mode (default)
+   DESIGN TOKENS — Light mode (default)
 ───────────────────────────────────────────── */
 :root {
   /* Fonts */
@@ -10,56 +10,56 @@
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-mono:    'SF Mono', 'Fira Code', Consolas, monospace;
 
-  /* Backgrounds — premium dark */
-  --navy:       #080C14;
-  --card:       #0D1220;
-  --card2:      #111827;
-  --bg-deep:    #050810;
-  --surface-mid: #1A2235;
+  /* Backgrounds — clean light mode */
+  --navy:       #F8FAFC;
+  --card:       #FFFFFF;
+  --card2:      #F1F5F9;
+  --bg-deep:    #EFF3F8;
+  --surface-mid: #E2E8F0;
 
-  /* Borders */
-  --border: rgba(255,255,255,0.07);
+  /* Borders — fine razor-sharp */
+  --border:     rgba(15,23,42,0.06);
 
-  /* Orange accent */
-  --gold:     #F97316;
-  --gold2:    #FB923C;
-  --gold-dim: #D97706;
+  /* Primary Accent — Electric Blue */
+  --gold:       #2563EB;
+  --gold2:      #3B82F6;
+  --gold-dim:   #1D4ED8;
 
-  /* Blue accent */
-  --violet:     #38BDF8;
-  --violet2:    #7DD3FC;
-  --violet-rgb: 56,189,248;
+  /* Secondary Accent — Crimson */
+  --violet:     #DC2626;
+  --violet2:    #EF4444;
+  --violet-rgb: 220,38,38;
 
   /* Emerald */
-  --emerald:  #10B981;
-  --emerald2: #34D399;
+  --emerald:    #059669;
+  --emerald2:   #10B981;
 
-  /* Text */
-  --text:  #F1F5F9;
-  --muted: #94A3B8;
-  --dim:   #475569;
+  /* Text — Deep Midnight Indigo / Slate Gray */
+  --text:       #0F172A;
+  --muted:      #475569;
+  --dim:        #64748B;
 
-  /* Shadows */
-  --shadow-sm:   0 1px 4px rgba(0,0,0,0.40);
-  --shadow-md:   0 4px 16px rgba(0,0,0,0.50);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.60);
-  --shadow-xl:   0 16px 48px rgba(0,0,0,0.65);
-  --shadow-2xl:  0 32px 80px rgba(0,0,0,0.75);
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.50);
-  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(249,115,22,0.15);
-  --shadow-glow-gold:  0 0 32px rgba(249,115,22,0.25);
+  /* Shadows — clean HBR/Wharton style */
+  --shadow-sm:   0 1px 3px rgba(15,23,42,0.04), 0 1px 2px rgba(15,23,42,0.06);
+  --shadow-md:   0 4px 12px rgba(15,23,42,0.05), 0 2px 4px rgba(15,23,42,0.03);
+  --shadow-lg:   0 10px 24px rgba(15,23,42,0.06), 0 4px 8px rgba(15,23,42,0.03);
+  --shadow-xl:   0 20px 40px rgba(15,23,42,0.08), 0 8px 16px rgba(15,23,42,0.04);
+  --shadow-2xl:  0 25px 60px rgba(15,23,42,0.10);
+  --shadow-card: 0 1px 2px rgba(15,23,42,0.03);
+  --shadow-card-hover: 0 8px 24px rgba(15,23,42,0.06), 0 0 0 1px rgba(37,99,235,0.08);
+  --shadow-glow-gold:  0 0 20px rgba(37,99,235,0.06);
 
-  /* Radii */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  20px;
-  --radius-2xl: 28px;
+  /* Radii — Max 12px per guidelines */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  12px;
+  --radius-2xl: 12px;
 
   /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.22s ease;
-  --transition-slow: 0.35s ease;
+  --transition-fast: 0.12s ease;
+  --transition-base: 0.20s ease;
+  --transition-slow: 0.30s ease;
 
   /* Spacing scale */
   --sp-1: 4px;
@@ -73,7 +73,57 @@
   --sp-9: 96px;
 
   /* Grid line */
+  --grid-line: rgba(15, 23, 42, 0.03);
+
+  /* Glow colors */
+  --glow-color-1: rgba(37,99,235,0.04);
+  --glow-color-2: rgba(37,99,235,0.02);
+  --glow-color-3: rgba(37,99,235,0.07);
+}
+
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS — Dark mode (override)
+───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --navy:       #090D16;
+  --card:       #111827;
+  --card2:      #1F2937;
+  --bg-deep:    #060A10;
+  --surface-mid: #374151;
+  --border:     rgba(255,255,255,0.07);
+
+  /* Accents */
+  --gold:       #38BDF8;
+  --gold2:      #7DD3FC;
+  --gold-dim:   #0284C7;
+  
+  --violet:     #FB7185;
+  --violet2:    #FDA4AF;
+  --violet-rgb: 251,113,133;
+
+  --emerald:    #10B981;
+  --emerald2:   #34D399;
+
+  /* Text */
+  --text:       #F1F5F9;
+  --muted:      #94A3B8;
+  --dim:        #475569;
+
+  /* Shadows */
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.40);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.50);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.60);
+  --shadow-xl:   0 16px 48px rgba(0,0,0,0.65);
+  --shadow-2xl:  0 32px 80px rgba(0,0,0,0.75);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.50);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(56,189,248,0.15);
+  --shadow-glow-gold:  0 0 32px rgba(56,189,248,0.25);
   --grid-line: rgba(255, 255, 255, 0.03);
+
+  /* Glow colors */
+  --glow-color-1: rgba(56,189,248,0.08);
+  --glow-color-2: rgba(56,189,248,0.04);
+  --glow-color-3: rgba(56,189,248,0.12);
 }
 
 /* ─────────────────────────────────────────────
@@ -82,18 +132,16 @@
 @keyframes heroGlow {
   0%, 100% {
     background-image:
-      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 55% at 90% 65%, rgba(59,130,246,0.07) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 40% at 5% 80%, rgba(249,115,22,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 70% at 50% -10%, var(--glow-color-1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 55% at 90% 65%, var(--glow-color-2) 0%, transparent 55%),
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
       var(--navy);
   }
   50% {
     background-image:
-      radial-gradient(ellipse 100% 80% at 50% -10%, rgba(249,115,22,0.16) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 65% at 90% 65%, rgba(59,130,246,0.11) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 50% at 5% 80%, rgba(249,115,22,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% -10%, var(--glow-color-3) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 65% at 90% 65%, var(--glow-color-1) 0%, transparent 55%),
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
       var(--navy);
@@ -120,60 +168,32 @@
 }
 
 /* ─────────────────────────────────────────────
-   DESIGN TOKENS — Light mode
+   LIGHT MODE / SECTION OVERRIDES
 ───────────────────────────────────────────── */
-[data-theme="light"] {
-  --navy:       #FFFFFF;
-  --card:       #FFFFFF;
-  --card2:      #F8FAFC;
-  --bg-deep:    #EFF3F8;
-  --surface-mid: #E2E8F0;
-  --border:     rgba(15,23,42,0.07);
-  --gold:       #EA6700;
-  --gold2:      #F97316;
-  --gold-dim:   #C04A00;
-  --violet:     #0284C7;
-  --violet2:    #0EA5E9;
-  --violet-rgb: 2,132,199;
-  --emerald:    #059669;
-  --emerald2:   #10B981;
-  --text:       #0F172A;
-  --muted:      #475569;
-  --dim:        #64748B;
-
-  --shadow-sm:   0 1px 3px rgba(15,23,42,0.05), 0 1px 2px rgba(15,23,42,0.08);
-  --shadow-md:   0 4px 12px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.06);
-  --shadow-lg:   0 10px 24px rgba(15,23,42,0.10), 0 4px 8px rgba(15,23,42,0.06);
-  --shadow-xl:   0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.08);
-  --shadow-2xl:  0 25px 60px rgba(0,0,0,0.12);
-  --shadow-card: 0 2px 16px rgba(15,23,42,0.06);
-  --shadow-card-hover: 0 12px 32px rgba(15,23,42,0.10), 0 0 0 1px rgba(234,103,0,0.15);
-  --shadow-glow-gold:  0 0 24px rgba(234,103,0,0.14);
-  --grid-line: rgba(15, 23, 42, 0.04);
+section:not(.hero-section) {
+  background: var(--navy);
+  background-image: none;
 }
-
-/* ─────────────────────────────────────────────
-   LIGHT MODE SECTION OVERRIDES
-───────────────────────────────────────────── */
-[data-theme="light"] section:not(.hero-section) {
-  background: var(--navy) !important;
-  background-image: none !important;
+section:not(.hero-section):nth-of-type(even) {
+  background: var(--card2);
 }
-[data-theme="light"] section:not(.hero-section):nth-of-type(even) {
-  background: var(--card2) !important;
+section:not(.hero-section):nth-of-type(3n) {
+  background: var(--navy);
 }
-[data-theme="light"] section:not(.hero-section):nth-of-type(3n) {
-  background: #FFFFFF !important;
+.hero-section {
+  background: var(--navy);
+  background-image:
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(37,99,235,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 55% at 90% 65%, rgba(37,99,235,0.02) 0%, transparent 55%);
 }
-[data-theme="light"] .hero-section {
+[data-theme="dark"] .hero-section {
   background: var(--navy) !important;
   background-image:
-    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(234,103,0,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 55% at 90% 65%, rgba(30,58,95,0.05) 0%, transparent 55%) !important;
-  animation: none !important;
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(56,189,248,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 55% at 90% 65%, rgba(56,189,248,0.04) 0%, transparent 55%) !important;
 }
-[data-theme="light"] section + section {
-  border-top: 1px solid rgba(0,0,0,0.06) !important;
+section + section {
+  border-top: 1px solid var(--border);
 }
 
 /* ─────────────────────────────────────────────

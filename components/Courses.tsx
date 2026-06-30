@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ArrowRight, Star, Award, Layers, Users, Sparkles, Loader2, Sparkle } from "lucide-react";
 
 export interface CourseData {
   id: number;
@@ -19,15 +21,6 @@ export interface CourseData {
   badge?: string;
 }
 
-// Map tag class → hover border color (CSS color values)
-const tagBorderColor: Record<string, string> = {
-  "tag":        "#F97316",
-  "tag-blue":   "#60A5FA",
-  "tag-green":  "#34D399",
-  "tag-rose":   "#FCA5A5",
-  "tag-indigo": "#60A5FA",
-};
-
 export const courses: CourseData[] = [
   {
     id: 1, category: "placements", tag: "tag-blue", tagLabel: "Placements — Master",
@@ -35,7 +28,7 @@ export const courses: CourseData[] = [
     desc: "The complete placement preparation package. Everything from CV to offer — mentorship, mock sessions, domain prep, and AI platform access.",
     price: "3,499", original: "6,000",
     points: [
-      "5 CV reviews + 7 Mock PIs + 7 Mock GDs (can be topped up)",
+      "5 CV reviews + 7 Mock PIs + 7 Mock GDs",
       "End-to-End Domain Prep Sessions — 20+ hours",
       "Latest Company-wise & Profile-wise Interview Transcripts",
       "Full JD Prep + Psychometric Assessment Support",
@@ -182,7 +175,7 @@ export const courses: CourseData[] = [
 ];
 
 const tabs = [
-  { key: "all", label: "All Courses" },
+  { key: "all", label: "All Programs" },
   { key: "placements", label: "Placements" },
   { key: "case", label: "Case Competitions" },
   { key: "projects", label: "Live Projects" },
@@ -190,7 +183,6 @@ const tabs = [
   { key: "certifications", label: "Certifications" },
 ];
 
-/** Compute savings percentage for display */
 function savingsPct(price: string, original: string): number {
   const p = parseFloat(price.replace(/,/g, ""));
   const o = parseFloat(original.replace(/,/g, ""));
@@ -205,17 +197,31 @@ interface CoursesProps {
 
 export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) {
   const [active, setActive] = useState("all");
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [brochureCourse, setBrochureCourse] = useState<CourseData | null>(null);
+  const [loadingEnrollId, setLoadingEnrollId] = useState<number | null>(null);
+  const [loadingBrochureId, setLoadingBrochureId] = useState<number | null>(null);
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
 
   const filtered = active === "all" ? courses : courses.filter(c => c.category === active);
 
   const handleCompare = (id: number) => {
-    if (comparedIds.includes(id)) {
-      onCompareToggle(id);
-    } else if (comparedIds.length < 3) {
-      onCompareToggle(id);
-    }
+    onCompareToggle(id);
+  };
+
+  const handleEnrollClick = (id: number, link: string) => {
+    setLoadingEnrollId(id);
+    setTimeout(() => {
+      setLoadingEnrollId(null);
+      window.open(link, "_blank", "noreferrer");
+    }, 1200);
+  };
+
+  const handleBrochureClick = (c: CourseData) => {
+    setLoadingBrochureId(c.id);
+    setTimeout(() => {
+      setLoadingBrochureId(null);
+      setBrochureCourse(c);
+    }, 800);
   };
 
   const scrollToCompare = () => {
@@ -224,411 +230,330 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
   };
 
   return (
-    <section id="courses" style={{ padding: "96px 0", background: "linear-gradient(180deg, var(--navy) 0%, var(--card) 100%)" }}>
-      <style>{`
-        /* Course card — colored top border on hover */
-        .course-card {
-          position: relative;
-          overflow: hidden;
-        }
-        .course-card::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 3px;
-          background: var(--course-accent, #F97316);
-          opacity: 0;
-          transition: opacity 0.25s ease;
-          border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-          z-index: 1;
-        }
-        .course-card:hover::before {
-          opacity: 1;
-        }
-        /* Shine / glare sweep on hover */
-        .course-card::after {
-          content: '';
-          position: absolute;
-          top: 0; left: -100%;
-          width: 60%;
-          height: 100%;
-          background: linear-gradient(
-            105deg,
-            transparent 30%,
-            rgba(255,255,255,0.045) 50%,
-            transparent 70%
-          );
-          transition: left 0.55s ease;
-          pointer-events: none;
-          z-index: 2;
-        }
-        .course-card:hover::after {
-          left: 140%;
-        }
-        /* Course grid responsive */
-        .course-grid-responsive {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-          gap: 20px;
-        }
-        @media (max-width: 768px) {
-          .course-grid-responsive {
-            grid-template-columns: 1fr;
-          }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-          .course-grid-responsive {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-        /* Badge pill */
-        .course-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          font-size: 0.68rem;
-          font-weight: 800;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          padding: 3px 10px;
-          border-radius: 100px;
-          background: linear-gradient(135deg, #F97316, #C2531A);
-          color: #08090E;
-          white-space: nowrap;
-          box-shadow: 0 2px 8px rgba(249,115,22,0.35);
-        }
-        /* Savings badge */
-        .savings-badge {
-          display: inline-flex;
-          align-items: center;
-          font-size: 0.68rem;
-          font-weight: 800;
-          letter-spacing: 0.05em;
-          padding: 3px 8px;
-          border-radius: 100px;
-          background: rgba(16,185,129,0.15);
-          border: 1px solid rgba(16,185,129,0.35);
-          color: #34D399;
-          white-space: nowrap;
-        }
-      `}</style>
-
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px" }}>
-        {/* Section header */}
-        <div style={{ marginBottom: "40px" }} data-reveal data-reveal-delay="1">
-          <div className="section-label">Pricing</div>
-          <h2 className="serif" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "10px" }}>
-            Courses & Packages
+    <section id="courses" className="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="max-w-2xl mb-12" data-reveal>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/30 text-[10px] font-extrabold tracking-widest text-blue-700 dark:text-blue-400 uppercase mb-4">
+            <Award size={10} />
+            <span>Premium Career Training</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-4">
+            Programs & Pricing
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem" }}>Transparent pricing. Real deliverables. No upsells.</p>
+          <p className="text-slate-655 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+            Choose your specialization track. Transparent pricing, real project deliverables, and expert mentor support.
+          </p>
         </div>
 
-        {/* Tabs */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }} data-reveal data-reveal-delay="2">
-          {tabs.map(t => (
-            <button
-              key={t.key}
-              onClick={() => setActive(t.key)}
-              className={`tab-btn${active === t.key ? " active" : ""}`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Course Grid */}
-        <div className="course-grid-responsive">
-          {filtered.map((c, idx) => {
-            const isCompared = comparedIds.includes(c.id);
-            const compareDisabled = !isCompared && comparedIds.length >= 3;
-            const accentColor = tagBorderColor[c.tag] ?? "#F97316";
-            const pct = savingsPct(c.price, c.original);
-            const isHovered = hoveredId === c.id;
-
+        {/* Tab Filters */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-10 bg-slate-50 dark:bg-slate-950 p-1.5 rounded-xl border border-slate-200/50 dark:border-slate-800/80 max-w-max" data-reveal>
+          {tabs.map(t => {
+            const isActive = active === t.key;
             return (
-              <div
-                key={c.id}
-                className={`card course-card${c.featured ? " card-featured" : ""}`}
-                style={{
-                  padding: "28px",
-                  display: "flex",
-                  flexDirection: "column",
-                  // CSS custom property consumed by ::before pseudo
-                  ["--course-accent" as string]: accentColor,
-                  // Subtle colored shadow tint on hover
-                  boxShadow: isHovered
-                    ? `0 24px 56px rgba(0,0,0,0.55), 0 0 0 1px ${accentColor}33`
-                    : undefined,
-                }}
-                data-reveal
-                data-reveal-delay={String(Math.min((idx % 3) + 1, 5))}
-                onMouseEnter={() => setHoveredId(c.id)}
-                onMouseLeave={() => setHoveredId(null)}
+              <button
+                key={t.key}
+                onClick={() => setActive(t.key)}
+                onMouseEnter={() => setHoveredTab(t.key)}
+                onMouseLeave={() => setHoveredTab(null)}
+                className={`relative px-4 py-2 text-xs font-bold rounded-lg transition-all focus:outline-none ${
+                  isActive 
+                    ? "text-blue-600 dark:text-blue-400" 
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                }`}
               >
-                {/* Tag row + badge */}
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "20px", flexWrap: "wrap" }}>
-                  <span className={`tag ${c.tag}`}>{c.tagLabel}</span>
-                  <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-                    {c.badge && (
-                      <span className="course-badge">
-                        {c.badge === "Best Value" ? "⭐" : "🔥"} {c.badge}
-                      </span>
-                    )}
-                    {c.featured && !c.badge && <span className="tag tag-green">Best Value</span>}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="serif" style={{ fontWeight: 700, fontSize: "1.05rem", color: "var(--text)", marginBottom: "10px" }}>
-                  {c.title}
-                </h3>
-
-                {/* Desc */}
-                <p style={{ fontSize: "0.95rem", lineHeight: 1.7, color: "var(--muted)", marginBottom: c.nudge ? "12px" : "20px" }}>
-                  {c.desc}
-                </p>
-
-                {/* Nudge strip */}
-                {c.nudge && (
-                  <div style={{
-                    background: "rgba(249,115,22,0.07)",
-                    border: "1px solid rgba(249,115,22,0.15)",
-                    borderRadius: "8px",
-                    padding: "8px 12px",
-                    fontSize: "0.8rem",
-                    color: "var(--gold)",
-                    marginBottom: "16px"
-                  }}>
-                    {c.nudge}
-                  </div>
+                <span className="relative z-10">{t.label}</span>
+                {hoveredTab === t.key && (
+                  <motion.span
+                    layoutId="courseTabHover"
+                    className="absolute inset-0 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800"
+                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                  />
                 )}
-
-                {/* Feature points */}
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, borderTop: "1px solid var(--border)", paddingTop: "16px", marginBottom: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {c.points.map(p => (
-                    <li key={p} className="check-item">{p}</li>
-                  ))}
-                </ul>
-
-                {/* Group offer */}
-                {c.groupOffer && (
-                  <div style={{
-                    fontSize: "0.75rem",
-                    color: "#a5b4fc",
-                    marginBottom: "14px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px"
-                  }}>
-                    <span>👥</span>
-                    <span>{c.groupOffer}</span>
-                  </div>
+                {isActive && (
+                  <motion.span
+                    layoutId="courseTabActive"
+                    className="absolute inset-0 bg-white dark:bg-slate-800/90 rounded-lg shadow-sm border border-slate-200/80 dark:border-slate-700/80 -z-10"
+                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                  />
                 )}
-
-                {/* Price row */}
-                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginTop: "auto" }}>
-                  {/* Price block */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                      <div className="serif" style={{ fontWeight: 900, fontSize: "1.6rem", color: "var(--gold)", lineHeight: 1 }}>
-                        &#8377;{c.price}
-                      </div>
-                      {pct > 0 && (
-                        <span className="savings-badge">{pct}% off</span>
-                      )}
-                    </div>
-                    <div style={{ fontSize: "0.8rem", textDecoration: "line-through", color: "var(--dim)" }}>
-                      &#8377;{c.original}
-                    </div>
-                  </div>
-
-                  {/* CTAs */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px", alignItems: "flex-end" }}>
-                    <a
-                      href={c.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={c.featured ? "btn-primary" : "btn-secondary"}
-                      style={{ padding: "9px 18px", fontSize: "0.85rem" }}
-                    >
-                      Enroll Now
-                    </a>
-                    <button
-                      onClick={() => setBrochureCourse(c)}
-                      style={{
-                        fontSize: "0.75rem",
-                        color: "var(--gold)",
-                        cursor: "pointer",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        padding: "5px 12px",
-                        border: "1px solid rgba(249,115,22,0.25)",
-                        borderRadius: "8px",
-                        background: "rgba(249,115,22,0.06)",
-                        whiteSpace: "nowrap",
-                        transition: "all 0.2s",
-                        fontFamily: "var(--font-sans)",
-                      }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(249,115,22,0.14)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,115,22,0.5)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(249,115,22,0.06)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,115,22,0.25)"; }}
-                    >
-                      📄 Course Details
-                    </button>
-                    <button
-                      onClick={() => handleCompare(c.id)}
-                      disabled={compareDisabled}
-                      style={{
-                        background: isCompared ? "rgba(249,115,22,0.15)" : "transparent",
-                        border: isCompared ? "1px solid rgba(249,115,22,0.4)" : "1px solid var(--border)",
-                        borderRadius: "8px",
-                        color: isCompared ? "var(--gold)" : "var(--muted)",
-                        fontSize: "0.75rem",
-                        padding: "5px 12px",
-                        cursor: compareDisabled ? "not-allowed" : "pointer",
-                        opacity: compareDisabled ? 0.45 : 1,
-                        transition: "all 0.2s",
-                        whiteSpace: "nowrap"
-                      }}
-                    >
-                      {isCompared ? "✓ Comparing" : compareDisabled ? "Max 3 reached" : "+ Compare"}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              </button>
             );
           })}
         </div>
-      </div>
 
-      {/* Floating comparison bar */}
-      {comparedIds.length > 0 && (
-        <div style={{
-          position: "fixed",
-          bottom: "24px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 200,
-          background: "var(--card)",
-          border: "1px solid rgba(249,115,22,0.3)",
-          borderRadius: "14px",
-          padding: "14px 24px",
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
-          backdropFilter: "blur(12px)"
-        }}>
-          <span style={{ fontSize: "0.9rem", color: "var(--text)" }}>
-            Comparing <strong style={{ color: "var(--gold)" }}>{comparedIds.length}</strong> course{comparedIds.length > 1 ? "s" : ""}
-          </span>
-          <button
-            className="btn-primary"
-            onClick={scrollToCompare}
-            style={{ padding: "8px 20px", fontSize: "0.85rem" }}
-          >
-            View Comparison →
-          </button>
-          <button
-            onClick={() => comparedIds.forEach(id => onCompareToggle(id))}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "var(--muted)",
-              fontSize: "0.8rem",
-              cursor: "pointer",
-              padding: "4px 8px"
-            }}
-          >
-            Clear
-          </button>
+        {/* Course Cards Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((c) => {
+              const isCompared = comparedIds.includes(c.id);
+              const compareDisabled = !isCompared && comparedIds.length >= 3;
+              const pct = savingsPct(c.price, c.original);
+              const isEnrolling = loadingEnrollId === c.id;
+              const isLoadingBrochure = loadingBrochureId === c.id;
+
+              return (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25 }}
+                  key={c.id}
+                  className={`bg-white dark:bg-slate-900 rounded-xl border p-6 flex flex-col justify-between transition-all duration-300 ${
+                    c.featured 
+                      ? "border-blue-500/80 shadow-md ring-1 ring-blue-500/10 dark:ring-blue-400/20" 
+                      : "border-slate-200/60 dark:border-slate-800/80 shadow-sm"
+                  }`}
+                >
+                  <div>
+                    {/* Header badge & Tag */}
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className="text-[9px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase">
+                        {c.tagLabel}
+                      </span>
+                      {c.badge && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 text-[9px] font-extrabold tracking-wider uppercase border border-blue-100 dark:border-blue-900/30">
+                          <Sparkles size={8} />
+                          {c.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug mb-3">
+                      {c.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-5">
+                      {c.desc}
+                    </p>
+
+                    {/* Highlights check-list */}
+                    <ul className="space-y-2 border-t border-slate-100 dark:border-slate-800/80 pt-4 mb-6">
+                      {c.points.map((p) => (
+                        <li key={p} className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal">
+                          <Check size={14} className="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Nudge Banner */}
+                    {c.nudge && (
+                      <div className="p-3 bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 rounded-lg text-xs font-semibold text-amber-700 dark:text-amber-400 mb-6 flex items-start gap-1.5">
+                        <Sparkle size={12} className="shrink-0 mt-0.5 animate-spin" style={{ animationDuration: '6s' }} />
+                        <span>{c.nudge}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Pricing and Action buttons footer */}
+                  <div className="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex flex-col gap-4 mt-auto">
+                    
+                    {/* Access rates split */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                          Community rate
+                        </span>
+                        <div className="flex items-baseline gap-2 mt-1">
+                          <span className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            ₹{c.price}
+                          </span>
+                          {pct > 0 && (
+                            <span className="px-1.5 py-0.5 text-[9px] font-extrabold rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30">
+                              {pct}% OFF
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-end">
+                        <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                          Regular rate
+                        </span>
+                        <span className="text-sm font-semibold text-slate-400 dark:text-slate-500 line-through mt-1">
+                          ₹{c.original}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* CTAs */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <button
+                        onClick={() => handleEnrollClick(c.id, c.link)}
+                        disabled={isEnrolling}
+                        className="w-full py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-650 text-white rounded-lg font-bold text-xs tracking-wider uppercase shadow-sm focus:outline-none flex items-center justify-center gap-1.5 transition-colors"
+                      >
+                        {isEnrolling ? (
+                          <>
+                            <Loader2 size={13} className="animate-spin" />
+                            <span>Processing...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Enroll Now</span>
+                            <ArrowRight size={12} />
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => handleBrochureClick(c)}
+                        disabled={isLoadingBrochure}
+                        className="w-full py-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-1.5 focus:outline-none"
+                      >
+                        {isLoadingBrochure ? (
+                          <Loader2 size={13} className="animate-spin text-slate-500" />
+                        ) : (
+                          <span>Details / PDF</span>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Compare Option */}
+                    <button
+                      onClick={() => handleCompare(c.id)}
+                      disabled={compareDisabled}
+                      className={`text-center text-[10px] font-bold py-1 rounded transition-colors ${
+                        isCompared 
+                          ? "text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20" 
+                          : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-350"
+                      }`}
+                    >
+                      {isCompared ? "✓ Added to comparison" : compareDisabled ? "Max 3 comparison slots full" : "+ Add to compare"}
+                    </button>
+
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
-      )}
 
-      {/* Brochure Modal */}
-      {brochureCourse && (
-        <div
-          onClick={() => setBrochureCourse(null)}
-          style={{
-            position: "fixed", inset: 0, zIndex: 200,
-            background: "rgba(0,0,0,0.72)",
-            backdropFilter: "blur(16px)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "20px",
-          }}
-        >
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{
-              background: "var(--card)",
-              border: "1px solid rgba(249,115,22,0.2)",
-              borderRadius: "20px",
-              maxWidth: "540px",
-              width: "100%",
-              maxHeight: "85vh",
-              overflowY: "auto",
-              padding: "32px",
-              boxShadow: "0 32px 80px rgba(0,0,0,0.6)",
-              position: "relative",
-              fontFamily: "var(--font-sans)",
-            }}
-          >
-            <button
+        {/* Floating comparison drawer */}
+        <AnimatePresence>
+          {comparedIds.length > 0 && (
+            <motion.div
+              initial={{ y: 80, x: "-50%", opacity: 0 }}
+              animate={{ y: 0, x: "-50%", opacity: 1 }}
+              exit={{ y: 80, x: "-50%", opacity: 0 }}
+              className="fixed bottom-6 left-1/2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl px-5 py-3.5 flex items-center gap-6 z-50 max-w-md w-[90%]"
+            >
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                  Comparing <span className="text-blue-600">{comparedIds.length}</span> program{comparedIds.length > 1 ? "s" : ""}
+                </span>
+                <span className="text-[10px] text-slate-400">Max 3 items</span>
+              </div>
+              
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={scrollToCompare}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-xs tracking-wider uppercase shadow-sm focus:outline-none"
+                >
+                  Compare
+                </button>
+                <button
+                  onClick={() => comparedIds.forEach(id => onCompareToggle(id))}
+                  className="text-xs font-bold text-slate-400 hover:text-slate-600 px-2 py-1"
+                >
+                  Clear
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Details / Brochure Modal */}
+        <AnimatePresence>
+          {brochureCourse && (
+            <div
               onClick={() => setBrochureCourse(null)}
-              style={{ position: "absolute", top: 18, right: 18, background: "rgba(255,255,255,0.06)", border: "1px solid var(--border)", borderRadius: "8px", width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", fontSize: "1.1rem" }}
-            >×</button>
-
-            <span className={`tag ${brochureCourse.tag}`} style={{ marginBottom: "12px", display: "inline-block" }}>{brochureCourse.tagLabel}</span>
-            <h3 className="serif" style={{ fontWeight: 800, fontSize: "1.25rem", color: "var(--text)", marginBottom: "8px", marginTop: "8px", lineHeight: 1.3 }}>
-              {brochureCourse.title}
-            </h3>
-            <p style={{ fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.7, marginBottom: "20px" }}>
-              {brochureCourse.desc}
-            </p>
-
-            <div style={{ marginBottom: "20px" }}>
-              <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--dim)", marginBottom: "12px" }}>What&rsquo;s Included</div>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-                {brochureCourse.points.map(p => (
-                  <li key={p} style={{ display: "flex", gap: "10px", fontSize: "0.9rem", color: "var(--text)", lineHeight: 1.5 }}>
-                    <span style={{ color: "var(--gold)", flexShrink: 0, fontWeight: 700 }}>✓</span>
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {brochureCourse.groupOffer && (
-              <div style={{ background: "rgba(165,180,252,0.08)", border: "1px solid rgba(165,180,252,0.18)", borderRadius: "10px", padding: "10px 14px", fontSize: "0.84rem", color: "#a5b4fc", marginBottom: "20px", display: "flex", gap: "8px", alignItems: "center" }}>
-                <span>👥</span> {brochureCourse.groupOffer}
-              </div>
-            )}
-
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", borderTop: "1px solid var(--border)", paddingTop: "20px" }}>
-              <div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span className="serif" style={{ fontWeight: 900, fontSize: "1.8rem", color: "var(--gold)" }}>₹{brochureCourse.price}</span>
-                  <span style={{ fontSize: "0.85rem", textDecoration: "line-through", color: "var(--dim)" }}>₹{brochureCourse.original}</span>
-                </div>
-                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: "2px" }}>One-time · No hidden fees</div>
-              </div>
-              <a
-                href={brochureCourse.link}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-primary"
-                style={{ padding: "11px 24px", fontSize: "0.9rem" }}
+              className="fixed inset-0 z-50 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                onClick={e => e.stopPropagation()}
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6 shadow-xl relative text-slate-700 dark:text-slate-350"
               >
-                Enroll Now →
-              </a>
-            </div>
+                <button
+                  onClick={() => setBrochureCourse(null)}
+                  className="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus:outline-none"
+                >
+                  ×
+                </button>
 
-            <p style={{ fontSize: "0.75rem", color: "var(--dim)", marginTop: "12px", textAlign: "center" }}>
-              Questions? Call <a href="tel:+917042732092" style={{ color: "var(--gold)", textDecoration: "none" }}>+91 70427 32092</a> or WhatsApp us
-            </p>
-          </div>
-        </div>
-      )}
+                <span className="text-[10px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase block mb-2">
+                  {brochureCourse.tagLabel}
+                </span>
+                
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-snug mb-3">
+                  {brochureCourse.title}
+                </h3>
+                
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                  {brochureCourse.desc}
+                </p>
+
+                <div className="mb-6">
+                  <div className="text-[10px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase mb-3">
+                    What's Included
+                  </div>
+                  <ul className="space-y-2">
+                    {brochureCourse.points.map(p => (
+                      <li key={p} className="flex gap-2 text-xs sm:text-sm text-slate-650 dark:text-slate-400 leading-normal">
+                        <Check size={14} className="text-blue-605 dark:text-blue-400 shrink-0 mt-0.5" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {brochureCourse.groupOffer && (
+                  <div className="p-3 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100/30 dark:border-blue-900/30 rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-400 mb-6 flex items-center gap-1.5">
+                    <Users size={14} />
+                    <span>{brochureCourse.groupOffer}</span>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-5">
+                  <div>
+                    <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                      Community rate
+                    </div>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        ₹{brochureCourse.price}
+                      </span>
+                      <span className="text-xs font-semibold text-slate-400 line-through">
+                        ₹{brochureCourse.original}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      const link = brochureCourse.link;
+                      setBrochureCourse(null);
+                      handleEnrollClick(brochureCourse.id, link);
+                    }}
+                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-xs tracking-wider uppercase shadow-sm focus:outline-none flex items-center gap-1"
+                  >
+                    <span>Secure Slot</span>
+                    <ArrowRight size={12} />
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
     </section>
   );
 }

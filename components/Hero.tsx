@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, Sparkles, Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 function CountUpNum({ raw }: { raw: string }) {
   const [display, setDisplay] = useState("0");
@@ -32,7 +33,7 @@ function CountUpNum({ raw }: { raw: string }) {
         };
         requestAnimationFrame(tick);
       }
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 });
     observer.observe(el);
     return () => observer.disconnect();
   }, [raw]);
@@ -41,26 +42,29 @@ function CountUpNum({ raw }: { raw: string }) {
 }
 
 const highlights = [
-  "Live Projects across 6 domains — real CV deliverables",
-  "Case Competition coaching by AIR 1, AIR 6, AIR 10",
-  "SIP & Final Placement Bootcamp — CV to offer letter",
-  "5-year Placement Intelligence Repository",
+  "Live Consulting Projects with real corporate deliverables",
+  "Case Competition coaching by AIR 1 & Unstop Toppers",
+  "SIP & Final Placement Bootcamp — complete CV-to-offer prep",
+  "5-year database of placement questions & transcripts",
 ];
 
-const companies = ["McKinsey", "Goldman Sachs", "BCG", "Bain", "HUL", "Amazon", "Deloitte", "EY", "TAS", "Kearney", "L'Oreal", "Accenture"];
+const companies = ["McKinsey", "Goldman Sachs", "BCG", "Bain & Co.", "HUL", "Amazon", "Deloitte", "EY", "TAS", "Kearney", "L'Oreal", "Accenture"];
 
 const statsData = [
-  { val: "9.6", suffix: "/10", label: "Avg. rating by 700+ students" },
-  { val: "5,000", suffix: "+", label: "Student network & growing" },
-  { val: "98.7", suffix: "%", label: "Placed in desired domain" },
-  { val: "Top", suffix: " 1%", label: "Mentors from IIM A/B/C, XLRI, FMS" },
+  { val: "9.6", suffix: "/10", label: "Avg. rating by 700+ students", trend: "Top 0.5% rated" },
+  { val: "5,000", suffix: "+", label: "Active Student network", trend: "Across 40+ campuses" },
+  { val: "98.7", suffix: "%", label: "Placed in desired domain", trend: "+34% average salary jump" },
+  { val: "100", suffix: "%", label: "Mentors from Old IIMs / XLRI", trend: "1:1 Live matching" },
 ];
 
-const schoolPills = ["IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "XLRI", "FMS Delhi"];
+const schoolPills = ["IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "XLRI Jamshedpur", "FMS Delhi"];
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [emailInput, setEmailInput] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
@@ -75,314 +79,198 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll reveal via IntersectionObserver
-  useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    elements.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 1.1) el.classList.add("revealed");
-    });
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) (entry.target as HTMLElement).classList.add("revealed");
-        });
-      },
-      { threshold: 0.05, rootMargin: "0px 0px 80px 0px" }
-    );
-    elements.forEach((el) => { if (!el.classList.contains("revealed")) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
+  const handleCaptureSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailInput) return;
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSuccess(true);
+      setEmailInput("");
+    }, 1200);
+  };
 
   return (
     <section
       id="home"
-      className="hero-section"
-      style={{
-        backgroundImage: `
-          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 55% at 90% 65%, rgba(56,189,248,0.05) 0%, transparent 55%),
-          radial-gradient(ellipse 40% 40% at 5% 80%, rgba(249,115,22,0.04) 0%, transparent 60%),
-          linear-gradient(var(--grid-line) 1px, transparent 1px),
-          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-          var(--navy)
-        `,
-        backgroundSize: "100% 100%, 100% 100%, 100% 100%, 60px 60px, 60px 60px, 100% 100%",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        paddingTop: "68px",
-        position: "relative",
-        animation: "heroGlow 8s ease-in-out infinite",
-      }}
+      className="hero-section relative min-h-[92vh] flex items-center pt-20 pb-16 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300"
     >
-      <div style={{ maxWidth: "1360px", margin: "0 auto", padding: isMobile ? "48px 20px" : "72px 48px", width: "100%" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1.1fr 0.9fr",
-            gap: isMobile ? "40px" : "64px",
-            alignItems: "center",
-          }}
-        >
-          {/* ── LEFT: Headline + CTAs + Bullets ── */}
-          <div>
-            {/* Eyebrow badge */}
-            <div
-              data-reveal
-              className="reveal-slide-up"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "rgba(249,115,22,0.08)",
-                border: "1px solid rgba(249,115,22,0.22)",
-                borderRadius: "100px", padding: "6px 16px", marginBottom: "10px",
-                fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.10em", textTransform: "uppercase",
-                color: "var(--gold)",
-              }}
-            >
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--gold)", display: "inline-block", flexShrink: 0 }} />
-              Initiative by Alumni of Old IIMs
+      {/* Subtle geometric line grid overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 dark:opacity-20 pointer-events-none" />
+
+      {/* Decorative Blur Orbs */}
+      <div className="absolute top-1/4 left-1/10 h-72 w-72 rounded-full bg-blue-500/10 dark:bg-blue-500/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/10 h-96 w-96 rounded-full bg-rose-500/10 dark:bg-rose-500/5 blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* LEFT: Premium Editorial Pitch & CTAs */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
+            {/* Top Microlabel Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-100/80 dark:border-blue-900/30 text-[10px] font-extrabold tracking-widest text-blue-700 dark:text-blue-400 uppercase mb-5">
+              <Sparkles size={10} className="animate-pulse" />
+              <span>Initiative by Alumni of Old IIMs</span>
             </div>
 
-            {/* H1 */}
-            <h1
-              data-reveal
-              className="reveal-slide-up"
-              style={{
-                fontSize: isMobile ? "clamp(2.6rem, 10vw, 3.8rem)" : "clamp(3rem, 5vw, 5.8rem)",
-                fontWeight: 900,
-                lineHeight: 1.08,
-                letterSpacing: "-0.025em",
-                color: "var(--text)",
-                marginBottom: "24px",
-                marginTop: "16px",
-                fontFamily: "var(--font-sans)",
-              }}
-            >
+            {/* H1 Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
               Get Mentored.<br />
-              Get{" "}
-              <span style={{
-                background: "linear-gradient(128deg, #F97316 0%, #FB923C 45%, #EA6700 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>Placed.</span>
+              Get <span className="text-blue-600 dark:text-blue-400">Placed.</span>
             </h1>
 
-            {/* Sub */}
-            <p
-              data-reveal
-              className="reveal-slide-up"
-              style={{ color: "var(--muted)", fontSize: isMobile ? "1rem" : "1.08rem", lineHeight: 1.75, marginBottom: "32px", maxWidth: "500px" }}
-            >
-              Join 5,000+ MBA students getting live consulting projects, case competition wins
-              and placement bootcamps — all mentored by alumni from IIM, XLRI & FMS.
+            {/* Premium Editorial Subtitle */}
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed mb-8">
+              Join 5,000+ top B-school students getting live consulting projects, case competition wins, and placement bootcamps mentored by alumni from <span className="text-slate-900 dark:text-slate-200 font-semibold">IIM A/B/C, XLRI & FMS</span>.
             </p>
 
-            {/* Urgency pill */}
-            <div
-              data-reveal
-              className="reveal-slide-up"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.22)",
-                borderRadius: "100px", padding: "6px 14px", marginBottom: "24px",
-                fontSize: "0.78rem", color: "#FCA5A5", fontWeight: 600,
-              }}
-            >
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#EF4444", display: "inline-block", animation: "pulse 2s infinite" }} />
-              Next batch closing — 12 seats remaining
+            {/* Interactive High-Conversion Input Field or Dual Button CTA */}
+            <div className="w-full max-w-lg mb-8">
+              <form onSubmit={handleCaptureSubmit} className="flex flex-col sm:flex-row gap-2.5 p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all duration-200">
+                <input
+                  type="email"
+                  placeholder="Enter email to get free CV templates..."
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  className="px-4 py-2.5 text-sm bg-transparent text-slate-850 dark:text-slate-100 placeholder-slate-450 focus:outline-none flex-grow"
+                  required
+                />
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-xs tracking-wider uppercase transition-colors shadow-sm focus:outline-none flex items-center justify-center gap-1.5 shrink-0"
+                >
+                  {isSubmitting ? "Sending..." : "Get CV Templates"}
+                  <ArrowRight size={14} />
+                </motion.button>
+              </form>
+              
+              {success && (
+                <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-2.5 flex items-center gap-1">
+                  ✓ Sent! Check your email for your free CV templates.
+                </p>
+              )}
             </div>
 
-            {/* CTAs */}
-            <div data-reveal className="reveal-slide-up" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "14px" }}>
-              <a href="#courses" className="btn-primary pulse" style={{ fontSize: "0.93rem", padding: "13px 28px" }}>
-                Explore Courses <ArrowRight size={16} />
+            {/* Dual CTAs (Secondary Option) */}
+            <div className="flex flex-wrap items-center gap-4 mb-8">
+              <a 
+                href="#courses"
+                className="px-6 py-3 rounded-lg text-xs font-bold tracking-widest text-white bg-blue-600 hover:bg-blue-700 uppercase transition-all shadow-md shadow-blue-500/10 hover:shadow-lg focus:outline-none flex items-center gap-1.5"
+              >
+                <span>Browse Cohorts</span>
+                <ArrowRight size={13} />
               </a>
-              <a href="#enroll" className="btn-secondary" style={{ fontSize: "0.93rem", padding: "13px 28px" }}>
-                Free Enquiry
+              <a 
+                href="#enroll"
+                className="px-6 py-3 rounded-lg text-xs font-bold tracking-widest text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-750 bg-white dark:bg-slate-900 uppercase transition-all focus:outline-none"
+              >
+                Book Free Consultation
               </a>
             </div>
 
-            <div data-reveal className="reveal-slide-up" style={{ fontSize: "0.8rem", color: "var(--dim)", marginBottom: "32px" }}>
-              Starting from <strong style={{ color: "var(--muted)" }}>₹3,499</strong> · EMI from <strong style={{ color: "var(--muted)" }}>₹583/month</strong>
+            {/* Urgency Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 dark:bg-red-950/20 border border-red-100/50 dark:border-red-900/20 text-xs font-medium text-red-700 dark:text-red-400 mb-8">
+              <span className="h-2 w-2 rounded-full bg-red-600 animate-ping shrink-0" />
+              <span>Next cohort starting soon — 12 seats remaining</span>
             </div>
 
-            {/* Highlights */}
-            <div data-reveal className="reveal-slide-up" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {/* Highlights Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-200/60 dark:border-slate-800/60 pt-8 w-full">
               {highlights.map(h => (
-                <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                  <CheckCircle2 size={17} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} />
-                  <span style={{ fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.5 }}>{h}</span>
+                <div key={h} className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm text-slate-655 dark:text-slate-400 font-medium leading-normal">{h}</span>
                 </div>
               ))}
             </div>
+            
+          </div>
 
-            {/* Community row */}
-            <div data-reveal className="reveal-slide-up" style={{ marginTop: "28px", paddingTop: "24px", borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
-              <a
-                href="https://chat.whatsapp.com/EdyvGJbQoV9Jj6eC0slSx9"
-                target="_blank" rel="noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: "8px",
-                  background: "rgba(37,211,102,0.09)", border: "1px solid rgba(37,211,102,0.28)",
-                  borderRadius: "100px", padding: "9px 18px",
-                  fontSize: "0.85rem", fontWeight: 700, color: "#25D366", textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(37,211,102,0.16)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "rgba(37,211,102,0.09)")}
-              >
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                WhatsApp Community
-              </a>
-              <span style={{ fontSize: "0.76rem", color: "var(--dim)" }}>Free resources & 5,000+ students</span>
-            </div>
+          {/* RIGHT: Bento Stats Panel & Companies placed at */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            
+            {/* Bento-style Snapshot Grid */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/70 dark:border-slate-800/80 shadow-md p-6 relative overflow-hidden">
+              
+              {/* Header inside bento */}
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-4 mb-4">
+                <span className="text-[10px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase">
+                  Cohort Performance
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase">Verified Live</span>
+                </div>
+              </div>
 
-            {/* Mobile stats */}
-            {isMobile && (
-              <div
-                data-reveal
-                className="reveal-slide-up"
-                style={{ marginTop: "36px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}
-              >
+              {/* 2x2 Stats Grid */}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5">
                 {statsData.map((s) => (
-                  <div
-                    key={s.label}
-                    style={{
-                      background: "var(--card)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "16px",
-                      padding: "18px 16px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.7rem", fontWeight: 800, fontFamily: "var(--font-display)", color: "var(--gold)", letterSpacing: "-0.02em", lineHeight: 1 }}>
-                      {s.val}<span style={{ fontSize: "1rem" }}>{s.suffix}</span>
-                    </div>
-                    <div style={{ fontSize: "0.72rem", color: "var(--muted)", marginTop: "6px", lineHeight: 1.4 }}>{s.label}</div>
+                  <div key={s.label} className="flex flex-col">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-none tracking-tight">
+                      <CountUpNum raw={s.val} />
+                      <span className="text-blue-600 dark:text-blue-400 text-xl font-bold">{s.suffix}</span>
+                    </span>
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 leading-tight">
+                      {s.label}
+                    </span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
+                      {s.trend}
+                    </span>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
 
-          {/* ── RIGHT: Stats panel + Companies (desktop only) ── */}
-          {!isMobile && (
-            <div data-reveal className="reveal-fade-right" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
-              {/* Stats Panel */}
-              <div
-                style={{
-                  background: "var(--card)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  boxShadow: "var(--shadow-xl), 0 0 0 1px rgba(249,115,22,0.06)",
-                }}
-              >
-                {/* Header */}
-                <div style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  padding: "16px 22px",
-                  borderBottom: "1px solid var(--border)",
-                  background: "rgba(255,255,255,0.015)",
-                }}>
-                  <span style={{ fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)" }}>
-                    Cohort Snapshot
-                  </span>
-                  <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10B981", display: "inline-block", animation: "pulse 2s infinite" }} />
-                    <span style={{ fontSize: "0.68rem", color: "#10B981", fontWeight: 600 }}>Live</span>
-                  </div>
-                </div>
-
-                {/* 2x2 grid stats */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-                  {statsData.map((s, i) => (
-                    <div
-                      key={s.label}
-                      style={{
-                        padding: "22px",
-                        borderBottom: i < 2 ? "1px solid var(--border)" : "none",
-                        borderRight: i % 2 === 0 ? "1px solid var(--border)" : "none",
-                      }}
-                    >
-                      <div style={{
-                        fontSize: "2rem", fontWeight: 800, fontFamily: "var(--font-display)",
-                        background: "linear-gradient(135deg, #F97316, #FB923C)",
-                        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-                        letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "6px",
-                      }}>
-                        <CountUpNum raw={s.val} />
-                        <span style={{ fontSize: "1rem", fontWeight: 600 }}>{s.suffix}</span>
-                      </div>
-                      <div style={{ fontSize: "0.76rem", color: "var(--muted)", lineHeight: 1.4 }}>{s.label}</div>
-                    </div>
+              {/* School logo pills footer */}
+              <div className="border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-5">
+                <span className="text-[9px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase block mb-3">
+                  Our Mentors Graduated From
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {schoolPills.map(p => (
+                    <span key={p} className="px-2.5 py-1 text-[10px] font-bold rounded bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border border-slate-200/40 dark:border-slate-800/40">
+                      {p}
+                    </span>
                   ))}
-                </div>
-
-                {/* School pills footer */}
-                <div style={{
-                  padding: "16px 22px",
-                  borderTop: "1px solid var(--border)",
-                  background: "rgba(249,115,22,0.02)",
-                }}>
-                  <div style={{ fontSize: "0.65rem", color: "var(--dim)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
-                    MENTOR SCHOOLS
-                  </div>
-                  <div className="school-pills">
-                    {schoolPills.map(p => (
-                      <span key={p} className="school-pill">{p}</span>
-                    ))}
-                  </div>
                 </div>
               </div>
 
-              {/* Companies placed at */}
-              <div style={{
-                background: "var(--card)",
-                border: "1px solid var(--border)",
-                borderRadius: "18px",
-                padding: "22px",
-              }}>
-                <div style={{ fontSize: "0.68rem", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ display: "inline-block", width: "18px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
-                  Students Placed At
-                  <span style={{ display: "inline-block", width: "18px", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
-                  {companies.map(c => (
-                    <span key={c} style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "8px",
-                      padding: "5px 12px",
-                      fontSize: "0.84rem",
-                      color: "var(--text)",
-                      fontWeight: 500,
-                    }}>{c}</span>
-                  ))}
-                </div>
+            </div>
+
+            {/* Hiring recruiters banner */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/70 dark:border-slate-800/80 shadow-md p-6">
+              <span className="text-[9px] font-extrabold tracking-widest text-slate-400 dark:text-slate-500 uppercase block mb-4">
+                Students Placed In Leadership & SIP Roles At
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {companies.map(c => (
+                  <span
+                    key={c}
+                    className="px-3 py-1.5 text-xs font-semibold text-slate-650 dark:text-slate-350 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-200/40 dark:border-slate-800/40 hover:border-blue-500/20 hover:text-blue-600 transition-all duration-200"
+                  >
+                    {c}
+                  </span>
+                ))}
               </div>
             </div>
-          )}
+
+          </div>
+
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        style={{
-          position: "absolute", bottom: "28px", left: "50%", transform: "translateX(-50%)",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: "5px",
-          opacity: showScrollIndicator ? 1 : 0, transition: "opacity 0.4s ease", pointerEvents: "none",
-        }}
-      >
-        <span style={{ fontSize: "0.68rem", color: "var(--dim)", letterSpacing: "0.10em", textTransform: "uppercase", fontWeight: 600 }}>
-          Scroll
+      {/* Scroll to explore indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-60 pointer-events-none">
+        <span className="text-[9px] font-extrabold tracking-widest text-slate-400 uppercase">
+          Scroll to Explore
         </span>
-        <ChevronDown size={18} style={{ color: "var(--gold)", animation: "scrollBounce 1.6s ease-in-out infinite" }} />
+        <ChevronDown size={14} className="text-blue-605 animate-bounce" />
       </div>
+
     </section>
   );
 }

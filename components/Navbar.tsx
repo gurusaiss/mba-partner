@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown, LayoutDashboard, LogOut, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronDown, LayoutDashboard, LogOut, Sun, Moon, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import AuthModal from "./AuthModal";
 
 const mbaLinks = [
@@ -24,457 +25,413 @@ type Mode = "mba" | "cat";
 
 export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mode) => void }) {
   const [open, setOpen] = useState(false);
-  const [solid, setSolid] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("light");
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [showAuth, setShowAuth] = useState(false);
   const [authTab, setAuthTab] = useState<"login" | "signup">("login");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Scroll listener
+  // Monitor scroll
   useEffect(() => {
-    const fn = () => {
-      setSolid(window.scrollY > 40);
-      const el = document.documentElement;
-      const scrolled = el.scrollTop || document.body.scrollTop;
-      const total = el.scrollHeight - el.clientHeight;
-      setScrollProgress(total > 0 ? (scrolled / total) * 100 : 0);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
     };
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Load session + theme
+  // Sync theme and session
   useEffect(() => {
     try {
-      const s = localStorage.getItem("mp_session");
-      if (s) setUser(JSON.parse(s));
-      const t = localStorage.getItem("mp_theme") as "dark" | "light" | null;
-      if (t) setTheme(t);
-    } catch { /* */ }
+      const storedSession = localStorage.getItem("mp_session");
+      if (storedSession) setUser(JSON.parse(storedSession));
+      
+      const storedTheme = localStorage.getItem("mp_theme") as "dark" | "light" | null;
+      if (storedTheme) {
+        setTheme(storedTheme);
+        document.documentElement.setAttribute("data-theme", storedTheme);
+      } else {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    } catch (e) {
+      console.error("Failed to load navbar session/theme", e);
+    }
   }, []);
 
-  // Close user dropdown on outside click
+  // Dropdown close logic
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
     }
-    if (userMenuOpen) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    if (userMenuOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [userMenuOpen]);
 
-  // IntersectionObserver: highlight active section
+  // Section observer to detect current scroll section
   useEffect(() => {
     const links = mode === "mba" ? mbaLinks : catLinks;
-    const ids = links.map(l => l.href.replace("#", ""));
+    const sectionIds = links.map(l => l.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
-    const visible = new Set<string>();
+    const visibleSections = new Set<string>();
 
-    ids.forEach(id => {
+    sectionIds.forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
-      const obs = new IntersectionObserver(
+      const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) visible.add(id);
-          else visible.delete(id);
-          if (visible.size > 0) setActiveSection([...visible][0]);
+          if (entry.isIntersecting) {
+            visibleSections.add(id);
+          } else {
+            visibleSections.delete(id);
+          }
+          if (visibleSections.size > 0) {
+            setActiveSection([...visibleSections][0]);
+          }
         },
-        { rootMargin: "-20% 0px -70% 0px" }
+        { rootMargin: "-25% 0px -65% 0px" }
       );
-      obs.observe(el);
-      observers.push(obs);
+      observer.observe(el);
+      observers.push(observer);
     });
+
     return () => observers.forEach(o => o.disconnect());
   }, [mode]);
 
-  function toggleTheme() {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    localStorage.setItem("mp_theme", next);
-    document.documentElement.setAttribute("data-theme", next);
-  }
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("mp_theme", nextTheme);
+    document.documentElement.setAttribute("data-theme", nextTheme);
+  };
 
-  function handleLogout() {
+  const handleLogout = () => {
     localStorage.removeItem("mp_session");
     setUser(null);
     setUserMenuOpen(false);
     window.location.href = "/";
-  }
+  };
 
   const links = mode === "mba" ? mbaLinks : catLinks;
   const initials = user ? user.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() : "";
-  const isLight = theme === "light";
-  const dropdownBg = isLight ? "#FFFFFF" : "#0D1220";
-  const dropdownBorder = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.09)";
 
   return (
     <>
-      {/* Scroll progress bar */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed", top: 0, left: 0, zIndex: 60,
-          height: "2px", width: `${scrollProgress}%`,
-          background: "linear-gradient(90deg, var(--gold), var(--violet))",
-          transition: "width 0.1s linear",
-          pointerEvents: "none",
-        }}
-      />
-
       <header
-        className={`navbar-glass${solid ? " solid" : ""}`}
-        style={{
-          position: "fixed", inset: "0 0 auto 0", zIndex: 50,
-          backdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${solid
-            ? (isLight ? "rgba(234,103,0,0.14)" : "rgba(249,115,22,0.10)")
-            : "transparent"
-          }`,
-        }}
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled 
+            ? "bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm"
+            : "bg-transparent border-b border-transparent"
+        }`}
       >
-        <div style={{
-          maxWidth: "1400px", margin: "0 auto",
-          padding: "0 24px", height: "64px",
-          display: "grid", gridTemplateColumns: "auto 1fr auto",
-          alignItems: "center", gap: "16px",
-        }}>
-
-          {/* LEFT: Logo + Mode toggle */}
-          <div style={{ display: "flex", alignItems: "center", gap: "14px", flexShrink: 0 }}>
-            {/* Logo */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          
+          {/* Logo & Mode Switcher */}
+          <div className="flex items-center gap-6">
             <a
               href="#"
-              onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
-              style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}
+              onClick={(e) => {
+                e.preventDefault();
+                setMode("mba");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="flex items-center gap-2.5 focus:outline-none"
             >
-              <span style={{
-                width: "36px", height: "36px", borderRadius: "10px",
-                background: "linear-gradient(135deg, #F97316, #C2531A)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "0.78rem", fontWeight: 900, color: "#FFFFFF",
-                flexShrink: 0,
-                boxShadow: "0 4px 12px rgba(249,115,22,0.35)",
-              }}>M</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                <span style={{
-                  fontWeight: 800, fontSize: "1rem",
-                  color: "var(--text)", lineHeight: 1.1,
-                  fontFamily: "var(--font-sans)",
-                }}>
-                  MBA<span style={{
-                    background: "linear-gradient(135deg, #F97316, #FB923C)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}>Partner</span>
+              <div className="h-9 w-9 rounded-lg bg-blue-650 flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/20 text-sm">
+                MP
+              </div>
+              <div className="flex flex-col">
+                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-555 leading-none">
+                  MBA<span className="text-blue-650">Partner</span>
                 </span>
-                {!solid && (
-                  <span style={{
-                    fontSize: "0.58rem", fontWeight: 600,
-                    color: "var(--dim)", letterSpacing: "0.04em",
-                    lineHeight: 1, textTransform: "uppercase",
-                  }}>
-                    IIM Alumni Founded
-                  </span>
-                )}
+                <span className="text-[9px] font-bold tracking-widest uppercase text-slate-400 dark:text-slate-500 mt-0.5">
+                  IIM Alumni Founded
+                </span>
               </div>
             </a>
 
-            {/* Mode toggle pill */}
-            <div style={{
-              display: "flex", alignItems: "center",
-              background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.07)"}`,
-              borderRadius: "100px", padding: "3px", gap: "2px",
-            }}>
+            {/* Mode Switcher Pill */}
+            <div className="hidden sm:flex bg-slate-100 dark:bg-slate-900 p-0.5 rounded-full border border-slate-200/50 dark:border-slate-800/50">
               <button
-                onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
-                style={{
-                  padding: "5px 12px", borderRadius: "100px", border: "none", cursor: "pointer",
-                  fontSize: "0.72rem", fontWeight: 700, transition: "all 0.2s ease",
-                  background: mode === "mba" ? "linear-gradient(135deg, #F97316, #C2531A)" : "transparent",
-                  color: mode === "mba" ? "#FFFFFF" : "var(--muted)",
-                  fontFamily: "var(--font-sans)", whiteSpace: "nowrap",
-                }}
-              >MBA</button>
+                onClick={() => { setMode("mba"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className={`px-3 py-1 text-xs font-bold rounded-full transition-all duration-200 ${
+                  mode === "mba" 
+                    ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm" 
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                }`}
+              >
+                MBA
+              </button>
               <button
-                onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
-                style={{
-                  padding: "5px 12px", borderRadius: "100px", border: "none", cursor: "pointer",
-                  fontSize: "0.72rem", fontWeight: 700, transition: "all 0.2s ease",
-                  background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
-                  color: mode === "cat" ? "#ffffff" : "var(--muted)",
-                  fontFamily: "var(--font-sans)", whiteSpace: "nowrap",
-                }}
-              >CAT</button>
+                onClick={() => { setMode("cat"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className={`px-3 py-1 text-xs font-bold rounded-full transition-all duration-200 ${
+                  mode === "cat" 
+                    ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm" 
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                }`}
+              >
+                CAT
+              </button>
             </div>
           </div>
 
-          {/* CENTER: Desktop nav links */}
-          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <nav style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              {links.map(l => {
-                const sectionId = l.href.replace("#", "");
-                const isActive = activeSection === sectionId;
-                return (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    style={{
-                      fontSize: "0.83rem",
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? "var(--gold)" : "var(--muted)",
-                      textDecoration: "none",
-                      padding: "6px 12px",
-                      borderRadius: "8px",
-                      transition: "all 0.18s",
-                      whiteSpace: "nowrap",
-                      background: isActive
-                        ? (isLight ? "rgba(234,103,0,0.08)" : "rgba(249,115,22,0.08)")
-                        : "transparent",
-                    }}
-                    onMouseEnter={e => {
-                      if (!isActive) {
-                        (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)";
-                        (e.currentTarget as HTMLAnchorElement).style.background = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.04)";
-                      }
-                    }}
-                    onMouseLeave={e => {
-                      if (!isActive) {
-                        (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)";
-                        (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-                      }
-                    }}
-                  >
-                    {l.label}
-                  </a>
-                );
-              })}
-            </nav>
-          </div>
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1">
+            {links.map((l) => {
+              const sectionId = l.href.replace("#", "");
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onMouseEnter={() => setHoveredLink(l.href)}
+                  onMouseLeave={() => setHoveredLink(null)}
+                  className={`relative px-3.5 py-1.5 text-xs font-semibold tracking-wide rounded-md transition-colors duration-200 focus:outline-none ${
+                    isActive 
+                      ? "text-blue-600 dark:text-blue-400" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-205"
+                  }`}
+                >
+                  <span className="relative z-10">{l.label}</span>
+                  
+                  {/* Sliding Underline / Background Pill */}
+                  {hoveredLink === l.href && (
+                    <motion.span
+                      layoutId="navHoverPill"
+                      className="absolute inset-0 bg-slate-100 dark:bg-slate-900 rounded-md -z-10"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  
+                  {isActive && (
+                    <motion.span
+                      layoutId="navActiveLine"
+                      className="absolute bottom-0 inset-x-3.5 h-[2px] bg-blue-600 dark:bg-blue-400"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
 
-          {/* RIGHT: phone + theme + auth */}
-          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-
-            {/* Phone */}
+          {/* Right Action Buttons */}
+          <div className="hidden sm:flex items-center gap-3">
+            {/* Phone contact */}
             <a
               href="tel:+917042732092"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "6px",
-                padding: "6px 12px", borderRadius: "100px",
-                background: isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)",
-                border: `1px solid ${isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.07)"}`,
-                textDecoration: "none", transition: "all 0.2s",
-                fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--gold)";
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(249,115,22,0.30)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--muted)";
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.07)";
-              }}
+              className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-blue-650 dark:hover:text-blue-400 transition-colors px-3 py-1.5 rounded-lg border border-slate-200/50 dark:border-slate-800/50 bg-slate-50/55 dark:bg-slate-900/50"
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
-              Call Us
+              <Phone size={13} />
+              <span>Talk to Mentor</span>
             </a>
 
-            {/* Theme toggle */}
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              title={isLight ? "Switch to dark" : "Switch to light"}
-              style={{
-                width: 34, height: 34, borderRadius: "10px",
-                background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)",
-                border: `1px solid ${isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.07)"}`,
-                cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-                color: isLight ? "#EA6700" : "#F97316",
-                transition: "all 0.2s ease", flexShrink: 0,
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(249,115,22,0.10)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)"; }}
+              className="h-8 w-8 flex items-center justify-center rounded-lg border border-slate-200/50 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-55 dark:hover:bg-slate-900 transition-all focus:outline-none"
             >
-              {isLight ? <Moon size={14} strokeWidth={2} /> : <Sun size={14} strokeWidth={2} />}
+              {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
             </button>
 
+            {/* Session Actions */}
             {user ? (
-              <div ref={dropdownRef} style={{ position: "relative" }}>
+              <div ref={dropdownRef} className="relative">
                 <button
-                  onClick={() => setUserMenuOpen(p => !p)}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "8px",
-                    padding: "4px 10px 4px 4px", borderRadius: "100px",
-                    background: isLight ? "rgba(234,103,0,0.07)" : "rgba(249,115,22,0.08)",
-                    border: `1px solid ${isLight ? "rgba(234,103,0,0.18)" : "rgba(249,115,22,0.18)"}`,
-                    cursor: "pointer", transition: "all 0.2s",
-                    fontFamily: "var(--font-sans)",
-                  }}
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all focus:outline-none"
                 >
-                  <span style={{
-                    width: 28, height: 28, borderRadius: "50%",
-                    background: "linear-gradient(135deg, #F97316, #C2531A)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "0.68rem", fontWeight: 800, color: "#FFFFFF", flexShrink: 0,
-                  }}>{initials}</span>
-                  <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--text)", maxWidth: "90px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  <div className="h-6 w-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center">
+                    {initials}
+                  </div>
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 max-w-[80px] truncate">
                     {user.name.split(" ")[0]}
                   </span>
-                  <ChevronDown size={13} color="var(--muted)" style={{ transition: "transform 0.2s", transform: userMenuOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+                  <ChevronDown size={12} className="text-slate-505 transition-transform duration-200" style={{ transform: userMenuOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
                 </button>
 
-                {userMenuOpen && (
-                  <div style={{
-                    position: "absolute", top: "calc(100% + 8px)", right: 0,
-                    background: dropdownBg, border: `1px solid ${dropdownBorder}`,
-                    borderRadius: 14, padding: "8px", minWidth: 200,
-                    boxShadow: isLight ? "0 12px 40px rgba(0,0,0,0.12)" : "0 20px 50px rgba(0,0,0,0.55)",
-                    zIndex: 100,
-                  }}>
-                    <div style={{ padding: "10px 12px 12px", borderBottom: `1px solid ${dropdownBorder}`, marginBottom: 6 }}>
-                      <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text)" }}>{user.name}</div>
-                      <div style={{ fontSize: "0.76rem", color: "var(--muted)", marginTop: 2 }}>{user.email}</div>
-                    </div>
-                    <a href="/dashboard/"
-                      style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderRadius: 9, textDecoration: "none", color: "var(--muted)", fontSize: "0.84rem", fontWeight: 500, transition: "all 0.15s" }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)"; el.style.color = "var(--text)"; }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "transparent"; el.style.color = "var(--muted)"; }}
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-2 w-52 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg p-1 z-50 text-slate-700 dark:text-slate-300"
                     >
-                      <LayoutDashboard size={14} /> My Dashboard
-                    </a>
-                    <button
-                      onClick={handleLogout}
-                      style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderRadius: 9, width: "100%", background: "transparent", border: "none", color: "#F87171", fontSize: "0.84rem", fontWeight: 500, cursor: "pointer", transition: "all 0.15s", fontFamily: "var(--font-sans)" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.07)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
-                    >
-                      <LogOut size={14} /> Sign Out
-                    </button>
-                  </div>
-                )}
+                      <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1">
+                        <p className="text-xs font-extrabold text-slate-900 dark:text-slate-100 truncate">{user.name}</p>
+                        <p className="text-[10px] text-slate-555 truncate mt-0.5">{user.email}</p>
+                      </div>
+                      <a
+                        href="/dashboard/"
+                        className="flex items-center gap-2.5 px-3 py-2 text-xs font-bold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                      >
+                        <LayoutDashboard size={14} />
+                        My Dashboard
+                      </a>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2.5 w-full text-left px-3 py-2 text-xs font-bold text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors focus:outline-none"
+                      >
+                        <LogOut size={14} />
+                        Sign Out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <>
-                {mode === "mba" ? (
-                  <>
-                    <button
-                      onClick={() => { setAuthTab("login"); setShowAuth(true); }}
-                      className="btn-secondary"
-                      style={{ padding: "7px 14px", fontSize: "0.8rem" }}
-                    >Login</button>
-                    <a href="#enroll" className="btn-primary" style={{ padding: "7px 16px", fontSize: "0.8rem" }}>
-                      Enroll Now
-                    </a>
-                  </>
-                ) : (
-                  <a
-                    href="#cat-enroll"
-                    style={{
-                      padding: "7px 18px", borderRadius: "10px",
-                      fontSize: "0.8rem", fontWeight: 700,
-                      background: "linear-gradient(135deg, #6366f1, #4f46e5)",
-                      color: "#fff", textDecoration: "none",
-                      display: "inline-flex", alignItems: "center",
-                    }}
-                  >Start CAT Prep</a>
-                )}
+                <button
+                  onClick={() => { setAuthTab("login"); setShowAuth(true); }}
+                  className="px-3.5 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-blue-650 transition-colors focus:outline-none"
+                >
+                  Login
+                </button>
+                <a
+                  href={mode === "mba" ? "#enroll" : "#cat-enroll"}
+                  className="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow transition-all shadow-blue-500/10 focus:outline-none"
+                >
+                  Enroll Now
+                </a>
               </>
             )}
           </div>
 
-          {/* Hamburger (mobile) */}
+          {/* Mobile menu trigger */}
           <button
             onClick={() => setOpen(!open)}
-            className="show-mobile"
-            style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: "4px", display: "none", justifySelf: "end" }}
+            className="md:hidden p-1.5 text-slate-600 dark:text-slate-450 hover:bg-slate-105 dark:hover:bg-slate-900 rounded-lg focus:outline-none"
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* Mobile menu */}
-        <div
-          style={{
-            overflow: "hidden",
-            maxHeight: open ? "600px" : "0px",
-            transition: "max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
-            background: isLight ? "rgba(255,255,255,0.98)" : "rgba(8,12,20,0.97)",
-            backdropFilter: "blur(18px)",
-            borderTop: open ? `1px solid var(--border)` : "1px solid transparent",
-          }}
-        >
-          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 24px 24px", display: "flex", flexDirection: "column", gap: "4px" }}>
-
-            {/* Mode toggle */}
-            <div style={{
-              display: "flex",
-              background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${isLight ? "rgba(0,0,0,0.09)" : "rgba(255,255,255,0.07)"}`,
-              borderRadius: "100px", padding: "3px", gap: "2px", marginBottom: "10px",
-            }}>
-              <button onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
-                style={{ flex: 1, padding: "7px 10px", borderRadius: "100px", border: "none", cursor: "pointer", fontSize: "0.78rem", fontWeight: 700, transition: "all 0.2s ease", background: mode === "mba" ? "linear-gradient(135deg, #F97316, #C2531A)" : "transparent", color: mode === "mba" ? "#FFFFFF" : "var(--muted)", fontFamily: "var(--font-sans)" }}>
-                MBA Student
-              </button>
-              <button onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
-                style={{ flex: 1, padding: "7px 10px", borderRadius: "100px", border: "none", cursor: "pointer", fontSize: "0.78rem", fontWeight: 700, transition: "all 0.2s ease", background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent", color: mode === "cat" ? "#ffffff" : "var(--muted)", fontFamily: "var(--font-sans)" }}>
-                CAT / OMETs
-              </button>
-            </div>
-
-            {/* Nav links */}
-            {links.map(l => {
-              const sectionId = l.href.replace("#", "");
-              const isActive = activeSection === sectionId;
-              return (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-                  style={{ fontSize: "0.95rem", fontWeight: isActive ? 700 : 500, color: isActive ? "var(--gold)" : "var(--muted)", textDecoration: "none", padding: "10px 4px", borderBottom: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.04)"}`, display: "flex", alignItems: "center", gap: "8px" }}
-                >
-                  {isActive && <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--gold)", flexShrink: 0 }} />}
-                  {l.label}
-                </a>
-              );
-            })}
-
-            {/* Phone */}
-            <a href="tel:+917042732092"
-              style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 600, color: "var(--gold)", textDecoration: "none", padding: "12px 4px", borderBottom: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.04)"}` }}
+        {/* Mobile menu slide-down */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="md:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.01 2.86 2 2 0 012 .68h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.49a16 16 0 006.29 6.29l1.17-1.17a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
-              +91 70427 32092
-            </a>
+              <div className="px-5 py-4 flex flex-col gap-4">
+                
+                {/* Mobile Mode Selector */}
+                <div className="flex bg-slate-100 dark:bg-slate-900 p-0.5 rounded-full border border-slate-200/50 dark:border-slate-800/50">
+                  <button
+                    onClick={() => { setMode("mba"); setOpen(false); }}
+                    className={`flex-1 py-1.5 text-xs font-bold rounded-full text-center transition-all ${
+                      mode === "mba" ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm" : "text-slate-500 dark:text-slate-400"
+                    }`}
+                  >
+                    MBA Student
+                  </button>
+                  <button
+                    onClick={() => { setMode("cat"); setOpen(false); }}
+                    className={`flex-1 py-1.5 text-xs font-bold rounded-full text-center transition-all ${
+                      mode === "cat" ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm" : "text-slate-500 dark:text-slate-400"
+                    }`}
+                  >
+                    CAT / OMETs
+                  </button>
+                </div>
 
-            {/* Auth buttons */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "10px" }}>
-              {user ? (
-                <>
-                  <a href="/dashboard/" style={{ fontSize: "1rem", fontWeight: 600, color: "var(--gold)", textDecoration: "none", padding: "4px 0" }}>My Dashboard</a>
-                  <button onClick={handleLogout} style={{ textAlign: "left", background: "none", border: "none", color: "#F87171", fontSize: "1rem", fontWeight: 500, cursor: "pointer", padding: 0, fontFamily: "var(--font-sans)" }}>Sign Out</button>
-                </>
-              ) : (
-                <>
-                  <button onClick={() => { setAuthTab("login"); setShowAuth(true); setOpen(false); }} className="btn-secondary" style={{ justifyContent: "center" }}>Login</button>
-                  <a href={mode === "mba" ? "#enroll" : "#cat-enroll"} onClick={() => setOpen(false)} className="btn-primary" style={{ justifyContent: "center" }}>
-                    {mode === "mba" ? "Enroll Now" : "Start CAT Prep"}
-                  </a>
-                </>
-              )}
-            </div>
+                {/* Mobile Links */}
+                <div className="flex flex-col gap-1">
+                  {links.map((l) => {
+                    const sectionId = l.href.replace("#", "");
+                    const isActive = activeSection === sectionId;
+                    return (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        onClick={() => setOpen(false)}
+                        className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
+                          isActive 
+                            ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400" 
+                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"
+                        }`}
+                      >
+                        {l.label}
+                      </a>
+                    );
+                  })}
+                </div>
 
-            {/* Theme toggle */}
-            <button onClick={toggleTheme}
-              style={{ display: "flex", alignItems: "center", gap: "8px", background: "none", border: "none", color: "var(--muted)", fontSize: "0.9rem", fontWeight: 500, cursor: "pointer", padding: "10px 0 4px", fontFamily: "var(--font-sans)" }}>
-              {isLight ? <Moon size={16} /> : <Sun size={16} />}
-              {isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-            </button>
-          </div>
-        </div>
+                {/* Contact phone */}
+                <a
+                  href="tel:+917042732092"
+                  className="flex items-center justify-center gap-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs bg-slate-50 dark:bg-slate-900"
+                >
+                  <Phone size={14} />
+                  <span>Talk to a Mentor: +91 70427 32092</span>
+                </a>
+
+                {/* Mobile Session Actions */}
+                <div className="flex flex-col gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  {user ? (
+                    <>
+                      <div className="px-3 py-1">
+                        <p className="text-xs font-bold text-slate-900 dark:text-slate-100">{user.name}</p>
+                        <p className="text-[10px] text-slate-500">{user.email}</p>
+                      </div>
+                      <a
+                        href="/dashboard/"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-center gap-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold"
+                      >
+                        <LayoutDashboard size={14} />
+                        My Dashboard
+                      </a>
+                      <button
+                        onClick={() => { handleLogout(); setOpen(false); }}
+                        className="flex items-center justify-center gap-2 py-2 rounded-lg bg-red-50 dark:bg-red-950/20 text-red-650 dark:text-red-400 text-xs font-bold focus:outline-none"
+                      >
+                        <LogOut size={14} />
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => { setAuthTab("login"); setShowAuth(true); setOpen(false); }}
+                        className="py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold focus:outline-none"
+                      >
+                        Login
+                      </button>
+                      <a
+                        href={mode === "mba" ? "#enroll" : "#cat-enroll"}
+                        onClick={() => setOpen(false)}
+                        className="py-2.5 rounded-lg bg-blue-600 text-white text-center text-xs font-bold block"
+                      >
+                        Enroll Now
+                      </a>
+                    </div>
+                  )}
+
+                  {/* Mobile Theme Toggle */}
+                  <button
+                    onClick={() => { toggleTheme(); setOpen(false); }}
+                    className="flex items-center justify-center gap-2 py-2 rounded-lg text-slate-500 dark:text-slate-400 text-xs font-bold focus:outline-none mt-1"
+                  >
+                    {theme === "light" ? <Moon size={14} /> : <Sun size={14} />}
+                    <span>{theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}</span>
+                  </button>
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {showAuth && (
