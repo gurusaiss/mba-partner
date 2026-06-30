@@ -113,7 +113,7 @@ function calcQA(score: number): number {
 }
 
 function pctColor(pct: number): string {
-  if (pct >= 99) return "#C9A84C";
+  if (pct >= 99) return "#F97316";
   if (pct >= 95) return "#4ade80";
   if (pct >= 90) return "#facc15";
   return "#f87171";
@@ -477,7 +477,7 @@ export default function CATPage() {
                     {leaderboardData.map((row, i) => (
                       <tr key={row.rank} style={{ borderTop: "1px solid var(--border)", background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.01)" }}>
                         <td style={{ padding: "12px 16px" }}>
-                          <div className="serif" style={{ fontWeight: 900, fontSize: "1.1rem", color: row.rank === 1 ? "#C9A84C" : row.rank === 2 ? "#9ca3af" : row.rank === 3 ? "#b45309" : "var(--muted)" }}>
+                          <div className="serif" style={{ fontWeight: 900, fontSize: "1.1rem", color: row.rank === 1 ? "#F97316" : row.rank === 2 ? "#9ca3af" : row.rank === 3 ? "#b45309" : "var(--muted)" }}>
                             #{row.rank}
                           </div>
                         </td>
@@ -636,7 +636,7 @@ export default function CATPage() {
 
               {/* Overall result */}
               {overallPct !== null && (
-                <div style={{ background: "var(--card2)", border: `1px solid ${overallPct >= 99 ? "rgba(201,168,76,0.4)" : overallPct >= 95 ? "rgba(74,222,128,0.3)" : overallPct >= 90 ? "rgba(250,204,21,0.3)" : "rgba(248,113,113,0.3)"}`, borderRadius: "16px", padding: "28px" }}>
+                <div style={{ background: "var(--card2)", border: `1px solid ${overallPct >= 99 ? "rgba(249,115,22,0.4)" : overallPct >= 95 ? "rgba(74,222,128,0.3)" : overallPct >= 90 ? "rgba(250,204,21,0.3)" : "rgba(248,113,113,0.3)"}`, borderRadius: "16px", padding: "28px" }}>
                   <div style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--muted)", marginBottom: "12px" }}>Overall Estimated Percentile</div>
                   <div className="serif" style={{ fontSize: "3rem", fontWeight: 900, color: pctColor(overallPct), lineHeight: 1 }}>
                     {overallPct}%ile
@@ -645,7 +645,7 @@ export default function CATPage() {
                     <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginBottom: "10px", fontWeight: 600 }}>
                       Based on this score, you may be eligible for shortlists at:
                     </div>
-                    <div style={{ fontSize: "0.95rem", color: overallPct >= 99 ? "#C9A84C" : overallPct >= 95 ? "#4ade80" : overallPct >= 90 ? "#facc15" : "#f87171", fontWeight: 600 }}>
+                    <div style={{ fontSize: "0.95rem", color: overallPct >= 99 ? "#F97316" : overallPct >= 95 ? "#4ade80" : overallPct >= 90 ? "#facc15" : "#f87171", fontWeight: 600 }}>
                       {collegesForPct(overallPct)}
                     </div>
                   </div>

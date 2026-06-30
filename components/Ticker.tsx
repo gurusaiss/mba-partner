@@ -17,9 +17,9 @@ export default function Ticker() {
   const doubled = [...items, ...items];
   return (
     <div style={{
-      background: "linear-gradient(90deg, rgba(212,170,82,0.06) 0%, rgba(212,170,82,0.09) 50%, rgba(212,170,82,0.06) 100%)",
-      borderTop: "1px solid rgba(212,170,82,0.14)",
-      borderBottom: "1px solid rgba(212,170,82,0.14)",
+      background: "linear-gradient(90deg, rgba(249,115,22,0.06) 0%, rgba(249,115,22,0.09) 50%, rgba(249,115,22,0.06) 100%)",
+      borderTop: "1px solid rgba(249,115,22,0.14)",
+      borderBottom: "1px solid rgba(249,115,22,0.14)",
       padding: "14px 0",
       overflow: "hidden",
       position: "relative",
@@ -33,7 +33,7 @@ export default function Ticker() {
         {doubled.map((item, i) => (
           <span key={i} style={{ display:"inline-flex", alignItems:"center", gap:"0", paddingRight:"0", fontSize:"0.85rem", color:"var(--muted)", fontWeight:500, whiteSpace:"nowrap" }}>
             <span style={{ paddingLeft:"40px", paddingRight:"40px" }}>{item}</span>
-            <span style={{ color:"rgba(212,170,82,0.35)", fontSize:"0.6rem" }}>✦</span>
+            <span style={{ color:"rgba(249,115,22,0.35)", fontSize:"0.6rem" }}>✦</span>
           </span>
         ))}
       </div>

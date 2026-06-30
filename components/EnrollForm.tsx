@@ -57,9 +57,9 @@ function StepBar({ step, current }: { step: { number: number; title: string }; c
     marginBottom: "10px",
     background:
       state === "active"
-        ? "linear-gradient(90deg, #D4AA52, #EDD47A)"
+        ? "linear-gradient(90deg, #F97316, #EDD47A)"
         : state === "done"
-        ? "rgba(212,170,82,0.45)"
+        ? "rgba(249,115,22,0.45)"
         : "rgba(255,255,255,0.08)",
   };
 
@@ -75,9 +75,9 @@ function StepBar({ step, current }: { step: { number: number; title: string }; c
     flexShrink: 0,
     marginBottom: "8px",
     ...(state === "active"
-      ? { background: "rgba(212,170,82,0.12)", border: "1.5px solid rgba(212,170,82,0.5)", color: "var(--gold)" }
+      ? { background: "rgba(249,115,22,0.12)", border: "1.5px solid rgba(249,115,22,0.5)", color: "var(--gold)" }
       : state === "done"
-      ? { background: "rgba(212,170,82,0.2)", border: "1.5px solid rgba(212,170,82,0.6)", color: "var(--gold)" }
+      ? { background: "rgba(249,115,22,0.2)", border: "1.5px solid rgba(249,115,22,0.6)", color: "var(--gold)" }
       : { background: "transparent", border: "1.5px solid var(--border)", color: "var(--dim)" }),
   };
 
@@ -223,7 +223,7 @@ export default function EnrollForm() {
               <div style={{ textAlign: "center", padding: "48px 0" }}>
                 <div style={{
                   width: "64px", height: "64px", borderRadius: "50%",
-                  background: "rgba(212,170,82,0.12)", border: "2px solid rgba(212,170,82,0.5)",
+                  background: "rgba(249,115,22,0.12)", border: "2px solid rgba(249,115,22,0.5)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   margin: "0 auto 24px",
                   fontSize: "1.8rem", color: "var(--gold)",

@@ -87,7 +87,7 @@ export default function ModeSelector({ onSelect }: { onSelect: (m: Mode) => void
           <button onClick={() => choose("mba")}
             style={{
               background: choosing === "mba"
-                ? "linear-gradient(135deg, #E85D04, #A8863A)"
+                ? "linear-gradient(135deg, #E85D04, #C04A00)"
                 : "var(--card2)",
               border: choosing === "mba"
                 ? "2px solid #E85D04"

@@ -70,26 +70,26 @@ function Field({
   const borderColor = error
     ? "rgba(251,113,133,0.6)"
     : focused
-    ? "rgba(212,170,82,0.6)"
+    ? "rgba(249,115,22,0.6)"
     : hasValue
-    ? "rgba(212,170,82,0.25)"
+    ? "rgba(249,115,22,0.25)"
     : "rgba(255,255,255,0.09)";
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "6px", ...style }}>
       <label style={{
         fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.04em",
-        color: error ? "#FCA5A5" : focused || hasValue ? "rgba(212,170,82,0.9)" : "rgba(255,255,255,0.45)",
+        color: error ? "#FCA5A5" : focused || hasValue ? "rgba(249,115,22,0.9)" : "rgba(255,255,255,0.45)",
         transition: "color 0.2s",
         textTransform: "uppercase",
       }}>
-        {label}{required && <span style={{ color: "rgba(212,170,82,0.6)", marginLeft: 3 }}>*</span>}
+        {label}{required && <span style={{ color: "rgba(249,115,22,0.6)", marginLeft: 3 }}>*</span>}
       </label>
       <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
         {Icon && (
           <Icon size={15} style={{
             position: "absolute", left: 13,
-            color: error ? "#FCA5A5" : focused || hasValue ? "rgba(212,170,82,0.7)" : "rgba(255,255,255,0.25)",
+            color: error ? "#FCA5A5" : focused || hasValue ? "rgba(249,115,22,0.7)" : "rgba(255,255,255,0.25)",
             pointerEvents: "none", transition: "color 0.2s", flexShrink: 0,
           }} />
         )}
@@ -113,7 +113,7 @@ function Field({
             outline: "none",
             fontFamily: "inherit",
             transition: "all 0.2s",
-            boxShadow: focused ? `0 0 0 3px rgba(212,170,82,0.08)` : "none",
+            boxShadow: focused ? `0 0 0 3px rgba(249,115,22,0.08)` : "none",
           }}
         />
         {rightSlot && (
@@ -145,7 +145,7 @@ function SelectField({
     <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
       <label style={{
         fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.04em",
-        color: focused || value ? "rgba(212,170,82,0.9)" : "rgba(255,255,255,0.45)",
+        color: focused || value ? "rgba(249,115,22,0.9)" : "rgba(255,255,255,0.45)",
         transition: "color 0.2s",
         textTransform: "uppercase",
       }}>
@@ -155,7 +155,7 @@ function SelectField({
         {Icon && (
           <Icon size={15} style={{
             position: "absolute", left: 13, top: "50%", transform: "translateY(-50%)",
-            color: focused || value ? "rgba(212,170,82,0.7)" : "rgba(255,255,255,0.25)",
+            color: focused || value ? "rgba(249,115,22,0.7)" : "rgba(255,255,255,0.25)",
             pointerEvents: "none", transition: "color 0.2s", zIndex: 1,
           }} />
         )}
@@ -167,7 +167,7 @@ function SelectField({
           style={{
             width: "100%",
             background: focused ? "rgba(20,35,60,0.95)" : "rgba(15,26,48,0.85)",
-            border: `1.5px solid ${focused ? "rgba(212,170,82,0.6)" : value ? "rgba(212,170,82,0.25)" : "rgba(255,255,255,0.09)"}`,
+            border: `1.5px solid ${focused ? "rgba(249,115,22,0.6)" : value ? "rgba(249,115,22,0.25)" : "rgba(255,255,255,0.09)"}`,
             borderRadius: "12px",
             padding: `12px 14px 12px ${Icon ? "38px" : "14px"}`,
             fontSize: "0.9rem",
@@ -179,7 +179,7 @@ function SelectField({
             WebkitAppearance: "none",
             MozAppearance: "none",
             appearance: "none",
-            boxShadow: focused ? `0 0 0 3px rgba(212,170,82,0.08)` : "none",
+            boxShadow: focused ? `0 0 0 3px rgba(249,115,22,0.08)` : "none",
           }}
         >
           {options.map(o => <option key={o} value={o} style={{ background: "#0E1D36" }}>{o}</option>)}
@@ -354,7 +354,7 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
         style={{ position: "fixed", inset: 0, zIndex: 500, background: "rgba(4,11,25,0.92)", backdropFilter: "blur(24px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}
         onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}
       >
-        <div style={{ maxWidth: 520, width: "100%", background: "linear-gradient(155deg,#0E1D36 0%,#0A1424 100%)", border: "1px solid rgba(212,170,82,0.2)", borderRadius: 24, padding: "48px 44px", textAlign: "center", position: "relative", animation: "authModalIn 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+        <div style={{ maxWidth: 520, width: "100%", background: "linear-gradient(155deg,#0E1D36 0%,#0A1424 100%)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: 24, padding: "48px 44px", textAlign: "center", position: "relative", animation: "authModalIn 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
           <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 16, right: 16, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 8, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
             <X size={18} />
           </button>
@@ -365,14 +365,14 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
           </div>
 
           {/* Avatar */}
-          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#D4AA52,#B8943C)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", fontWeight: 800, color: "#030810", margin: "0 auto 20px", boxShadow: "0 8px 32px rgba(212,170,82,0.35)", animation: "avatarPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both" }}>
+          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#F97316,#E85D04)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", fontWeight: 800, color: "#030810", margin: "0 auto 20px", boxShadow: "0 8px 32px rgba(249,115,22,0.35)", animation: "avatarPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both" }}>
             {success.name.split(" ").map((w: string) => w[0]).join("").toUpperCase().slice(0, 2)}
           </div>
 
           <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "2rem", fontWeight: 700, color: "#EDE8DF", marginBottom: 8, lineHeight: 1.2 }}>
             {success.isNew ? "Welcome aboard," : "Welcome back,"}
             <br />
-            <span style={{ background: "linear-gradient(135deg,#D4AA52,#EDD47A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ background: "linear-gradient(135deg,#F97316,#EDD47A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               {success.name.split(" ")[0]}!
             </span>
           </h2>
@@ -391,7 +391,7 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                 { label: "Domain", value: success.domain || "—" },
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <div style={{ fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "rgba(212,170,82,0.5)", marginBottom: 3 }}>{label}</div>
+                  <div style={{ fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "rgba(249,115,22,0.5)", marginBottom: 3 }}>{label}</div>
                   <div style={{ fontSize: "0.88rem", color: "#EDE8DF", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value}</div>
                 </div>
               ))}
@@ -400,17 +400,17 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
           {/* Referral code — new signups only */}
           {success.isNew && success.referralCode && (
-            <div style={{ background: "linear-gradient(135deg, rgba(212,170,82,0.10), rgba(184,148,60,0.06))", border: "1.5px solid rgba(212,170,82,0.35)", borderRadius: 16, padding: "18px 20px", marginBottom: 24, textAlign: "left" }}>
+            <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.10), rgba(184,148,60,0.06))", border: "1.5px solid rgba(249,115,22,0.35)", borderRadius: 16, padding: "18px 20px", marginBottom: 24, textAlign: "left" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                <Gift size={16} color="#D4AA52" />
-                <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#D4AA52" }}>Your Referral Code</span>
+                <Gift size={16} color="#F97316" />
+                <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#F97316" }}>Your Referral Code</span>
               </div>
               <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)", marginBottom: 12 }}>Share &amp; earn ₹750 per friend. Your friend gets 10% off.</div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ flex: 1, padding: "10px 16px", borderRadius: 10, background: "rgba(212,170,82,0.08)", border: "1px solid rgba(212,170,82,0.25)", fontFamily: "'Space Grotesk', monospace, system-ui", fontSize: "1.2rem", fontWeight: 800, letterSpacing: "0.14em", color: "#D4AA52", textAlign: "center" }}>
+                <div style={{ flex: 1, padding: "10px 16px", borderRadius: 10, background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.25)", fontFamily: "'Space Grotesk', monospace, system-ui", fontSize: "1.2rem", fontWeight: 800, letterSpacing: "0.14em", color: "#F97316", textAlign: "center" }}>
                   {success.referralCode}
                 </div>
-                <button onClick={() => handleCopyCode(success.referralCode!)} style={{ padding: "10px 16px", borderRadius: 10, background: copied ? "rgba(34,197,94,0.15)" : "rgba(212,170,82,0.12)", border: `1px solid ${copied ? "rgba(34,197,94,0.4)" : "rgba(212,170,82,0.35)"}`, color: copied ? "#22C55E" : "#D4AA52", fontSize: "0.82rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "inherit", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 6 }}>
+                <button onClick={() => handleCopyCode(success.referralCode!)} style={{ padding: "10px 16px", borderRadius: 10, background: copied ? "rgba(34,197,94,0.15)" : "rgba(249,115,22,0.12)", border: `1px solid ${copied ? "rgba(34,197,94,0.4)" : "rgba(249,115,22,0.35)"}`, color: copied ? "#22C55E" : "#F97316", fontSize: "0.82rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "inherit", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 6 }}>
                   {copied ? <><Check size={13} /> Copied!</> : "Copy"}
                 </button>
               </div>
@@ -418,7 +418,7 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
           )}
 
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/dashboard/" onClick={onClose} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 28px", borderRadius: 12, background: "linear-gradient(135deg,#D4AA52,#B8943C)", color: "#030810", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none", transition: "opacity 0.2s", boxShadow: "0 4px 20px rgba(212,170,82,0.3)" }}>
+            <a href="/dashboard/" onClick={onClose} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 28px", borderRadius: 12, background: "linear-gradient(135deg,#F97316,#E85D04)", color: "#030810", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none", transition: "opacity 0.2s", boxShadow: "0 4px 20px rgba(249,115,22,0.3)" }}>
               Go to Dashboard <ArrowRight size={16} />
             </a>
             <button onClick={onClose} style={{ padding: "10px 0", background: "transparent", border: "none", color: "rgba(255,255,255,0.35)", fontSize: "0.85rem", cursor: "pointer", fontFamily: "inherit" }}>
@@ -463,12 +463,12 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
         overflowY: "auto",
         transition: "max-width 0.35s cubic-bezier(0.4,0,0.2,1)",
         animation: "authModalIn 0.35s cubic-bezier(0.34,1.56,0.64,1)",
-        boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,170,82,0.08)",
+        boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(249,115,22,0.08)",
       }}>
 
         {/* Decorative top glow */}
-        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "60%", height: "1px", background: "linear-gradient(90deg,transparent,rgba(212,170,82,0.5),transparent)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "120px", background: "radial-gradient(ellipse 80% 80% at 50% 0%, rgba(212,170,82,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "60%", height: "1px", background: "linear-gradient(90deg,transparent,rgba(249,115,22,0.5),transparent)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "120px", background: "radial-gradient(ellipse 80% 80% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
 
         {/* Close button */}
         <button
@@ -487,9 +487,9 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
           {/* Brand */}
           <div style={{ textAlign: "center", marginBottom: 28, ...(tab === "signup" ? { padding: "0 40px" } : {}) }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#D4AA52,#B8943C)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", fontWeight: 800, color: "#030810" }}>MP</div>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#F97316,#E85D04)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", fontWeight: 800, color: "#030810" }}>MP</div>
               <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.5rem", fontWeight: 900, color: "#F3F0E8" }}>
-                MBA<span style={{ color: "#D4AA52" }}>Partner</span>
+                MBA<span style={{ color: "#F97316" }}>Partner</span>
               </span>
             </div>
             <p style={{ fontSize: "0.84rem", color: "rgba(255,255,255,0.38)", margin: 0 }}>
@@ -508,10 +508,10 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                     flex: 1, padding: "10px 0", borderRadius: 10, border: "none", cursor: "pointer",
                     fontWeight: 700, fontSize: "0.88rem", letterSpacing: "0.02em",
                     transition: "all 0.25s ease",
-                    background: tab === t ? "linear-gradient(135deg,#D4AA52,#B8943C)" : "transparent",
+                    background: tab === t ? "linear-gradient(135deg,#F97316,#E85D04)" : "transparent",
                     color: tab === t ? "#040B19" : "rgba(255,255,255,0.4)",
                     fontFamily: "inherit",
-                    boxShadow: tab === t ? "0 2px 12px rgba(212,170,82,0.25)" : "none",
+                    boxShadow: tab === t ? "0 2px 12px rgba(249,115,22,0.25)" : "none",
                   }}
                 >
                   {t === "login" ? "Sign In" : "Sign Up"}
@@ -571,7 +571,7 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
               <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", userSelect: "none" }}>
                 <div
-                  style={{ width: 18, height: 18, borderRadius: 5, border: `2px solid ${rememberMe ? "#D4AA52" : "rgba(255,255,255,0.2)"}`, background: rememberMe ? "#D4AA52" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.2s", cursor: "pointer" }}
+                  style={{ width: 18, height: 18, borderRadius: 5, border: `2px solid ${rememberMe ? "#F97316" : "rgba(255,255,255,0.2)"}`, background: rememberMe ? "#F97316" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.2s", cursor: "pointer" }}
                   onClick={() => setRememberMe(m => !m)}
                 >
                   {rememberMe && <Check size={11} color="#030810" strokeWidth={3} />}
@@ -579,13 +579,13 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                 <span style={{ fontSize: "0.84rem", color: "rgba(255,255,255,0.45)", cursor: "pointer" }} onClick={() => setRememberMe(m => !m)}>Remember me</span>
               </label>
 
-              <button type="submit" disabled={loading} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 0", borderRadius: 14, background: loading ? "rgba(212,170,82,0.5)" : "linear-gradient(135deg,#D4AA52,#B8943C)", color: "#030810", fontWeight: 800, fontSize: "0.95rem", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "all 0.2s", boxShadow: loading ? "none" : "0 4px 20px rgba(212,170,82,0.3)", letterSpacing: "0.02em" }}>
+              <button type="submit" disabled={loading} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 0", borderRadius: 14, background: loading ? "rgba(249,115,22,0.5)" : "linear-gradient(135deg,#F97316,#E85D04)", color: "#030810", fontWeight: 800, fontSize: "0.95rem", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "all 0.2s", boxShadow: loading ? "none" : "0 4px 20px rgba(249,115,22,0.3)", letterSpacing: "0.02em" }}>
                 {loading ? <><span style={{ display: "inline-block", width: 14, height: 14, border: "2px solid rgba(3,8,16,0.3)", borderTopColor: "#030810", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} /> Signing in…</> : <><LogIn size={16} /> Sign In</>}
               </button>
 
               <div style={{ textAlign: "center", fontSize: "0.86rem", color: "rgba(255,255,255,0.35)", paddingTop: 4 }}>
                 Don&apos;t have an account?{" "}
-                <button type="button" onClick={() => { setTab("signup"); setError(""); setFieldErrors({}); }} style={{ color: "#D4AA52", fontWeight: 700, cursor: "pointer", textDecoration: "none", background: "none", border: "none", padding: 0, font: "inherit" }}>
+                <button type="button" onClick={() => { setTab("signup"); setError(""); setFieldErrors({}); }} style={{ color: "#F97316", fontWeight: 700, cursor: "pointer", textDecoration: "none", background: "none", border: "none", padding: 0, font: "inherit" }}>
                   Sign up free
                 </button>
               </div>
@@ -602,10 +602,10 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
                   {/* Section: Personal Info */}
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(212,170,82,0.12)", border: "1px solid rgba(212,170,82,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <User size={13} color="#D4AA52" />
+                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <User size={13} color="#F97316" />
                     </div>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(212,170,82,0.7)", textTransform: "uppercase" }}>Personal Info</span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>Personal Info</span>
                     <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.05)" }} />
                   </div>
 
@@ -635,10 +635,10 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
                   {/* Section: Security */}
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6, marginBottom: 4 }}>
-                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(212,170,82,0.12)", border: "1px solid rgba(212,170,82,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Lock size={13} color="#D4AA52" />
+                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Lock size={13} color="#F97316" />
                     </div>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(212,170,82,0.7)", textTransform: "uppercase" }}>Security</span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>Security</span>
                     <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.05)" }} />
                   </div>
 
@@ -689,10 +689,10 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
                   {/* Section: Referral */}
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 4, marginBottom: 4 }}>
-                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(212,170,82,0.12)", border: "1px solid rgba(212,170,82,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Gift size={13} color="#D4AA52" />
+                    <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Gift size={13} color="#F97316" />
                     </div>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(212,170,82,0.7)", textTransform: "uppercase" }}>Referral</span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>Referral</span>
                     <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.25)", fontWeight: 400 }}>optional</span>
                     <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.05)" }} />
                   </div>
@@ -721,9 +721,9 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                   <button
                     type="submit"
                     disabled={loading}
-                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 0", borderRadius: 14, background: loading ? "rgba(212,170,82,0.5)" : "linear-gradient(135deg,#D4AA52,#B8943C)", color: "#030810", fontWeight: 800, fontSize: "0.95rem", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "all 0.2s", boxShadow: loading ? "none" : "0 4px 20px rgba(212,170,82,0.3)", marginTop: 4, letterSpacing: "0.02em" }}
-                    onMouseEnter={e => { if (!loading) { e.currentTarget.style.background = "linear-gradient(135deg,#EDD47A,#D4AA52)"; e.currentTarget.style.transform = "translateY(-1px)"; } }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(135deg,#D4AA52,#B8943C)"; e.currentTarget.style.transform = "translateY(0)"; }}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 0", borderRadius: 14, background: loading ? "rgba(249,115,22,0.5)" : "linear-gradient(135deg,#F97316,#E85D04)", color: "#030810", fontWeight: 800, fontSize: "0.95rem", border: "none", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "all 0.2s", boxShadow: loading ? "none" : "0 4px 20px rgba(249,115,22,0.3)", marginTop: 4, letterSpacing: "0.02em" }}
+                    onMouseEnter={e => { if (!loading) { e.currentTarget.style.background = "linear-gradient(135deg,#EDD47A,#F97316)"; e.currentTarget.style.transform = "translateY(-1px)"; } }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(135deg,#F97316,#E85D04)"; e.currentTarget.style.transform = "translateY(0)"; }}
                   >
                     {loading ? (
                       <><span style={{ display: "inline-block", width: 14, height: 14, border: "2px solid rgba(3,8,16,0.3)", borderTopColor: "#030810", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} /> Creating account…</>
@@ -734,7 +734,7 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
 
                   <div style={{ textAlign: "center", fontSize: "0.83rem", color: "rgba(255,255,255,0.3)", paddingTop: 4 }}>
                     Already have an account?{" "}
-                    <button type="button" onClick={() => { setTab("login"); setError(""); setFieldErrors({}); }} style={{ color: "#D4AA52", fontWeight: 700, cursor: "pointer", background: "none", border: "none", padding: 0, font: "inherit" }}>
+                    <button type="button" onClick={() => { setTab("login"); setError(""); setFieldErrors({}); }} style={{ color: "#F97316", fontWeight: 700, cursor: "pointer", background: "none", border: "none", padding: 0, font: "inherit" }}>
                       Sign in
                     </button>
                   </div>
@@ -760,20 +760,20 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                 <div style={{ textAlign: "center", marginBottom: 20 }}>
                   <div style={{
                     width: 68, height: 68, borderRadius: "50%",
-                    background: signupName ? "linear-gradient(135deg,#D4AA52,#B8943C)" : "rgba(255,255,255,0.06)",
-                    border: `2px solid ${signupName ? "rgba(212,170,82,0.5)" : "rgba(255,255,255,0.08)"}`,
+                    background: signupName ? "linear-gradient(135deg,#F97316,#E85D04)" : "rgba(255,255,255,0.06)",
+                    border: `2px solid ${signupName ? "rgba(249,115,22,0.5)" : "rgba(255,255,255,0.08)"}`,
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: "1.3rem", fontWeight: 800, color: signupName ? "#030810" : "rgba(255,255,255,0.15)",
                     margin: "0 auto 12px",
                     transition: "all 0.3s ease",
-                    boxShadow: signupName ? "0 4px 20px rgba(212,170,82,0.3)" : "none",
+                    boxShadow: signupName ? "0 4px 20px rgba(249,115,22,0.3)" : "none",
                   }}>
                     {signupName ? signupName.split(" ").map((w: string) => w[0]).join("").toUpperCase().slice(0, 2) : <User size={24} />}
                   </div>
                   <div style={{ fontSize: "0.92rem", fontWeight: 700, color: signupName ? "#EDE8DF" : "rgba(255,255,255,0.2)", minHeight: 22, transition: "color 0.2s" }}>
                     {signupName || "Your Name"}
                   </div>
-                  <div style={{ fontSize: "0.75rem", color: signupEmail ? "rgba(212,170,82,0.7)" : "rgba(255,255,255,0.15)", marginTop: 4, minHeight: 18, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", transition: "color 0.2s" }}>
+                  <div style={{ fontSize: "0.75rem", color: signupEmail ? "rgba(249,115,22,0.7)" : "rgba(255,255,255,0.15)", marginTop: 4, minHeight: 18, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", transition: "color 0.2s" }}>
                     {signupEmail || "your@email.com"}
                   </div>
                 </div>
@@ -788,16 +788,16 @@ export default function AuthModal({ onClose, onAuth, defaultTab = "login" }: Aut
                     <div key={label} style={{
                       padding: "10px 12px",
                       borderRadius: 10,
-                      background: value ? "rgba(212,170,82,0.06)" : "rgba(255,255,255,0.02)",
-                      border: `1px solid ${value ? "rgba(212,170,82,0.18)" : "rgba(255,255,255,0.05)"}`,
+                      background: value ? "rgba(249,115,22,0.06)" : "rgba(255,255,255,0.02)",
+                      border: `1px solid ${value ? "rgba(249,115,22,0.18)" : "rgba(255,255,255,0.05)"}`,
                       transition: "all 0.2s",
                       display: "flex",
                       alignItems: "center",
                       gap: 8,
                     }}>
-                      <Icon size={13} color={value ? "rgba(212,170,82,0.7)" : "rgba(255,255,255,0.15)"} style={{ flexShrink: 0, transition: "color 0.2s" }} />
+                      <Icon size={13} color={value ? "rgba(249,115,22,0.7)" : "rgba(255,255,255,0.15)"} style={{ flexShrink: 0, transition: "color 0.2s" }} />
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: value ? "rgba(212,170,82,0.55)" : "rgba(255,255,255,0.18)", marginBottom: 1 }}>{label}</div>
+                        <div style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: value ? "rgba(249,115,22,0.55)" : "rgba(255,255,255,0.18)", marginBottom: 1 }}>{label}</div>
                         <div style={{ fontSize: "0.8rem", color: value ? "#EDE8DF" : "rgba(255,255,255,0.18)", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                           {value || "—"}
                         </div>

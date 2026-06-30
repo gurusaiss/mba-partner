@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const cornerColorMap: Record<string, string> = {
-  "tag":        "rgba(212,170,82,0.08)",
+  "tag":        "rgba(249,115,22,0.08)",
   "tag-blue":   "rgba(96,165,250,0.08)",
   "tag-green":  "rgba(74,222,128,0.08)",
   "tag-rose":   "rgba(251,113,133,0.08)",
@@ -139,7 +139,7 @@ export default function Offerings() {
                   right: 0,
                   width: "80px",
                   height: "80px",
-                  background: `radial-gradient(circle at 100% 0%, ${cornerColorMap[item.tag] ?? "rgba(212,170,82,0.08)"}, transparent 70%)`,
+                  background: `radial-gradient(circle at 100% 0%, ${cornerColorMap[item.tag] ?? "rgba(249,115,22,0.08)"}, transparent 70%)`,
                   pointerEvents: "none",
                 }} />
 

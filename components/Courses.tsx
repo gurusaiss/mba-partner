@@ -206,6 +206,7 @@ interface CoursesProps {
 export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) {
   const [active, setActive] = useState("all");
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [brochureCourse, setBrochureCourse] = useState<CourseData | null>(null);
 
   const filtered = active === "all" ? courses : courses.filter(c => c.category === active);
 
@@ -390,8 +391,8 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
                 {/* Nudge strip */}
                 {c.nudge && (
                   <div style={{
-                    background: "rgba(201,168,76,0.07)",
-                    border: "1px solid rgba(201,168,76,0.15)",
+                    background: "rgba(249,115,22,0.07)",
+                    border: "1px solid rgba(249,115,22,0.15)",
                     borderRadius: "8px",
                     padding: "8px 12px",
                     fontSize: "0.8rem",
@@ -452,37 +453,34 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
                     >
                       Enroll Now
                     </a>
-                    {c.brochure && (
-                      <a
-                        href={c.brochure}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          fontSize: "0.75rem",
-                          color: "var(--gold)",
-                          textDecoration: "none",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                          padding: "5px 12px",
-                          border: "1px solid rgba(201,168,76,0.25)",
-                          borderRadius: "8px",
-                          background: "rgba(201,168,76,0.06)",
-                          whiteSpace: "nowrap",
-                          transition: "all 0.2s"
-                        }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.14)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201,168,76,0.5)"; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201,168,76,0.06)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201,168,76,0.25)"; }}
-                      >
-                        📄 View Brochure
-                      </a>
-                    )}
+                    <button
+                      onClick={() => setBrochureCourse(c)}
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--gold)",
+                        cursor: "pointer",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        padding: "5px 12px",
+                        border: "1px solid rgba(249,115,22,0.25)",
+                        borderRadius: "8px",
+                        background: "rgba(249,115,22,0.06)",
+                        whiteSpace: "nowrap",
+                        transition: "all 0.2s",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(249,115,22,0.14)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,115,22,0.5)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(249,115,22,0.06)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,115,22,0.25)"; }}
+                    >
+                      📄 Course Details
+                    </button>
                     <button
                       onClick={() => handleCompare(c.id)}
                       disabled={compareDisabled}
                       style={{
-                        background: isCompared ? "rgba(201,168,76,0.15)" : "transparent",
-                        border: isCompared ? "1px solid rgba(201,168,76,0.4)" : "1px solid var(--border)",
+                        background: isCompared ? "rgba(249,115,22,0.15)" : "transparent",
+                        border: isCompared ? "1px solid rgba(249,115,22,0.4)" : "1px solid var(--border)",
                         borderRadius: "8px",
                         color: isCompared ? "var(--gold)" : "var(--muted)",
                         fontSize: "0.75rem",
@@ -512,7 +510,7 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
           transform: "translateX(-50%)",
           zIndex: 200,
           background: "var(--card)",
-          border: "1px solid rgba(201,168,76,0.3)",
+          border: "1px solid rgba(249,115,22,0.3)",
           borderRadius: "14px",
           padding: "14px 24px",
           display: "flex",
@@ -544,6 +542,91 @@ export default function Courses({ comparedIds, onCompareToggle }: CoursesProps) 
           >
             Clear
           </button>
+        </div>
+      )}
+
+      {/* Brochure Modal */}
+      {brochureCourse && (
+        <div
+          onClick={() => setBrochureCourse(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 200,
+            background: "rgba(0,0,0,0.72)",
+            backdropFilter: "blur(16px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "20px",
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background: "var(--card)",
+              border: "1px solid rgba(249,115,22,0.2)",
+              borderRadius: "20px",
+              maxWidth: "540px",
+              width: "100%",
+              maxHeight: "85vh",
+              overflowY: "auto",
+              padding: "32px",
+              boxShadow: "0 32px 80px rgba(0,0,0,0.6)",
+              position: "relative",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            <button
+              onClick={() => setBrochureCourse(null)}
+              style={{ position: "absolute", top: 18, right: 18, background: "rgba(255,255,255,0.06)", border: "1px solid var(--border)", borderRadius: "8px", width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", fontSize: "1.1rem" }}
+            >×</button>
+
+            <span className={`tag ${brochureCourse.tag}`} style={{ marginBottom: "12px", display: "inline-block" }}>{brochureCourse.tagLabel}</span>
+            <h3 className="serif" style={{ fontWeight: 800, fontSize: "1.25rem", color: "var(--text)", marginBottom: "8px", marginTop: "8px", lineHeight: 1.3 }}>
+              {brochureCourse.title}
+            </h3>
+            <p style={{ fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.7, marginBottom: "20px" }}>
+              {brochureCourse.desc}
+            </p>
+
+            <div style={{ marginBottom: "20px" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--dim)", marginBottom: "12px" }}>What&rsquo;s Included</div>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                {brochureCourse.points.map(p => (
+                  <li key={p} style={{ display: "flex", gap: "10px", fontSize: "0.9rem", color: "var(--text)", lineHeight: 1.5 }}>
+                    <span style={{ color: "var(--gold)", flexShrink: 0, fontWeight: 700 }}>✓</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {brochureCourse.groupOffer && (
+              <div style={{ background: "rgba(165,180,252,0.08)", border: "1px solid rgba(165,180,252,0.18)", borderRadius: "10px", padding: "10px 14px", fontSize: "0.84rem", color: "#a5b4fc", marginBottom: "20px", display: "flex", gap: "8px", alignItems: "center" }}>
+                <span>👥</span> {brochureCourse.groupOffer}
+              </div>
+            )}
+
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", borderTop: "1px solid var(--border)", paddingTop: "20px" }}>
+              <div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                  <span className="serif" style={{ fontWeight: 900, fontSize: "1.8rem", color: "var(--gold)" }}>₹{brochureCourse.price}</span>
+                  <span style={{ fontSize: "0.85rem", textDecoration: "line-through", color: "var(--dim)" }}>₹{brochureCourse.original}</span>
+                </div>
+                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: "2px" }}>One-time · No hidden fees</div>
+              </div>
+              <a
+                href={brochureCourse.link}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary"
+                style={{ padding: "11px 24px", fontSize: "0.9rem" }}
+              >
+                Enroll Now →
+              </a>
+            </div>
+
+            <p style={{ fontSize: "0.75rem", color: "var(--dim)", marginTop: "12px", textAlign: "center" }}>
+              Questions? Call <a href="tel:+917042732092" style={{ color: "var(--gold)", textDecoration: "none" }}>+91 70427 32092</a> or WhatsApp us
+            </p>
+          </div>
         </div>
       )}
     </section>

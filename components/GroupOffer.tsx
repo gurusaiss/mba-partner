@@ -68,8 +68,8 @@ export default function GroupOffer() {
       students: "2 Students",
       savings: "Save 20–30%",
       desc: "Two students enroll together and split the discount. Works across Placements, Case Comp, Live Projects, and Certifications.",
-      bg: "rgba(201,168,76,0.06)",
-      border: "rgba(201,168,76,0.3)",
+      bg: "rgba(249,115,22,0.06)",
+      border: "rgba(249,115,22,0.3)",
       color: "var(--gold)"
     },
     {
@@ -207,10 +207,10 @@ export default function GroupOffer() {
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                <div style={{ border: "1px solid rgba(212,170,82,0.2)", borderRadius: "14px", overflow: "hidden" }}>
+                <div style={{ border: "1px solid rgba(249,115,22,0.2)", borderRadius: "14px", overflow: "hidden" }}>
                   <div style={{
-                    background: "rgba(212,170,82,0.10)",
-                    borderBottom: "1px solid rgba(212,170,82,0.18)",
+                    background: "rgba(249,115,22,0.10)",
+                    borderBottom: "1px solid rgba(249,115,22,0.18)",
                     padding: "12px 20px"
                   }}>
                     <span style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.09em", color: "var(--gold)" }}>

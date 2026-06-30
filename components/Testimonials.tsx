@@ -147,7 +147,7 @@ function QuoteDecoration() {
         fontSize: "6rem",
         lineHeight: 1,
         fontFamily: "Georgia, serif",
-        color: "rgba(201,168,76,0.06)",
+        color: "rgba(249,115,22,0.06)",
         userSelect: "none",
         pointerEvents: "none",
       }}
@@ -345,8 +345,8 @@ export default function Testimonials() {
               </span>
               <span
                 style={{
-                  background: "rgba(201,168,76,0.15)",
-                  border: "1px solid rgba(201,168,76,0.3)",
+                  background: "rgba(249,115,22,0.15)",
+                  border: "1px solid rgba(249,115,22,0.3)",
                   borderRadius: "100px",
                   padding: "1px 8px",
                   fontSize: "0.72rem",

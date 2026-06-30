@@ -145,12 +145,13 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
         style={{
           position: "fixed", inset: "0 0 auto 0", zIndex: 50,
           backdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${solid ? (isLight ? "rgba(184,146,10,0.18)" : "rgba(212,170,82,0.12)") : "transparent"}`,
+          borderBottom: `1px solid ${solid ? (isLight ? "rgba(232,93,4,0.18)" : "rgba(249,115,22,0.12)") : "transparent"}`,
         }}
       >
-        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 24px", height: "68px", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "24px" }}>
+        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 24px", height: "68px", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "16px" }}>
 
-          {/* Logo */}
+          {/* LEFT: Logo + Mode toggle */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
           <a
             href="#"
             onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
@@ -177,10 +178,7 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
             </span>
           </a>
 
-          {/* Mode toggle pill — CENTER COLUMN */}
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
+          {/* Mode toggle pill */}
             <div style={{
               display: "flex", alignItems: "center",
               background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)",
@@ -189,32 +187,32 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
             }}>
               <button onClick={() => { setMode("mba"); window.scrollTo(0, 0); }}
                 style={{
-                  padding: "7px 16px", borderRadius: "100px", border: "none", cursor: "pointer",
-                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
-                  background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
-                  color: mode === "mba" ? "#030810" : "var(--muted)",
+                  padding: "6px 14px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.74rem", fontWeight: 700, transition: "all 0.22s ease",
+                  background: mode === "mba" ? "linear-gradient(135deg, #E85D04, #C04A00)" : "transparent",
+                  color: mode === "mba" ? "#FFFFFF" : "var(--muted)",
                   fontFamily: "var(--font-sans)",
                   whiteSpace: "nowrap",
                 }}>
-                MBA Student
+                MBA
               </button>
               <button onClick={() => { setMode("cat"); window.scrollTo(0, 0); }}
                 style={{
-                  padding: "7px 16px", borderRadius: "100px", border: "none", cursor: "pointer",
-                  fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
+                  padding: "6px 14px", borderRadius: "100px", border: "none", cursor: "pointer",
+                  fontSize: "0.74rem", fontWeight: 700, transition: "all 0.22s ease",
                   background: mode === "cat" ? "linear-gradient(135deg, #6366f1, #4f46e5)" : "transparent",
                   color: mode === "cat" ? "#ffffff" : "var(--muted)",
                   fontFamily: "var(--font-sans)",
                   whiteSpace: "nowrap",
                 }}>
-                CAT / OMETs
+                CAT
               </button>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Desktop nav links + actions */}
-          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "16px" }}>
-            <nav style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* CENTER: Desktop nav links — truly centered via 1fr column */}
+          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <nav style={{ display: "flex", alignItems: "center", gap: "20px" }}>
               {links.map(l => {
                 const sectionId = l.href.replace("#", "");
                 const isActive = activeSection === sectionId;
@@ -251,9 +249,10 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 );
               })}
             </nav>
+          </div>
 
-            {/* Right side: theme toggle + phone + auth */}
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+          {/* RIGHT: theme toggle + phone + auth */}
+          <div className="hidden-mobile" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
 
             {/* Theme toggle */}
             <button
@@ -265,10 +264,10 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 background: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)",
                 border: `1px solid ${isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.10)"}`,
                 cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-                color: isLight ? "#B8920A" : "#D4AA52",
+                color: isLight ? "#E85D04" : "#F97316",
                 transition: "all 0.2s ease", flexShrink: 0,
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.10)" : "rgba(212,170,82,0.12)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.10)" : "rgba(249,115,22,0.12)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)"; }}
             >
               {isLight ? <Moon size={15} strokeWidth={2} /> : <Sun size={15} strokeWidth={2} />}
@@ -288,9 +287,9 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 padding: phonePillHovered ? "5px 14px" : "7px 14px",
                 borderRadius: "100px",
                 background: phonePillHovered
-                  ? (isLight ? "rgba(184,146,10,0.09)" : "rgba(212,170,82,0.10)")
+                  ? (isLight ? "rgba(232,93,4,0.09)" : "rgba(249,115,22,0.10)")
                   : (isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)"),
-                border: `1px solid ${phonePillHovered ? "rgba(212,170,82,0.35)" : (isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)")}`,
+                border: `1px solid ${phonePillHovered ? "rgba(249,115,22,0.35)" : (isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.08)")}`,
                 textDecoration: "none",
                 transition: "all 0.2s",
                 whiteSpace: "nowrap",
@@ -315,17 +314,17 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                   style={{
                     display: "flex", alignItems: "center", gap: "8px",
                     padding: "5px 12px 5px 5px", borderRadius: "100px",
-                    background: isLight ? "rgba(184,146,10,0.07)" : "rgba(212,170,82,0.08)",
-                    border: `1px solid ${isLight ? "rgba(184,146,10,0.18)" : "rgba(212,170,82,0.20)"}`,
+                    background: isLight ? "rgba(232,93,4,0.07)" : "rgba(249,115,22,0.08)",
+                    border: `1px solid ${isLight ? "rgba(232,93,4,0.18)" : "rgba(249,115,22,0.20)"}`,
                     cursor: "pointer", transition: "all 0.2s",
                     fontFamily: "var(--font-sans)",
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(184,146,10,0.12)" : "rgba(212,170,82,0.14)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(184,146,10,0.07)" : "rgba(212,170,82,0.08)"; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(232,93,4,0.12)" : "rgba(249,115,22,0.14)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = isLight ? "rgba(232,93,4,0.07)" : "rgba(249,115,22,0.08)"; }}
                 >
                   <span style={{
                     width: 30, height: 30, borderRadius: "50%",
-                    background: "linear-gradient(135deg, #D4AA52, #B8943C)",
+                    background: "linear-gradient(135deg, #F97316, #E85D04)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: "0.72rem", fontWeight: 800, color: "#030810", flexShrink: 0,
                   }}>{initials}</span>
@@ -384,7 +383,6 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
               </>
             )}
             </div>
-          </div>
 
           {/* Hamburger — shown on mobile only, right-aligned via CSS */}
           <button onClick={() => setOpen(!open)} className="show-mobile" style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: "4px", display: "none", justifySelf: "end" }}>
@@ -417,8 +415,8 @@ export default function Navbar({ mode, setMode }: { mode: Mode; setMode: (m: Mod
                 style={{
                   flex: 1, padding: "7px 10px", borderRadius: "100px", border: "none", cursor: "pointer",
                   fontSize: "0.76rem", fontWeight: 700, transition: "all 0.22s ease",
-                  background: mode === "mba" ? "linear-gradient(135deg, #C9A84C, #A8863A)" : "transparent",
-                  color: mode === "mba" ? "#030810" : "var(--muted)",
+                  background: mode === "mba" ? "linear-gradient(135deg, #E85D04, #C04A00)" : "transparent",
+                  color: mode === "mba" ? "#FFFFFF" : "var(--muted)",
                   fontFamily: "var(--font-sans)",
                 }}>
                 MBA Student

@@ -11,7 +11,7 @@ const mentors = [
     domain: "Consulting",
     bg: "rgba(232,93,4,0.12)",
     color: "var(--gold)",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/yashgohil14/",
   },
   {
     initials: "SS",
@@ -21,7 +21,7 @@ const mentors = [
     domain: "Product Management",
     bg: "rgba(96,165,250,0.1)",
     color: "#93C5FD",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/shenshaji/",
   },
   {
     initials: "VB",
@@ -31,7 +31,7 @@ const mentors = [
     domain: "Finance",
     bg: "rgba(74,222,128,0.1)",
     color: "#86EFAC",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/vidhi-barolia-a555a9271/",
   },
   {
     initials: "AG",
@@ -41,7 +41,7 @@ const mentors = [
     domain: "Marketing",
     bg: "rgba(251,113,133,0.1)",
     color: "#FCA5A5",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/aadesh-gupta-609528194/",
   },
   {
     initials: "AR",
@@ -51,7 +51,7 @@ const mentors = [
     domain: "HR",
     bg: "rgba(165,180,252,0.1)",
     color: "#C4B5FD",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/ananyosroy/",
   },
   {
     initials: "AG2",
@@ -61,7 +61,7 @@ const mentors = [
     domain: "Operations",
     bg: "rgba(232,93,4,0.12)",
     color: "var(--gold)",
-    linkedin: "https://www.linkedin.com/in/prodmarkconsulting?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/ashutosh-gupta-iiml/",
   },
 ];
 

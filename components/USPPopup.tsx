@@ -74,7 +74,7 @@ export default function USPPopup({ onClose }: USPPopupProps) {
           maxWidth: "520px",
           width: "90%",
           background: "var(--card)",
-          border: "1px solid rgba(201,168,76,0.2)",
+          border: "1px solid rgba(249,115,22,0.2)",
           borderRadius: "20px",
           padding: "48px 40px",
           textAlign: "center",
@@ -104,8 +104,8 @@ export default function USPPopup({ onClose }: USPPopupProps) {
         {/* Top chip */}
         <div style={{
           display: "inline-block",
-          background: "rgba(201,168,76,0.1)",
-          border: "1px solid rgba(201,168,76,0.2)",
+          background: "rgba(249,115,22,0.1)",
+          border: "1px solid rgba(249,115,22,0.2)",
           borderRadius: "100px",
           padding: "6px 16px",
           fontSize: "0.78rem",
@@ -151,8 +151,8 @@ export default function USPPopup({ onClose }: USPPopupProps) {
             >
               <span style={{ flexShrink: 0, marginTop: "1px" }}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ display: "block" }}>
-                  <circle cx="8" cy="8" r="8" fill="rgba(201,168,76,0.15)" />
-                  <path d="M4.5 8.5L6.5 10.5L11.5 5.5" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="8" cy="8" r="8" fill="rgba(249,115,22,0.15)" />
+                  <path d="M4.5 8.5L6.5 10.5L11.5 5.5" stroke="#F97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
               {usp}

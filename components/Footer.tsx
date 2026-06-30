@@ -148,7 +148,7 @@ export default function Footer() {
                 onChange={e => setEmail(e.target.value)}
                 aria-label="Email address for free resources"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
+                  background: "var(--card2)",
                   border: "1px solid var(--border)",
                   borderRadius: "8px",
                   padding: "11px 16px",
